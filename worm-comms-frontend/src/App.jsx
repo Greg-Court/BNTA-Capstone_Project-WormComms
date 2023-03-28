@@ -1,10 +1,15 @@
 import { useState } from 'react'
+import MainPage from './Containers/MainPage'
+import MessageContainer from './Containers/MessageContainer'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <h1 className="bg-pink-600">Hello World</h1>
+    <>
+      
+      <MainPage></MainPage>
+    </>
   )
 }
 
