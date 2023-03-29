@@ -3,10 +3,14 @@ import MessageContainer from "./MessageContainer"
 import LoginPortal from "../Components/LoginPortal";
 import { useState, useEffect } from "react";
 import { getAllConversations } from "../api";
+import useWebSocket from "../socket";
+import { useCurrentUser } from "../UserContext";
 
 const MainPage = () => {
+    const {currentUser, setCurrentUser} = useCurrentUser();
 
-    const [currentUser, setCurrentUser] = useState(null);
+    const stompClient = useWebSocket();
+
     const [conversations, setConversations] = useState([]);
 
     useEffect(() => {
@@ -21,8 +25,8 @@ const MainPage = () => {
     if (currentUser === null) {
         return (
             <>
-                <div class="border-2 h-[5vh]">WormComms</div>
-                <div class="flex justify-center items-center w-[100%] h-[95vh]">
+                <div className="border-2 h-[5vh]">WormComms</div>
+                <div className="flex justify-center items-center w-[100%] h-[95vh]">
                     <LoginPortal setCurrentUser={setCurrentUser}></LoginPortal>
                 </div>
             </>
@@ -30,10 +34,10 @@ const MainPage = () => {
     } else {
         return (
             <>
-                <div class="border-2 h-[5vh]">WormComms</div>
-                <div class="flex">
+                <div className="border-2 h-[5vh]">WormComms</div>
+                <div className="flex">
                     <Contacts></Contacts>
-                    <MessageContainer></MessageContainer>
+                    <MessageContainer stompClient={stompClient}></MessageContainer>
                 </div>
             </>
         )

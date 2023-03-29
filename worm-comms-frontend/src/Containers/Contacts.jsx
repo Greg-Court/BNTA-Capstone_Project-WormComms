@@ -1,7 +1,7 @@
 const Contacts = () => {
 
     return(
-        <ul class="min-w-[15%] h-[95vh] border-2">
+        <ul className="min-w-[15%] h-[95vh] border-2">
             <li>Chats:</li>
             <li>James</li>
             <li>Greg</li>

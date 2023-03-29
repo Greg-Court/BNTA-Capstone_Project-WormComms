@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { getAllUsers } from "../api";
+import { useCurrentUser } from "../UserContext";
 
-const LoginPortal = ({ setCurrentUser }) => {
+const LoginPortal = () => {
+
+    const {currentUser, setCurrentUser} = useCurrentUser();
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -26,14 +29,14 @@ const LoginPortal = ({ setCurrentUser }) => {
     }
 
     return (
-        <div class="border-2 ">
-            <p class="flex justify-center">Log In</p>
+        <div className="border-2 ">
+            <p className="flex justify-center">Log In</p>
             <p>Username:</p>
-            <input onChange={updateUsername} class="w-[100%]" placeholder="username"></input>
+            <input onChange={updateUsername} className="w-[100%]" placeholder="username"></input>
             <p>Password:</p>
-            <input onChange={updatePassword} class="w-[100%]" placeholder="password"></input>
-            <button onClick={handleLogIn} class="flex justify-center">Log In</button>
-            <button class="flex justif-center">Register</button>
+            <input onChange={updatePassword} className="w-[100%]" placeholder="password"></input>
+            <button onClick={handleLogIn} className="flex justify-center">Log In</button>
+            <button className="flex justif-center">Register</button>
         </div>
     )
 }
