@@ -3,6 +3,7 @@ package com.bnta.wormcomms.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,6 +15,7 @@ public class User {
     @Column
     private int id;
 
+    @Column
     @OneToMany(mappedBy = "app_user",orphanRemoval = true)
     @JsonIgnoreProperties({"app_user"})
     private List<Message> messages;
@@ -36,6 +38,7 @@ public class User {
     }
 
     public User(String username, String email) {
+        this.messages = new ArrayList<>();
         this.username = username;
         this.email = email;
     }
