@@ -27,6 +27,7 @@ const LoginPortal = ({ setCurrentUser }) => {
             <p>Password:</p>
             <input onChange={updatePassword} class="w-[100%]" placeholder="password"></input>
             <button onClick={handleLogIn} class="flex justify-center">Log In</button>
+            <button class="flex justif-center">Register</button>
         </div>
     )
 }

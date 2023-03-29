@@ -1,7 +1,7 @@
-package Services;
+package services;
 
-import Models.Message;
-import Repositories.MessageRepo;
+import models.Message;
+import repositories.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

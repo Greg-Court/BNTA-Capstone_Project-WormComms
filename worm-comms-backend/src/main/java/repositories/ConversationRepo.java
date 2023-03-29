@@ -1,7 +1,6 @@
-package Repositories;
+package repositories;
 
-import Models.Conversation;
-import Models.Message;
+import models.Conversation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ConversationRepo extends JpaRepository<Conversation, Integer> {
