@@ -1,14 +1,13 @@
-import Messages from '../Components/Messages'
-import TextArea from '../Components/TextArea'
+import Messages from "../Components/Messages";
+import TextArea from "../Components/TextArea";
 
+const MessageContainer = ({ stompClient }) => {
+  return (
+    <div className="w-[85%] h-[95vh] border-2 flex flex-col justify-between">
+        <Messages stompClient={stompClient}></Messages>
+        <TextArea stompClient={stompClient}></TextArea>
+    </div>
+  );
+};
 
-const MessageContainer = () => {
-    return (
-        <div class="w-[85%] h-[95vh] border-2 flex flex-col justify-between">
-        <Messages></Messages>
-        <TextArea></TextArea>
-        </div>
-    )
-}
-
-export default MessageContainer
+export default MessageContainer;

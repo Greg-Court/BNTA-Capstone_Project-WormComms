@@ -1,10 +1,24 @@
-const TextArea = () => {
+import { useCurrentUser } from '../UserContext';
+
+const TextArea = ({stompClient}) => {
+    const {currentUser, setCurrentUser} = useCurrentUser();
+
+    const message = {
+        app_user: currentUser,
+        conversation: {id:1},
+        content: "Hello World"
+    }
+
+    const sendMessage = () => {
+        stompClient.send("/app/user", {}, JSON.stringify(message));
+    }
+
     return (
-        <div class="flex bottom">
-            <textarea class="border-2 w-5/6"
+        <div className="flex bottom">
+            <textarea className="border-2 w-5/6"
                 id="messageInput" name="messageInput" placeholder="Type your message here"></textarea>
-            <button class="border-2 w-1/12">Send</button>
-            <button class="border-2 w-1/12">Toggle ChatGPT</button>
+            <button onClick={sendMessage} className="border-2 w-1/12">Send</button>
+            <button className="border-2 w-1/12">Toggle ChatGPT</button>
         </div>
     )
 }

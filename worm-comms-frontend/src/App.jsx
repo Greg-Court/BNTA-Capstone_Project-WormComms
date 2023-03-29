@@ -1,16 +1,17 @@
-import { useState } from 'react'
-import MainPage from './Containers/MainPage'
-import MessageContainer from './Containers/MessageContainer'
+import { useState } from "react";
+import MainPage from "./Containers/MainPage";
+import { UserProvider } from "./UserContext";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
-      
-      <MainPage></MainPage>
+      <UserProvider>
+        <MainPage></MainPage>
+      </UserProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
