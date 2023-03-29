@@ -1,5 +1,6 @@
-package models;
+package com.bnta.wormcomms.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,10 +12,14 @@ public class Friend {
     private int id;
 
     //here goes the link to the users
-    @Column
+    @ManyToOne
+    @JoinColumn(name="user1")
+    @JsonIgnoreProperties({"friends"})
     private User user1;
 
-    @Column
+    @ManyToOne
+    @JoinColumn(name="user2")
+    @JsonIgnoreProperties({"friends"})
     private User user2;
 
     public enum Status {
@@ -23,5 +28,6 @@ public class Friend {
         BLOCKED
     }
     @Column
+    @Enumerated(EnumType.STRING)
     private Status status;
 }

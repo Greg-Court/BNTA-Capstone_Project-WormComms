@@ -1,7 +1,7 @@
-package services;
+package com.bnta.wormcomms.services;
 
-import models.Conversation;
-import repositories.ConversationRepo;
+import com.bnta.wormcomms.models.Conversation;
+import com.bnta.wormcomms.repositories.ConversationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

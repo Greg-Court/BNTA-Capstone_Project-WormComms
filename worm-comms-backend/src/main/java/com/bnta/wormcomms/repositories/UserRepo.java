@@ -1,6 +1,6 @@
-package repositories;
+package com.bnta.wormcomms.repositories;
 
-import models.User;
+import com.bnta.wormcomms.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

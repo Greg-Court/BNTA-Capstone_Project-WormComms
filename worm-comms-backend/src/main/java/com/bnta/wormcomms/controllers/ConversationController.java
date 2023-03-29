@@ -1,7 +1,7 @@
-package controllers;
+package com.bnta.wormcomms.controllers;
 
-import models.Conversation;
-import services.ConversationService;
+import com.bnta.wormcomms.models.Conversation;
+import com.bnta.wormcomms.services.ConversationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
