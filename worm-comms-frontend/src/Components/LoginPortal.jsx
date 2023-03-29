@@ -1,13 +1,32 @@
-const LoginPortal = () => {
+import { useState } from "react";
+
+const LoginPortal = ({ setCurrentUser }) => {
+
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+
+    const updateUsername = (e) => {
+        setUsername(e.target.value);
+    }
+
+    const updatePassword = (e) => {
+        setPassword(e.target.value);
+    }
+
+    const handleLogIn = () => {
+        if (username !== "" && password !== "") {
+            setCurrentUser(true);
+        }
+    }
 
     return (
         <div class="border-2 ">
             <p class="flex justify-center">Log In</p>
             <p>Username:</p>
-            <input class="w-[100%]" defaultValue={"username"}></input>
+            <input onChange={updateUsername} class="w-[100%]" placeholder="username"></input>
             <p>Password:</p>
-            <input class="w-[100%]" defaultValue={"password"}></input>
-            <button class="flex justify-center">Log In</button>
+            <input onChange={updatePassword} class="w-[100%]" placeholder="password"></input>
+            <button onClick={handleLogIn} class="flex justify-center">Log In</button>
         </div>
     )
 }
