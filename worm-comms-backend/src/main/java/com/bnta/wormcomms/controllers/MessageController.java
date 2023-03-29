@@ -1,7 +1,7 @@
-package controllers;
+package com.bnta.wormcomms.controllers;
 
-import models.Message;
-import services.MessageService;
+import com.bnta.wormcomms.models.Message;
+import com.bnta.wormcomms.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

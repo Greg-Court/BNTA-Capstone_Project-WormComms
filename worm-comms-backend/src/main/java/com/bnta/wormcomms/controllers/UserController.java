@@ -1,7 +1,7 @@
-package controllers;
+package com.bnta.wormcomms.controllers;
 
-import models.User;
-import services.UserService;
+import com.bnta.wormcomms.models.User;
+import com.bnta.wormcomms.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

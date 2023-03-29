@@ -1,7 +1,7 @@
-package services;
+package com.bnta.wormcomms.services;
 
-import models.User;
-import repositories.UserRepo;
+import com.bnta.wormcomms.models.User;
+import com.bnta.wormcomms.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

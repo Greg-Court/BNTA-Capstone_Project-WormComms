@@ -1,4 +1,4 @@
-package models;
+package com.bnta.wormcomms.models;
 
 import jakarta.persistence.*;
 
@@ -12,7 +12,7 @@ public class Conversation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(mappedBy = "conversationId")
+    @OneToMany(mappedBy = "conversation")
     private List<Message> messages;
 
     public Conversation() {

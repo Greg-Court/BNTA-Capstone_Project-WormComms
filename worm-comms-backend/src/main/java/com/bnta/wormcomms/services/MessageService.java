@@ -1,7 +1,7 @@
-package services;
+package com.bnta.wormcomms.services;
 
-import models.Message;
-import repositories.MessageRepo;
+import com.bnta.wormcomms.models.Message;
+import com.bnta.wormcomms.repositories.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +26,8 @@ public class MessageService {
         Optional<Message> optionalMessage = messageRepository.findById(id);
         if (optionalMessage.isPresent()) {
             Message existingMessage = optionalMessage.get();
-            existingMessage.setUserId(message.getUserId());
-            existingMessage.setConversationId(message.getConversationId());
+            existingMessage.setUser(message.getUser());
+            existingMessage.setConversation(message.getConversation());
             existingMessage.setContent(message.getContent());
             return messageRepository.save(existingMessage);
         }

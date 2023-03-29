@@ -1,11 +1,11 @@
-package components;
+package com.bnta.wormcomms.components;
 
-import models.Conversation;
-import models.Message;
-import models.User;
-import repositories.ConversationRepo;
-import repositories.MessageRepo;
-import repositories.UserRepo;
+import com.bnta.wormcomms.models.Conversation;
+import com.bnta.wormcomms.models.Message;
+import com.bnta.wormcomms.models.User;
+import com.bnta.wormcomms.repositories.ConversationRepo;
+import com.bnta.wormcomms.repositories.UserRepo;
+import com.bnta.wormcomms.repositories.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
