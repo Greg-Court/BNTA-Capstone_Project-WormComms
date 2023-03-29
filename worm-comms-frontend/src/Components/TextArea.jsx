@@ -10,7 +10,8 @@ const TextArea = ({stompClient}) => {
     }
 
     const sendMessage = () => {
-        stompClient.send("/app/user", {}, JSON.stringify(message));
+        console.log(stompClient)
+        stompClient.publish("/app/user", {}, JSON.stringify(message));
     }
 
     return (
