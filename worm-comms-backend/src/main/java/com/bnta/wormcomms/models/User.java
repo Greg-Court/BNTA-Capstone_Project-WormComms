@@ -17,7 +17,6 @@ public class User {
 
     @Column
     @OneToMany(mappedBy = "app_user",orphanRemoval = true)
-    @JsonIgnoreProperties({"app_user"})
     private List<Message> messages;
 
 //    @OneToMany(mappedBy = "user1")
@@ -64,6 +63,14 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 
     public void setEmail(String email) {
