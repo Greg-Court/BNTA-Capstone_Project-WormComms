@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const MainPage = () => {
 
-    const [currentUser,setCurrentUser] = useState(null);
+    const [currentUser,setCurrentUser] = useState(true);
 
     if(currentUser === null){
         return(
