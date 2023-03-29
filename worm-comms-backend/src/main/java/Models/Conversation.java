@@ -15,5 +15,27 @@ public class Conversation {
     @OneToMany(mappedBy = "conversationId")
     private List<Message> messages;
 
+    public Conversation() {
+    }
 
+    public Conversation(int id, List<Message> messages) {
+        this.id = id;
+        this.messages = messages;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
 }
