@@ -26,7 +26,7 @@ public class MessageService {
         Optional<Message> optionalMessage = messageRepository.findById(id);
         if (optionalMessage.isPresent()) {
             Message existingMessage = optionalMessage.get();
-            existingMessage.setUser(message.getUser());
+            existingMessage.setApp_user(message.getApp_user());
             existingMessage.setConversation(message.getConversation());
             existingMessage.setContent(message.getContent());
             return messageRepository.save(existingMessage);

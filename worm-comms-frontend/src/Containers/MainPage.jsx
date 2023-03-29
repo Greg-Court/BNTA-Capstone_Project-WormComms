@@ -1,22 +1,22 @@
 import Contacts from "./Contacts";
 import MessageContainer from "./MessageContainer"
 import LoginPortal from "../Components/LoginPortal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getAllConversations } from "../api";
 
 const MainPage = () => {
 
     const [currentUser, setCurrentUser] = useState(null);
     const [conversations, setConversations] = useState([]);
 
-  useEffect(() => {
+    useEffect(() => {
+        fetchConversations();
+    }, []);
+
     const fetchConversations = async () => {
-      const response = await getAllConversations();
-      setConversations(response.data);
+        const response = await getAllConversations();
+        setConversations(response.data);
     };
-
-    fetchConversations();
-  }, []);
-
 
     if (currentUser === null) {
         return (

@@ -9,16 +9,17 @@ public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private int id;
 
     @ManyToOne
-    @JoinColumn(name="app_user")
+    @JoinColumn(name="app_user", nullable = false)
     @JsonIgnoreProperties({"messages"})
     private User app_user;
 
     @ManyToOne
-    @JoinColumn(name="conversation")
-    @JsonIgnoreProperties({"conversation"})
+    @JoinColumn(name="conversation", nullable = false)
+    @JsonIgnoreProperties({"messages"})
     private Conversation conversation;
 
     @Column
@@ -27,8 +28,8 @@ public class Message {
     public Message() {
     }
 
-    public Message(User user, Conversation conversation, String content) {
-        this.app_user = user;
+    public Message(User app_user, Conversation conversation, String content) {
+        this.app_user = app_user;
         this.conversation = conversation;
         this.content = content;
     }
@@ -40,20 +41,13 @@ public class Message {
     public void setId(int id) {
         this.id = id;
     }
-    public String getContent() {
-        return content;
-    }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public User getUser() {
+    public User getApp_user() {
         return app_user;
     }
 
-    public void setUser(User user) {
-        this.app_user = user;
+    public void setApp_user(User app_user) {
+        this.app_user = app_user;
     }
 
     public Conversation getConversation() {
@@ -62,5 +56,13 @@ public class Message {
 
     public void setConversation(Conversation conversation) {
         this.conversation = conversation;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }
