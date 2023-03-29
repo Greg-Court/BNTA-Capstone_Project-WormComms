@@ -19,7 +19,7 @@ public class WebsocketConfig implements WebSocketMessageBrokerConfigurer {
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         // /app: Prefix for application-specific messages.
         registry.setApplicationDestinationPrefixes("/app");
-        // /chat and /user: Simple broker destinations for public and private messages, respectively.
+        // /chatroom and /user: Simple broker destinations for public and private messages, respectively.
         registry.enableSimpleBroker("/chat", "/user");
         // /user: Prefix for user-specific messages, used for private messaging.
         registry.setUserDestinationPrefix("/user");
