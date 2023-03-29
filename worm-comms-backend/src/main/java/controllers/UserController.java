@@ -1,7 +1,7 @@
-package Controllers;
+package controllers;
 
-import Models.User;
-import Services.UserService;
+import models.User;
+import services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

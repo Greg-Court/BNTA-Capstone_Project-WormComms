@@ -1,11 +1,9 @@
-package Services;
+package services;
 
-import Models.User;
-import Repositories.UserRepo;
-import org.apache.coyote.Response;
+import models.User;
+import repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.NoSuchElementException;

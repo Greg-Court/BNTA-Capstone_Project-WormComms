@@ -1,7 +1,7 @@
-package Controllers;
+package controllers;
 
-import Models.Message;
-import Services.MessageService;
+import models.Message;
+import services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

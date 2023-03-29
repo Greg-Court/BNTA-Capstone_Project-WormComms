@@ -1,11 +1,11 @@
 package components;
 
-import Models.Conversation;
-import Models.Message;
-import Models.User;
-import Repositories.ConversationRepo;
-import Repositories.MessageRepo;
-import Repositories.UserRepo;
+import models.Conversation;
+import models.Message;
+import models.User;
+import repositories.ConversationRepo;
+import repositories.MessageRepo;
+import repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
