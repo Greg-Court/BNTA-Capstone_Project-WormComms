@@ -21,6 +21,16 @@ public class User {
     @Column
     private String email;
 
+    public User(int id, List<Message> messages, String username, String email) {
+        this.id = id;
+        this.messages = messages;
+        this.username = username;
+        this.email = email;
+    }
+
+    public User() {
+    }
+
     public int getId() {
         return id;
     }
