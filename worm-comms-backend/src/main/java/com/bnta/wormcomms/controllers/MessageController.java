@@ -5,23 +5,27 @@ import com.bnta.wormcomms.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/messages")
+@Controller
 public class MessageController {
     @Autowired
     private MessageService messageService;
 
-    @GetMapping
+
     public List<Message> getAllMessages() {
         return messageService.getAllMessages();
     }
 
-    @PostMapping
+    @MessageMapping
+    @SendTo("/user")
     public Message createMessage(@RequestBody Message message) {
+        System.out.println("Sent message");
         return messageService.saveMessage(message);
     }
 
