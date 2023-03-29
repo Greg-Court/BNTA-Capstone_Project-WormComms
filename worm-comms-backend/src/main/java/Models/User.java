@@ -21,8 +21,7 @@ public class User {
     @Column
     private String email;
 
-    public User(int id, List<Message> messages, String username, String email) {
-        this.id = id;
+    public User(List<Message> messages, String username, String email) {
         this.messages = messages;
         this.username = username;
         this.email = email;

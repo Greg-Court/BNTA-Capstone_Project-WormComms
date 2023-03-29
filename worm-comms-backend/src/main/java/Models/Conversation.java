@@ -18,8 +18,7 @@ public class Conversation {
     public Conversation() {
     }
 
-    public Conversation(int id, List<Message> messages) {
-        this.id = id;
+    public Conversation(List<Message> messages) {
         this.messages = messages;
     }
 
