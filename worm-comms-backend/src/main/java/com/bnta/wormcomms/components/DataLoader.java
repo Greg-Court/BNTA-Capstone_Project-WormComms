@@ -22,11 +22,17 @@ public class DataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        User user = new User();
-        Message message = new Message();
+        User greg = new User("Greg", "greg@bnta.com");
+        User hansine = new User("Hansine", "hansine@bnta.com");
+        User james = new User("James", "james@bnta.com");
         Conversation conversation = new Conversation();
-        userRepo.save(user);
-        messageRepo.save(message);
+        Message message1 = new Message(james, conversation, "hello");
+        Message message2 = new Message(greg, conversation, "hi");
+        userRepo.save(greg);
+        userRepo.save(hansine);
+        userRepo.save(james);
         conversationRepo.save(conversation);
+        messageRepo.save(message1);
+        messageRepo.save(message2);
     }
 }

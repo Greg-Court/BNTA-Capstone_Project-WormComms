@@ -1,5 +1,6 @@
 package com.bnta.wormcomms.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -10,9 +11,11 @@ public class Conversation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private int id;
 
-    @OneToMany(mappedBy = "conversation")
+    @OneToMany(mappedBy = "conversation",orphanRemoval = true)
+    @JsonIgnoreProperties({"conversation"})
     private List<Message> messages;
 
     public Conversation() {

@@ -27,3 +27,7 @@ export const getAllMessages = async () => {
 export const createMessage = async (message) => {
   return await apiClient.post('/messages', message);
 };
+
+export const getAllUsers = async () => {
+  return await apiClient.get('/users');
+}

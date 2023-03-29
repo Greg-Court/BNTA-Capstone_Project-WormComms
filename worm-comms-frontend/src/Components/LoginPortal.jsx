@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getAllUsers } from "../api";
 
 const LoginPortal = ({ setCurrentUser }) => {
 
@@ -13,9 +14,14 @@ const LoginPortal = ({ setCurrentUser }) => {
         setPassword(e.target.value);
     }
 
-    const handleLogIn = () => {
-        if (username !== "" && password !== "") {
-            setCurrentUser(true);
+    //fetch users
+
+    const handleLogIn = async () => {
+        const users = await getAllUsers();
+        for (let user of users.data) {
+            if (username ==  user.username) {
+                setCurrentUser(user);
+            }
         }
     }
 
