@@ -16,11 +16,18 @@ public class Message {
     @JsonIgnoreProperties({"messages"})
     private int userId;
 
+    @ManyToOne
+    @JoinColumn(name="conversationId")
+    @JsonIgnoreProperties({"conversation"})
+    private int conversationId;
+
+    @Column
+    private String content;
+
     public Message() {
     }
 
-    public Message(int id, int userId, int conversationId, String content) {
-        this.id = id;
+    public Message(int userId, int conversationId, String content) {
         this.userId = userId;
         this.conversationId = conversationId;
         this.content = content;
@@ -57,14 +64,6 @@ public class Message {
     public void setContent(String content) {
         this.content = content;
     }
-
-    @ManyToOne
-    @JoinColumn(name="conversationId")
-    @JsonIgnoreProperties({"conversation"})
-    private int conversationId;
-
-    @Column
-    private String content;
 
 
 }

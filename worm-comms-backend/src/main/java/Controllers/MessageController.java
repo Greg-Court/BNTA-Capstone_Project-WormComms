@@ -3,6 +3,8 @@ package Controllers;
 import Models.Message;
 import Services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,5 +23,16 @@ public class MessageController {
     @PostMapping
     public Message createMessage(@RequestBody Message message) {
         return messageService.saveMessage(message);
+    }
+
+    @PutMapping("/{id}")
+    public Message updateMessage(@PathVariable int id, @RequestBody Message message) {
+        return messageService.updateMessage(id, message);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteMessage(@PathVariable int id) {
+        messageService.deleteMessage(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
