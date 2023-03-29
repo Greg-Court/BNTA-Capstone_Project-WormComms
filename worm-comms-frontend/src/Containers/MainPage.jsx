@@ -6,6 +6,17 @@ import { useState } from "react";
 const MainPage = () => {
 
     const [currentUser, setCurrentUser] = useState(null);
+    const [conversations, setConversations] = useState([]);
+
+  useEffect(() => {
+    const fetchConversations = async () => {
+      const response = await getAllConversations();
+      setConversations(response.data);
+    };
+
+    fetchConversations();
+  }, []);
+
 
     if (currentUser === null) {
         return (
