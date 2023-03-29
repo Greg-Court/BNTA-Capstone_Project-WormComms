@@ -1,9 +1,9 @@
 package Repositories;
 
-import Models.User;
+import Models.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepo extends JpaRepository<User, Integer> {
+public interface MessageRepo extends JpaRepository<Message, Integer> {
 }
