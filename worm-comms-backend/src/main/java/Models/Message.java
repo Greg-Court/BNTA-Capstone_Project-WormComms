@@ -3,6 +3,8 @@ package Models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+@Entity
+@Table(name="messages")
 public class Message {
 
     @Id
