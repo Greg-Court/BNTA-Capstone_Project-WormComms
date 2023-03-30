@@ -67,11 +67,11 @@ public class Message {
         this.sender = sender;
     }
 
-    public Chat getConversation() {
+    public Chat getChat() {
         return chat;
     }
 
-    public void setConversation(Chat chat) {
+    public void setChat(Chat chat) {
         this.chat = chat;
     }
 
