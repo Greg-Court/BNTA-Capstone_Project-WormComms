@@ -1,6 +1,6 @@
 package com.bnta.wormcomms.controllers;
 
-import com.bnta.wormcomms.models.Conversation;
+import com.bnta.wormcomms.models.Chat;
 import com.bnta.wormcomms.services.ConversationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,18 +17,18 @@ public class ConversationController {
     private ConversationService conversationService;
 
     @GetMapping
-    public List<Conversation> getAllConversations() {
+    public List<Chat> getAllConversations() {
         return conversationService.getAllConversations();
     }
 
     @PostMapping
-    public Conversation createConversation(@RequestBody Conversation conversation) {
-        return conversationService.saveConversation(conversation);
+    public Chat createConversation(@RequestBody Chat chat) {
+        return conversationService.saveConversation(chat);
     }
 
     @PutMapping("/{id}")
-    public Conversation updateConversation(@PathVariable int id, @RequestBody Conversation conversation) {
-        return conversationService.updateConversation(id, conversation);
+    public Chat updateConversation(@PathVariable int id, @RequestBody Chat chat) {
+        return conversationService.updateConversation(id, chat);
     }
 
     @DeleteMapping("/{id}")

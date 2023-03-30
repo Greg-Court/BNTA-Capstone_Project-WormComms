@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name="conversations")
-public class Conversation {
+public class Chat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,7 @@ public class Conversation {
     @Column(name="updated_at")
     private LocalDateTime updatedAt;
 
-    public Conversation(int id, List<Message> messages, List<User> participants, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Chat(int id, List<Message> messages, List<User> participants, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.messages = messages;
         this.participants = participants;
@@ -37,10 +37,10 @@ public class Conversation {
         this.updatedAt = updatedAt;
     }
 
-    public Conversation() {
+    public Chat() {
     }
 
-    public Conversation(List<Message> messages) {
+    public Chat(List<Message> messages) {
         this.messages = messages;
     }
 
