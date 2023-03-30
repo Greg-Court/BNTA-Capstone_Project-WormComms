@@ -17,7 +17,7 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
-
+    @GetMapping
     public List<Message> getAllMessages() {
         return messageService.getAllMessages();
     }

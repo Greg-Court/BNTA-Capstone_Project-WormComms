@@ -56,6 +56,10 @@ public class User {
     @JsonIgnoreProperties({"participants"})
     private List<Chat> chats;
 
+    @OneToMany(mappedBy = "user1", orphanRemoval = true)
+    @JsonIgnoreProperties({"user1"})
+    private List<Friend> friends;
+
     public User(int id, String username, String firstName, String lastName, String profilePicture, String bio, String email, String password, LocalDateTime createdAt, LocalDateTime updatedAt, List<Message> messages, List<Chat> chats) {
         this.id = id;
         this.username = username;
@@ -67,8 +71,8 @@ public class User {
         this.password = password;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.messages = messages;
-        this.chats = chats;
+        this.messages = new ArrayList<>();
+        this.chats = new ArrayList<>();
     }
 
     public User(String username, String email) {
@@ -177,5 +181,11 @@ public class User {
         this.email = email;
     }
 
+    public List<Friend> getFriends() {
+        return friends;
+    }
 
+    public void setFriends(List<Friend> friends) {
+        this.friends = friends;
+    }
 }
