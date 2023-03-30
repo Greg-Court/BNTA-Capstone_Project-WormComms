@@ -3,6 +3,7 @@ package com.bnta.wormcomms.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -14,9 +15,27 @@ public class Conversation {
     @Column
     private int id;
 
-    @OneToMany(mappedBy = "conversation",orphanRemoval = true)
+    @OneToMany(mappedBy = "conversation", orphanRemoval = true)
     @JsonIgnoreProperties({"conversation"})
     private List<Message> messages;
+
+    @ManyToMany(mappedBy = "conversations")
+    @JsonIgnoreProperties({"conversations"})
+    private List<User> participants;
+
+    @Column(name="created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name="updated_at")
+    private LocalDateTime updatedAt;
+
+    public Conversation(int id, List<Message> messages, List<User> participants, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.messages = messages;
+        this.participants = participants;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
     public Conversation() {
     }
