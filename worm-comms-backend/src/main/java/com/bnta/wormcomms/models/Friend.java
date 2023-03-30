@@ -25,6 +25,7 @@ public class Friend {
 
     @Column(name="created_by")
     private int createdBy;
+
     @Column
     @Enumerated(EnumType.STRING)
     private Status status;
