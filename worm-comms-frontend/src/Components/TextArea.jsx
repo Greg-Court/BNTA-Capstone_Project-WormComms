@@ -1,8 +1,10 @@
 import { useCurrentUser } from '../UserContext';
 import { useState } from 'react';
+import { useCurrentChat } from '../ChatContext';
 
 const TextArea = ({ stompClient }) => {
     const { currentUser, setCurrentUser } = useCurrentUser();
+    const { currentChat, setCurrentChat } = useCurrentChat();
 
     const [message, setMessage] = useState({
         sender: currentUser,

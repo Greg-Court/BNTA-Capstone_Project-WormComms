@@ -43,7 +43,5 @@ public class DataLoader implements ApplicationRunner {
         chatRepo.save(chat);
         messageRepo.save(message1);
         messageRepo.save(message2);
-        friendRepo.save(friend1);
-        friendRepo.save(friend2);
     }
 }
