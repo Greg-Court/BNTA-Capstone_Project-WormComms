@@ -51,7 +51,7 @@ public class User {
     @JoinTable(
             name = "chat_participants",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "conversation_id")
+            inverseJoinColumns = @JoinColumn(name = "chat_id")
     )
     @JsonIgnoreProperties({"participants"})
     private List<Chat> chats;
@@ -153,11 +153,11 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    public List<Chat> getConversations() {
+    public List<Chat> getChats() {
         return chats;
     }
 
-    public void setConversations(List<Chat> chats) {
+    public void setChats(List<Chat> chats) {
         this.chats = chats;
     }
 

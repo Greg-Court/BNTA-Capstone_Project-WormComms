@@ -27,7 +27,7 @@ public class MessageService {
         if (optionalMessage.isPresent()) {
             Message existingMessage = optionalMessage.get();
             existingMessage.setSender(message.getSender());
-            existingMessage.setConversation(message.getConversation());
+            existingMessage.setChat(message.getChat());
             existingMessage.setContent(message.getContent());
             return messageRepository.save(existingMessage);
         }
