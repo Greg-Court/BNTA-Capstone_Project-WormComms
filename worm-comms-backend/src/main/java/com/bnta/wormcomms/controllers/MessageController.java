@@ -32,7 +32,7 @@ public class MessageController {
     public void createMessage(@RequestBody Message message) {
         System.out.println("Sent message");
         Message savedMessage = messageService.saveMessage(message);
-        simpMessagingTemplate.convertAndSend("/topic/new_messages", savedMessage);
+        simpMessagingTemplate.convertAndSend("/user", savedMessage);
     }
 
     @PutMapping("/{id}")
