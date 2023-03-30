@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ChatProvider } from "./ChatContext";
 import MainPage from "./Containers/MainPage";
 import { UserProvider } from "./UserContext";
 
@@ -7,9 +8,11 @@ function App() {
 
   return (
     <>
-      <UserProvider>
-        <MainPage></MainPage>
-      </UserProvider>
+      <ChatProvider>
+        <UserProvider>
+          <MainPage></MainPage>
+        </UserProvider>
+      </ChatProvider>
     </>
   );
 }

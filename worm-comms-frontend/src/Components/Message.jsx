@@ -1,6 +1,9 @@
 import React from "react";
 import { AiOutlineRobot } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
+import { useCurrentUser } from "../UserContext";
+
+
 
 const ChatBubbleReceive = ({ text }) => {
     return (
@@ -29,10 +32,11 @@ const ChatBubbleReceive = ({ text }) => {
     );
   };
 
-const Message = ({ message, index, currentUser }) => {
-  const isSent = message.sender === currentUser;
-  console.log("Message.sender:", message.sender);
-  console.log("currentUser:", currentUser);
+const Message = ({ message, index}) => {
+  const {currentUser, setCurrentUser} = useCurrentUser();
+  const isSent = message.sender.id === currentUser.id;
+  //console.log("Message.sender:", message.sender);
+  //console.log("currentUser:", currentUser);
   if (isSent) {
     return <ChatBubbleSend key={index} text={message.content} />;
   } else {
