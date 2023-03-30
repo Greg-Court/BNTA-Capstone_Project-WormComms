@@ -5,14 +5,14 @@ const TextArea = ({ stompClient }) => {
     const { currentUser, setCurrentUser } = useCurrentUser();
 
     const [message, setMessage] = useState({
-        sender_id: currentUser,
+        sender: currentUser,
         chat: { id: 1 },
         content: ""
     })
 
     const updateMessage = (e) => {
         setMessage({
-            sender_id: currentUser,
+            sender: currentUser,
             chat: { id: 1 },
             content: e.target.value
         })
@@ -20,31 +20,21 @@ const TextArea = ({ stompClient }) => {
 
     const sendMessage = () => {
         if (message.content !== "") {
-            console.log(message)
             stompClient.send("/app/user", {}, JSON.stringify(message));
             setMessage({
-                sender_id: currentUser,
+                sender: currentUser,
                 chat: { id: 1 },
                 content: ""
             })
         }
     }
 
-
-    // useEffect(() => {
-    //     if (stompClient) {
-
-    //         // Subscribe to the /topic/test destination to receive messages from the backend
-    //         stompClient.subscribe("/topic/test", (response) => {
-    //           const message = JSON.parse(response.body);
-    //           console.log("Message from backend:", message);
-    //         });
-
-    //         // Send a test message to the backend
-    //         stompClient.send("/app/test", {}, JSON.stringify("Hello from frontend!"));
-    //       });
-    //     }
-    //   }, [stompClient]);
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            sendMessage();
+        }
+    }
 
 
     return (
@@ -55,6 +45,7 @@ const TextArea = ({ stompClient }) => {
                 name="messageInput"
                 placeholder="Type your message here"
                 value={message.content}
+                onKeyDown={handleKeyDown}
                 onChange={updateMessage}></textarea>
             <button onClick={sendMessage} className="border-2 w-1/12">Send</button>
             <button className="border-2 w-1/12">Toggle ChatGPT</button>
