@@ -4,7 +4,7 @@ import { BsPerson } from "react-icons/bs";
 
 const ChatBubbleReceive = ({ text }) => {
     return (
-      <div className="p-3 bg-white rounded-xl shadow-lg flex items-center space-x-4 mt-5 justify-start grow-from-bottom-left max-w-xl">
+      <div className="p-3 bg-white rounded-xl shadow-lg flex items-center space-x-4 mb-5 justify-start grow-from-bottom-left max-w-xl">
         <div className="shrink-0">
           <AiOutlineRobot className="h-12 w-12" />
         </div>
@@ -18,7 +18,7 @@ const ChatBubbleReceive = ({ text }) => {
   
   const ChatBubbleSend = ({ text }) => {
     return (
-      <div className="p-3 bg-white rounded-xl shadow-lg flex items-center space-x-4 mt-5 justify-end grow-from-bottom-right max-w-xl">
+      <div className="p-3 bg-white rounded-xl shadow-lg flex items-center space-x-4 mb-5 justify-end grow-from-bottom-right max-w-xl">
         <div className="shrink-0"></div>
         <div>
           <div className="text-xl font-medium text-black">Me</div>
@@ -31,7 +31,8 @@ const ChatBubbleReceive = ({ text }) => {
 
 const Message = ({ message, index, currentUser }) => {
   const isSent = message.sender === currentUser;
-
+  console.log("Message.sender:", message.sender);
+  console.log("currentUser:", currentUser);
   if (isSent) {
     return <ChatBubbleSend key={index} text={message.content} />;
   } else {
