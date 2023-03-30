@@ -56,7 +56,7 @@ const MainPage = () => {
                 <div className="border-2 h-[5vh]">WormComms</div>
                 <div className="flex">
                     <Contacts></Contacts>
-                    <MessageContainer stompClient={stompClient}></MessageContainer>
+                    <MessageContainer currentUser={currentUser} stompClient={stompClient} messages={messages}></MessageContainer>
                 </div>
             </>
         )
