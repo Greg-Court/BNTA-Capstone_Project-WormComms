@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name="conversations")
+@Table(name="chats")
 public class Chat {
 
     @Id
@@ -15,12 +15,12 @@ public class Chat {
     @Column
     private int id;
 
-    @OneToMany(mappedBy = "conversation", orphanRemoval = true)
-    @JsonIgnoreProperties({"conversation"})
+    @OneToMany(mappedBy = "chat", orphanRemoval = true)
+    @JsonIgnoreProperties({"chat"})
     private List<Message> messages;
 
-    @ManyToMany(mappedBy = "conversations")
-    @JsonIgnoreProperties({"conversations"})
+    @ManyToMany(mappedBy = "chats")
+    @JsonIgnoreProperties({"chats"})
     private List<User> participants;
 
     @Column(name="created_at")
