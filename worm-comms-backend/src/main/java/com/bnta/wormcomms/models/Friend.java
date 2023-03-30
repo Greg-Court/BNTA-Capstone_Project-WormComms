@@ -25,6 +25,15 @@ public class Friend {
 
     @Column(name="created_by")
     private int createdBy;
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    @Column(name="created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name="updated_at")
+    private LocalDateTime updatedAt;
 
     public enum Status {
         PENDING,
@@ -49,15 +58,13 @@ public class Friend {
         this.updatedAt = updatedAt;
     }
 
-    @Column
-    @Enumerated(EnumType.STRING)
-    private Status status;
 
-    @Column(name="created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name="updated_at")
-    private LocalDateTime updatedAt;
+    public Friend(User user1, User user2, Status status, int createdBy) {
+        this.user1 = user1;
+        this.user2 = user2;
+        this.status = status;
+        this.createdBy = createdBy;
+    }
 
     public Friend(int id, User user1, User user2, Status status, LocalDateTime createdAt, LocalDateTime updatedAt, int createdBy) {
         this.id = id;
