@@ -13,11 +13,11 @@ export const createUser = async (user) => {
 };
 
 export const getAllConversations = async () => {
-  return await apiClient.get('/conversations');
+  return await apiClient.get('/chats');
 };
 
 export const createConversation = async (conversation) => {
-  return await apiClient.post('/conversations', conversation);
+  return await apiClient.post('/chats', conversation);
 };
 
 export const getAllMessages = async () => {
