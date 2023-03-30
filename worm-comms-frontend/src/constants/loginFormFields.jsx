@@ -1,8 +1,8 @@
 const loginFields =[
     {
         labelText: "Email address",
-        labelFor: "email-address", 
-        id: "email-address",
+        labelFor: "emailaddress", 
+        id: "emailaddress",
         name: "email",
         type: "email",
         autocomplete: "email",
@@ -34,8 +34,8 @@ const signUpFields = [
     },
     {
         labelText: "Email address",
-        labelFor: "email-address", 
-        id: "email-address",
+        labelFor: "emailaddress", 
+        id: "emailaddress",
         name: "email",
         type: "email",
         autocomplete: "email",

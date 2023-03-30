@@ -3,88 +3,82 @@ import { getAllUsers } from "../api";
 import { loginFields } from "../constants/loginFormFields";
 import { useCurrentUser } from "../UserContext";
 import Input from "./Input";
-import {Link} from 'react-router-dom';
-
-
-
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const LoginPortal = () => {
+  const navigate = useNavigate();
+  const fields = loginFields;
+  let fieldState = {};
+  fields.forEach((field) => (fieldState[field.id] = ""));
 
-    const fields = loginFields;
-    let fieldState = {};
-    fields.forEach(field => fieldState[field.id] = '');
+  const { currentUser, setCurrentUser } = useCurrentUser();
+  const [loginState, setLoginState] = useState(fieldState);
 
-    const {currentUser, setCurrentUser} = useCurrentUser();
-    const [loginState, setLoginState] = useState(fieldState);
+  // const [email, setEmail] = useState("")
+  // const [password, setPassword] = useState("")
 
-    // const [email, setEmail] = useState("")
-    // const [password, setPassword] = useState("")
+  // const updateEmail = (e) => {
+  //     setEmail(e.target.value);
+  // }
 
-    // const updateEmail = (e) => {
-    //     setEmail(e.target.value);
-    // }
+  // const updatePassword = (e) => {
+  //     setPassword(e.target.value);
+  // }
 
-    // const updatePassword = (e) => {
-    //     setPassword(e.target.value);
-    // }
+  //on login we should subscribe to our chats?
 
-    //on login we should subscribe to our chats?
+  const handleLogIn = async (e) => {
+    setLoginState({ ...loginState, [e.target.id]: e.target.value });
+  };
 
-    const handleLogIn = async (e) => {
-
-        setLoginState({...loginState, [e.target.id]:e.target.value})
-
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    const users = await getAllUsers().then((response) => response.data);
+    console.log(users)
+    for (let user of users) {
+      if (loginState.emailaddress === user.email) {
+        setCurrentUser(user);
+        navigate("/home");
+        console.log("user found")
+      }
     }
+  };
 
-    const handleLoginSubmit = (e) => {
-        e.preventDefault();
-        const users = getAllUsers();
-        for(let user of users){
-            if(loginState.email-address === user.email){
-                setCurrentUser(user)
-            }
-        }
-        // authenticateUser();
-    }
+  // Handle Login API Integration here
+  // const authenticateUser = async () =>{
+  //     const users = await getAllUsers();
+  //     for (let user of users.data){
+  //         if(email === users.email && password === 'password'){
+  //             setCurrentUser(user);
+  //         }
+  //     }
 
+  // }
 
-    // Handle Login API Integration here
-    // const authenticateUser = async () =>{
-    //     const users = await getAllUsers();
-    //     for (let user of users.data){
-    //         if(email === users.email && password === 'password'){
-    //             setCurrentUser(user);
-    //         }
-    //     }
+  // const handleLogIn=(e)=>{
+  //     setLoginState({...loginState, [e.target.id]:e.target.value})
+  // }
 
-    // }
-
-
-    // const handleLogIn=(e)=>{
-    //     setLoginState({...loginState, [e.target.id]:e.target.value})
-    // }
-
-    return (
-        <form className="mt-8 space-y-6">
-        <div className="-space-y-px">
-            {
-                fields.map(field=>
-                    <Input
-                        key={field.id}
-                        handleChange={handleLogIn}
-                        value={loginState[field.id]}
-                        labelText={field.labelText}
-                        labelFor={field.labelFor}
-                        id={field.id}
-                        name={field.name}
-                        type={field.type}
-                        isRequired={field.isRequired}
-                        placeholder={field.placeholder}
-                        />
-                    )
-            }
-        </div>
-        <div className="flex items-center justify-between ">
+  return (
+    <form className="mt-8 space-y-6">
+      <div className="-space-y-px">
+        {fields.map((field) => (
+          <Input
+            key={field.id}
+            handleChange={handleLogIn}
+            value={loginState[field.id]}
+            labelText={field.labelText}
+            labelFor={field.labelFor}
+            id={field.id}
+            name={field.name}
+            type={field.type}
+            isRequired={field.isRequired}
+            placeholder={field.placeholder}
+          />
+        ))}
+      </div>
+      <div className="flex items-center justify-between ">
         <div className="flex items-center">
           <input
             id="remember"
@@ -92,7 +86,10 @@ const LoginPortal = () => {
             type="checkbox"
             className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
           />
-          <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+          <label
+            htmlFor="remember-me"
+            className="ml-2 block text-sm text-gray-900"
+          >
             Remember me
           </label>
         </div>
@@ -102,22 +99,17 @@ const LoginPortal = () => {
             Forgot your password?
           </a>
         </div>
-        </div>
-        <Link to="/home">
-        <button 
+      </div>
+      <button
+        onClick={handleLoginSubmit}
         type="Button"
-        action='submit'
+        action="submit"
         className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mt-10"
-        onSubmit={handleLoginSubmit}
-        >
-            Login
-        </button>
-        </Link>
-
-        </form>
-    )
-}
+      >
+        Login
+      </button>
+    </form>
+  );
+};
 
 export default LoginPortal;
-
-
