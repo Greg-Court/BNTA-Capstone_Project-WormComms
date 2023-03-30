@@ -1,7 +1,10 @@
 package com.bnta.wormcomms.services;
 
 import com.bnta.wormcomms.models.Chat;
+import com.bnta.wormcomms.models.ChatRequest;
+import com.bnta.wormcomms.models.User;
 import com.bnta.wormcomms.repositories.ChatRepo;
+import com.bnta.wormcomms.repositories.UserRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +19,27 @@ public class ChatService {
 
     @Autowired
     private ChatRepo chatRepository;
+    @Autowired
+    private UserRepo userRepository;
 
     public List<Chat> getAllChats() {
         return chatRepository.findAll();
     }
 
-    public Chat saveChat(Chat chat) {
+    public Chat saveChat(ChatRequest chatRequest) {
+        Chat chat = new Chat(chatRequest.getName());
+        // Retrieve the participants from the user repository
+        List<User> participants = userRepository.findAllByIds(chatRequest.getParticipantIds());
+
+        // Add the participants to the chat
+        chat.setParticipants(participants);
+
+        // Add the chat to the participants' chats
+        for (User participant : participants) {
+            participant.getChats().add(chat);
+        }
+
+        // Save the chat
         return chatRepository.save(chat);
     }
 

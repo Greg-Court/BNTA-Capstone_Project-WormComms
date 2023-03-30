@@ -1,6 +1,8 @@
 package com.bnta.wormcomms.controllers;
 
 import com.bnta.wormcomms.models.Chat;
+import com.bnta.wormcomms.models.ChatRequest;
+import com.bnta.wormcomms.models.User;
 import com.bnta.wormcomms.services.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,8 +30,8 @@ public class ChatController {
     }
 
     @PostMapping
-    public Chat createChat(@RequestBody Chat chat) {
-        return chatService.saveChat(chat);
+    public Chat createChat(@RequestBody ChatRequest chatRequest) {
+        return chatService.saveChat(chatRequest);
     }
 
     @PutMapping("/{id}")
