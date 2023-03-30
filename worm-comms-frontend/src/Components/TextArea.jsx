@@ -11,8 +11,25 @@ const TextArea = ({stompClient}) => {
 
     const sendMessage = () => {
         console.log(stompClient)
-        stompClient.publish("/app/user", {}, JSON.stringify(message));
+        stompClient.send("/app/user", {}, JSON.stringify(message));
     }
+
+
+    // useEffect(() => {
+        //     if (stompClient) {
+          
+        //         // Subscribe to the /topic/test destination to receive messages from the backend
+        //         stompClient.subscribe("/topic/test", (response) => {
+        //           const message = JSON.parse(response.body);
+        //           console.log("Message from backend:", message);
+        //         });
+          
+        //         // Send a test message to the backend
+        //         stompClient.send("/app/test", {}, JSON.stringify("Hello from frontend!"));
+        //       });
+        //     }
+        //   }, [stompClient]);
+        
 
     return (
         <div className="flex bottom">
@@ -24,4 +41,5 @@ const TextArea = ({stompClient}) => {
     )
 }
 
-export default TextArea
+export default TextArea;
+

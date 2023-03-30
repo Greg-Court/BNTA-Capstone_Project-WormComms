@@ -22,7 +22,7 @@ public class MessageController {
         return messageService.getAllMessages();
     }
 
-    @MessageMapping
+    @MessageMapping("/user")
     @SendTo("/user")
     public Message createMessage(@RequestBody Message message) {
         System.out.println("Sent message");

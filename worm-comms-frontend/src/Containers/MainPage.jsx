@@ -10,13 +10,17 @@ const MainPage = () => {
     const {currentUser, setCurrentUser} = useCurrentUser();
 
     const stompClient = useWebSocket();
+
+        useEffect(() => {
+            if (stompClient) {
+              stompClient.connect({}, () => {
+                console.log("connected");
+              });
+            }
+          }, [stompClient]);
+
+  
     
-    useEffect(() => {
-        console.log(stompClient)
-        if (stompClient) {
-            stompClient.activate({}, () => {console.log("connected")});
-        }
-    }, [stompClient]);
 
     const [conversations, setConversations] = useState([]);
 
