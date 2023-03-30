@@ -16,4 +16,4 @@ export const ChatProvider = ({children}) => {
     )
 }
 
-export default UserContext;
+export default ChatContext;
