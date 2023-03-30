@@ -21,14 +21,25 @@ const MainPage = () => {
 
   useEffect(() => {
     if (stompClient && currentUser) {
-      // Subscribe to new messages
-      stompClient.subscribe("/user", (message) => {
-        console.log("Message.body: ", JSON.parse(message.body));
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          JSON.parse(message.body),
-        ]);
-      });
+      const onConnect = () => {
+        stompClient.subscribe("/user", (message) => {
+          console.log("Message.body: ", JSON.parse(message.body));
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            JSON.parse(message.body),
+          ]);
+        });
+      };
+      if (stompClient.connected) {
+        onConnect();
+      } else {
+        stompClient.connect({}, onConnect);
+      }
+      return () => {
+        if (stompClient.connected) {
+          stompClient.disconnect();
+        }
+      };
     }
   }, [stompClient, currentUser]);
 
