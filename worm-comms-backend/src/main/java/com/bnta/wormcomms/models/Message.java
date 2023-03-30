@@ -1,12 +1,18 @@
 package com.bnta.wormcomms.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name="messages")
+// JsonIdentityInfo added to prevent infinite recursion errors when making get requests & other
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Message {
 
     @Id
@@ -53,6 +59,7 @@ public class Message {
         this.sender = sender;
         this.chat = chat;
         this.content = content;
+//        chat.getMessages().add(this); // Add this line
     }
 
     public LocalDateTime getCreatedAt() {

@@ -14,6 +14,9 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.data.repository.core.support.FragmentNotImplementedException;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class DataLoader implements ApplicationRunner {
     @Autowired
@@ -30,7 +33,19 @@ public class DataLoader implements ApplicationRunner {
         User greg = new User("Greg", "greg@bnta.com");
         User hansine = new User("Hansine", "hansine@bnta.com");
         User james = new User("James", "james@bnta.com");
-        Chat chat = new Chat();
+
+        List<User> participants = new ArrayList<>();
+        participants.add(greg);
+        participants.add(james);
+        Chat chat = new Chat("testchat9000", participants);
+        // I was stuck on this for ages, I couldnt figure out why participants were not showing in the chat
+        // Because it's a bidirectional relationship, you need to make sure to set the relationship on both sides
+        for (User participant : participants) {
+            participant.getChats().add(chat);
+        }
+        // Also need to save the Chat first, before anything else
+        chatRepo.save(chat);
+
         Message message1 = new Message(james, chat, "hello");
         Message message2 = new Message(greg, chat, "hi");
         Friend friend1 = new Friend(james,greg, Friend.Status.FRIEND,3);
@@ -39,7 +54,6 @@ public class DataLoader implements ApplicationRunner {
         userRepo.save(greg);
         userRepo.save(hansine);
         userRepo.save(james);
-        chatRepo.save(chat);
         messageRepo.save(message1);
         messageRepo.save(message2);
         friendRepo.save(friend1);

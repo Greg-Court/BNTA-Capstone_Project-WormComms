@@ -1,8 +1,9 @@
-const Friend = ({friend,index}) => {
+const Friend = ({ friend, index }) => {
+  return (
+    <>
+      <option>{friend.user2?.username}</option>
+    </>
+  );
+};
 
-    return(
-        <option>{friend.user2.username}</option>
-    )
-}
-
-export default Friend
+export default Friend;

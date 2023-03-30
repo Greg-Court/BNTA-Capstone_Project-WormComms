@@ -21,6 +21,12 @@ public class ChatController {
         return chatService.getAllChats();
     }
 
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<Chat>> getUserChats(@PathVariable("id") int id) {
+        List<Chat> userChats = chatService.getChatsForUser(id);
+        return new ResponseEntity<>(userChats, HttpStatus.OK);
+    }
+
     @PostMapping
     public Chat createChat(@RequestBody Chat chat) {
         return chatService.saveChat(chat);

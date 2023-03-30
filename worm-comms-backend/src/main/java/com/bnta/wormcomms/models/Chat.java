@@ -1,13 +1,20 @@
 package com.bnta.wormcomms.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name="chats")
+// JsonIdentityInfo added to prevent infinite recursion errors when making get requests & other
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Chat {
 
     @Id
@@ -39,6 +46,11 @@ public class Chat {
         this.participants = participants;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    public Chat(String name, List<User> participants) {
+        this.name = name;
+        this.participants = participants;
     }
 
     public Chat() {

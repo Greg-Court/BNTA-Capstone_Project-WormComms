@@ -1,6 +1,6 @@
 package com.bnta.wormcomms.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -9,6 +9,10 @@ import java.util.List;
 
 @Entity
 @Table(name="app_users")
+// JsonIdentityInfo added to prevent infinite recursion errors when making get requests & other
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class User {
 
     @Id
@@ -58,6 +62,10 @@ public class User {
 
     @OneToMany(mappedBy = "user1", orphanRemoval = true)
     @JsonIgnoreProperties({"user1"})
+    // @JsonIgnore --> this broke the ability to GET chats
+    // If you need to keep some relationships while avoiding circular references, you can use the @JsonManagedReference and @JsonBackReference annotations.
+    // Annotate the owning side of the relationship with @JsonManagedReference and the inverse side with @JsonBackReference.
+//    @JsonManagedReference
     private List<Friend> friends;
 
     public User(int id, String username, String firstName, String lastName, String profilePicture, String bio, String email, String password, LocalDateTime createdAt, LocalDateTime updatedAt, List<Message> messages, List<Chat> chats) {
