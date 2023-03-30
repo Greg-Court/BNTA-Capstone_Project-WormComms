@@ -1,4 +1,3 @@
-import Contacts from "./Contacts";
 import MessageContainer from "./MessageContainer";
 import LoginPortal from "../Components/LoginPortal";
 import { getAllConversations } from "../api";
@@ -7,6 +6,7 @@ import { useCurrentUser } from "../UserContext";
 import { useState, useEffect } from "react";
 import MainPageNavbar from "../Components/MainPageNavbar";
 import { useNavigate } from "react-router-dom";
+import Chats from "./Chats";
 
 const MainPage = () => {
   const { currentUser, setCurrentUser } = useCurrentUser();
@@ -64,7 +64,7 @@ const MainPage = () => {
                   <MainPageNavbar/>
                 </div>
                 <div className="flex">
-                    <Contacts className='flex flex-col'></Contacts>
+                    <Chats className='flex flex-col'></Chats>
                     <MessageContainer currentUser={currentUser} stompClient={stompClient} messages={messages}></MessageContainer>
                 </div>
             </>
