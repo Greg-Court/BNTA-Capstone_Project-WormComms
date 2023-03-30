@@ -24,6 +24,7 @@ const LoginPortal = () => {
         for (let user of users.data) {
             if (username ==  user.username) {
                 setCurrentUser(user);
+                console.log(user)
             }
         }
     }
