@@ -33,16 +33,16 @@ const MainPage = () => {
         setConversations(response.data);
     };
 
-    if (currentUser === null) {
-        return (
-            <>
-                <div className="border-2 h-[5vh]">WormComms</div>
-                <div className="flex justify-center items-center w-[100%] h-[95vh]">
-                    <LoginPortal setCurrentUser={setCurrentUser}></LoginPortal>
-                </div>
-            </>
-        )
-    } else {
+    // if (currentUser === null) {
+    //     return (
+    //         <>
+    //             <div className="border-2 h-[5vh]">WormComms</div>
+    //             <div className="flex justify-center items-center w-[100%] h-[95vh]">
+    //                 <LoginPortal setCurrentUser={setCurrentUser}></LoginPortal>
+    //             </div>
+    //         </>
+    //     )
+    // } else {
         return (
             <>
                 <div className="border-2 h-[5vh]">WormComms</div>
@@ -53,6 +53,6 @@ const MainPage = () => {
             </>
         )
     }
-}
+// }
 
 export default MainPage;
