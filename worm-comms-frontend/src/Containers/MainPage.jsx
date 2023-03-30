@@ -5,6 +5,7 @@ import { getAllConversations } from "../api";
 import useWebSocket from "../socket";
 import { useCurrentUser } from "../UserContext";
 import { useState, useEffect } from "react";
+import MainPageNavbar from "../Components/MainPageNavbar";
 import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
@@ -59,7 +60,9 @@ const MainPage = () => {
     } else {
         return (
             <>
-                <div className="border-2 h-[5vh]">WormComms</div>
+                <div className="border-1 h-[5vh]">
+                  <MainPageNavbar/>
+                </div>
                 <div className="flex">
                     <Contacts className='flex flex-col'></Contacts>
                     <MessageContainer currentUser={currentUser} stompClient={stompClient} messages={messages}></MessageContainer>
