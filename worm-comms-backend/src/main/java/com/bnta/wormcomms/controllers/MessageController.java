@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,9 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
+
     @SubscribeMapping("/user")
     public List<Message> getAllMessages() {
         return messageService.getAllMessages();
@@ -25,9 +29,10 @@ public class MessageController {
 
     @MessageMapping("/user")
     @SendTo("/user")
-    public Message createMessage(@RequestBody Message message) {
+    public void createMessage(@RequestBody Message message) {
         System.out.println("Sent message");
-        return messageService.saveMessage(message);
+        Message savedMessage = messageService.saveMessage(message);
+        simpMessagingTemplate.convertAndSend("/topic/new_messages", savedMessage);
     }
 
     @PutMapping("/{id}")
