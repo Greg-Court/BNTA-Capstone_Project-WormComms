@@ -15,6 +15,9 @@ public class Chat {
     @Column
     private int id;
 
+    @Column(name="name")
+    private String name;
+
     @OneToMany(mappedBy = "chat", orphanRemoval = true)
     @JsonIgnoreProperties({"chat"})
     private List<Message> messages;
@@ -29,8 +32,9 @@ public class Chat {
     @Column(name="updated_at")
     private LocalDateTime updatedAt;
 
-    public Chat(int id, List<Message> messages, List<User> participants, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Chat(int id, String name, List<Message> messages, List<User> participants, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
+        this.name = name;
         this.messages = messages;
         this.participants = participants;
         this.createdAt = createdAt;
@@ -58,5 +62,37 @@ public class Chat {
 
     public void setMessages(List<Message> messages) {
         this.messages = messages;
+    }
+
+    public List<User> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<User> participants) {
+        this.participants = participants;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
