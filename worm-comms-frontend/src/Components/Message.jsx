@@ -1,7 +1,5 @@
-const Message = ({message,index}) => {
-    return (
-        <li>message.content</li>
-    )
-}
-
-export default Message
+const Message = ({ message, index }) => {
+    return <li key={index}>{message.content}</li>;
+  };
+  
+  export default Message;

@@ -22,8 +22,11 @@ const MainPage = () => {
   useEffect(() => {
     if (stompClient && currentUser) {
       // Subscribe to new messages
-      stompClient.subscribe("/user", (message) => console.log("New Message: ", JSON.parse(message.body)));
-    };
+      stompClient.subscribe("/user", (message) => {
+        console.log("New Message: ", JSON.parse(message.body));
+        setMessages((prevMessages) => [...prevMessages, JSON.parse(message.body)]);
+      });
+    }
   }, [stompClient, currentUser]);
 
   useEffect(() => {
@@ -50,7 +53,7 @@ const MainPage = () => {
         <div className="border-2 h-[5vh]">WormComms</div>
         <div className="flex">
           <Contacts></Contacts>
-          <MessageContainer stompClient={stompClient}></MessageContainer>
+          <MessageContainer stompClient={stompClient} messages={messages}></MessageContainer>
         </div>
       </>
     );
