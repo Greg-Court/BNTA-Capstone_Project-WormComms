@@ -2,6 +2,7 @@ package com.bnta.wormcomms.services;
 
 import com.bnta.wormcomms.models.Chat;
 import com.bnta.wormcomms.repositories.ChatRepo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class ChatService {
 
@@ -35,5 +37,12 @@ public class ChatService {
 
     public void deleteChat(int id) {
         chatRepository.deleteById(id);
+    }
+
+    public List<Chat> getChatsForUser(int userId) {
+        log.info("Getting chats for user with ID: {}", userId);
+        List<Chat> chats = chatRepository.findByParticipantsId(userId);
+        log.info("Found {} chats for user with ID: {}", chats.size(), userId);
+        return chats;
     }
 }

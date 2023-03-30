@@ -16,12 +16,12 @@ export const getAllChats = async () => {
   return await apiClient.get('/chats');
 };
 
-export const getUserChats = async () => {
-  return axios.get(`/api/users/${userId}/chats`);
+export const getUserChats = async (userId) => {
+  return apiClient.get(`/chats/user/${userId}`);
 };
 
 export const createChat = async ({ name, participantIds }) => {
-  const response = await axios.post("/api/chats", { name, participantIds });
+  const response = await apiClient.post("/chats", { name, participantIds });
   return response.data;
 };
 

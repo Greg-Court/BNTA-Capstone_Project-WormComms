@@ -1,5 +1,6 @@
 package com.bnta.wormcomms.services;
 
+import com.bnta.wormcomms.models.Chat;
 import com.bnta.wormcomms.models.User;
 import com.bnta.wormcomms.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,4 +38,5 @@ public class UserService {
     public void deleteUser(int id) {
         userRepository.deleteById(id);
     }
+
 }

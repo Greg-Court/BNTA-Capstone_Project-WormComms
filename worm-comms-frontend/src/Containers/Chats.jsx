@@ -19,6 +19,7 @@ const Chats = () => {
   const fetchUserChats = async () => {
     const response = await getUserChats(currentUser.id);
     setChats(response.data);
+    console.log(response.data);
   };
 
   const handleChatClick = (chat) => {

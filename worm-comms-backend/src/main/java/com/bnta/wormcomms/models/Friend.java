@@ -1,26 +1,34 @@
 package com.bnta.wormcomms.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name="friends")
+// JsonIdentityInfo added to prevent infinite recursion errors when making get requests & other
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Friend {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    //here goes the link to the users
     @ManyToOne
     @JoinColumn(name="user1")
     @JsonIgnoreProperties({"friends"})
+//    @JsonBackReference
     private User user1;
 
     @ManyToOne
     @JoinColumn(name="user2")
     @JsonIgnoreProperties({"friends"})
+//    @JsonBackReference
     private User user2;
 
     @Column(name="created_by")

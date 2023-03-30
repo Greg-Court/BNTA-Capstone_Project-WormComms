@@ -1,5 +1,6 @@
 package com.bnta.wormcomms.controllers;
 
+import com.bnta.wormcomms.models.Chat;
 import com.bnta.wormcomms.models.User;
 import com.bnta.wormcomms.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
 
     @GetMapping
     public List<User> getAllUsers() {
