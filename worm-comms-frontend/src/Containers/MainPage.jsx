@@ -1,6 +1,6 @@
 import MessageContainer from "./MessageContainer";
 import LoginPortal from "../Components/LoginPortal";
-import { getAllConversations } from "../api";
+import { getAllChats } from "../api";
 import useWebSocket from "../socket";
 import { useCurrentUser } from "../UserContext";
 import { useState, useEffect } from "react";
@@ -51,7 +51,7 @@ const MainPage = () => {
   }, []);
 
   const fetchConversations = async () => {
-    const response = await getAllConversations();
+    const response = await getAllChats();
     setConversations(response.data);
   };
 
