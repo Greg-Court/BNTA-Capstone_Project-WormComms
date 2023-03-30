@@ -5,10 +5,17 @@ import { useState, useEffect } from "react";
 import { getAllConversations } from "../api";
 import useWebSocket from "../socket";
 import { useCurrentUser } from "../UserContext";
+import React, { useCallback } from "react";
 
 const MainPage = () => {
     const { currentUser, setCurrentUser } = useCurrentUser();
     const [conversations, setConversations] = useState([]);
+
+    const handleNewMessage = useCallback((message) => {
+        console.log("Received new message:", message);
+        // Update the UI or state with the new message
+    }, []);
+
 
     const stompClient = useWebSocket();
 
@@ -20,12 +27,18 @@ const MainPage = () => {
     }, [stompClient]);
 
     useEffect(() => {
-        if (stompClient !== null) {
-            //subscribe to the user's chats
-            console.log(stompClient)
-            stompClient.subscribe("/app/user", () => console.log("recieved something"))
+        if (stompClient && currentUser) {
+            // Subscribe to new messages
+            const subscription = stompClient.subscribe("/topic/new_messages", (message) => {
+                handleNewMessage(JSON.parse(message.body));
+            });
+
+            return () => {
+                // Clean up the subscription when the component is unmounted or the user changes
+                subscription.unsubscribe();
+            };
         }
-    }, [currentUser])
+    }, [stompClient, currentUser, handleNewMessage]);
 
     useEffect(() => {
         fetchConversations();
