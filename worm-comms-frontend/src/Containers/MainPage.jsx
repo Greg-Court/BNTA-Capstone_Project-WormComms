@@ -5,12 +5,14 @@ import { getAllConversations } from "../api";
 import useWebSocket from "../socket";
 import { useCurrentUser } from "../UserContext";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
   const { currentUser, setCurrentUser } = useCurrentUser();
   const [conversations, setConversations] = useState([]);
   const [messages, setMessages] = useState([]);
 
+  const navigate = useNavigate()
   const stompClient = useWebSocket();
 
   useEffect(() => {
@@ -52,26 +54,19 @@ const MainPage = () => {
     setConversations(response.data);
   };
 
-    // if (currentUser === null) {
-    //     return (
-    //         <>
-    //             <div className="border-2 h-[5vh]">WormComms</div>
-    //             <div className="flex justify-center items-center w-[100%] h-[95vh]">
-    //                 <LoginPortal setCurrentUser={setCurrentUser}></LoginPortal>
-    //             </div>
-    //         </>
-    //     )
-    // } else {
+    if (currentUser === null) {
+        navigate("/");
+    } else {
         return (
             <>
                 <div className="border-2 h-[5vh]">WormComms</div>
                 <div className="flex">
-                    <Contacts></Contacts>
+                    <Contacts className='flex flex-col'></Contacts>
                     <MessageContainer currentUser={currentUser} stompClient={stompClient} messages={messages}></MessageContainer>
                 </div>
             </>
         )
     }
-// }
+}
 
 export default MainPage;

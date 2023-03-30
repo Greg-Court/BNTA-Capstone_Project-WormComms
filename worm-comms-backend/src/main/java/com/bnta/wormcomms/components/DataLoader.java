@@ -33,15 +33,15 @@ public class DataLoader implements ApplicationRunner {
         Chat chat = new Chat();
         Message message1 = new Message(james, chat, "hello");
         Message message2 = new Message(greg, chat, "hi");
-//        Friend friend1 = new Friend(james,greg, Friend.Status.FRIEND,3);
-//        Friend friend2 = new Friend(james,hansine, Friend.Status.PENDING,3);
-//        friendRepo.save(friend1);
-//        friendRepo.save(friend2);
+        Friend friend1 = new Friend(james,greg, Friend.Status.FRIEND,3);
+        Friend friend2 = new Friend(james,hansine, Friend.Status.PENDING,3);
         userRepo.save(greg);
         userRepo.save(hansine);
         userRepo.save(james);
         chatRepo.save(chat);
         messageRepo.save(message1);
         messageRepo.save(message2);
+        friendRepo.save(friend1);
+        friendRepo.save(friend2);
     }
 }
