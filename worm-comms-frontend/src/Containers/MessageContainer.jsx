@@ -1,7 +1,7 @@
 import Messages from "../Components/Messages";
 import TextArea from "../Components/TextArea";
 
-const MessageContainer = ({ stompClient, messages }) => {
+const MessageContainer = ({ stompClient, messages, currentUser }) => {
   return (
     <div className="w-[85%] h-[95vh] border-2 flex flex-col justify-between">
         <Messages stompClient={stompClient} messages={messages}></Messages>

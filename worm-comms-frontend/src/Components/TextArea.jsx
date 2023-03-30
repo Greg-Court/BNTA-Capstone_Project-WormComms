@@ -5,14 +5,14 @@ const TextArea = ({ stompClient }) => {
     const { currentUser, setCurrentUser } = useCurrentUser();
 
     const [message, setMessage] = useState({
-        sender_id: currentUser,
+        sender: currentUser,
         chat: { id: 1 },
         content: ""
     })
 
     const updateMessage = (e) => {
         setMessage({
-            sender_id: currentUser,
+            sender: currentUser,
             chat: { id: 1 },
             content: e.target.value
         })
@@ -23,7 +23,7 @@ const TextArea = ({ stompClient }) => {
             console.log(message)
             stompClient.send("/app/user", {}, JSON.stringify(message));
             setMessage({
-                sender_id: currentUser,
+                sender: currentUser,
                 chat: { id: 1 },
                 content: ""
             })
