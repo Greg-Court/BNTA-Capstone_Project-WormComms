@@ -33,22 +33,50 @@ public class Message {
     @Column(name="updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name="is_read")
+    private boolean isRead;
+
     public Message() {
     }
 
-    public Message(int id, User sender, Chat chat, String content, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Message(int id, User sender, Chat chat, String content, LocalDateTime createdAt, LocalDateTime updatedAt, boolean isRead) {
         this.id = id;
         this.sender = sender;
         this.chat = chat;
         this.content = content;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.isRead = isRead;
     }
 
     public Message(User sender, Chat chat, String content) {
         this.sender = sender;
         this.chat = chat;
         this.content = content;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public boolean isRead() {
+        return isRead;
+    }
+
+    public void setRead(boolean read) {
+        isRead = read;
     }
 
     public int getId() {
