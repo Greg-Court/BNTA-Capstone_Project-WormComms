@@ -22,7 +22,7 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "conversation_id")
     @JsonIgnoreProperties({"messages"})
-    private Conversation conversation;
+    private Chat chat;
 
     @Column
     private String content;
@@ -36,18 +36,18 @@ public class Message {
     public Message() {
     }
 
-    public Message(int id, User sender, Conversation conversation, String content, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Message(int id, User sender, Chat chat, String content, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.sender = sender;
-        this.conversation = conversation;
+        this.chat = chat;
         this.content = content;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
 
-    public Message(User sender, Conversation conversation, String content) {
+    public Message(User sender, Chat chat, String content) {
         this.sender = sender;
-        this.conversation = conversation;
+        this.chat = chat;
         this.content = content;
     }
 
@@ -67,12 +67,12 @@ public class Message {
         this.sender = sender;
     }
 
-    public Conversation getConversation() {
-        return conversation;
+    public Chat getConversation() {
+        return chat;
     }
 
-    public void setConversation(Conversation conversation) {
-        this.conversation = conversation;
+    public void setConversation(Chat chat) {
+        this.chat = chat;
     }
 
     public String getContent() {

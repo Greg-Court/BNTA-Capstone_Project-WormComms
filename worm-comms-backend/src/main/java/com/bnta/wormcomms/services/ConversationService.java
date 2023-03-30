@@ -1,6 +1,6 @@
 package com.bnta.wormcomms.services;
 
-import com.bnta.wormcomms.models.Conversation;
+import com.bnta.wormcomms.models.Chat;
 import com.bnta.wormcomms.repositories.ConversationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,20 +15,20 @@ public class ConversationService {
     @Autowired
     private ConversationRepo conversationRepository;
 
-    public List<Conversation> getAllConversations() {
+    public List<Chat> getAllConversations() {
         return conversationRepository.findAll();
     }
 
-    public Conversation saveConversation(Conversation conversation) {
-        return conversationRepository.save(conversation);
+    public Chat saveConversation(Chat chat) {
+        return conversationRepository.save(chat);
     }
 
-    public Conversation updateConversation(int id, Conversation conversation) {
-        Optional<Conversation> optionalConversation = conversationRepository.findById(id);
+    public Chat updateConversation(int id, Chat chat) {
+        Optional<Chat> optionalConversation = conversationRepository.findById(id);
         if (optionalConversation.isPresent()) {
-            Conversation existingConversation = optionalConversation.get();
-            existingConversation.setMessages(conversation.getMessages());
-            return conversationRepository.save(existingConversation);
+            Chat existingChat = optionalConversation.get();
+            existingChat.setMessages(chat.getMessages());
+            return conversationRepository.save(existingChat);
         }
         throw new NoSuchElementException("Conversation not found");
     }

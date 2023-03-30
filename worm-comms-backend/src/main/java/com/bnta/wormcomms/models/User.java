@@ -54,9 +54,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "conversation_id")
     )
     @JsonIgnoreProperties({"participants"})
-    private List<Conversation> conversations;
+    private List<Chat> chats;
 
-    public User(int id, String username, String firstName, String lastName, String profilePicture, String bio, String email, String password, LocalDateTime createdAt, LocalDateTime updatedAt, List<Message> messages, List<Conversation> conversations) {
+    public User(int id, String username, String firstName, String lastName, String profilePicture, String bio, String email, String password, LocalDateTime createdAt, LocalDateTime updatedAt, List<Message> messages, List<Chat> chats) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
@@ -68,12 +68,12 @@ public class User {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.messages = messages;
-        this.conversations = conversations;
+        this.chats = chats;
     }
 
     public User(String username, String email) {
         this.messages = new ArrayList<>();
-        this.conversations = new ArrayList<>();
+        this.chats = new ArrayList<>();
         this.username = username;
         this.email = email;
     }
@@ -153,12 +153,12 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    public List<Conversation> getConversations() {
-        return conversations;
+    public List<Chat> getConversations() {
+        return chats;
     }
 
-    public void setConversations(List<Conversation> conversations) {
-        this.conversations = conversations;
+    public void setConversations(List<Chat> chats) {
+        this.chats = chats;
     }
 
     public String getEmail() {
