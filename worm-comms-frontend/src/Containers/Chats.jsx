@@ -26,6 +26,7 @@ const Chats = () => {
     setCurrentChat(chat);
   };
 
+  // this is the function that creates a new chat
   const handleCreateChat = async () => {
     if (newChat.length > 0) {
       const name = "New Chat";
@@ -46,6 +47,7 @@ const Chats = () => {
     return <Friend friend={friend} key={index}></Friend>;
   });
 
+  // this is the function that updates the newChat state
   const updateNewChat = (e) => {
     const selectedUsers = Array.from(
       e.target.selectedOptions,

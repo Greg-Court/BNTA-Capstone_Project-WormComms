@@ -53,6 +53,10 @@ public class Chat {
         this.participants = participants;
     }
 
+    public Chat(String name) {
+        this.name = name;
+    }
+
     public Chat() {
     }
 
