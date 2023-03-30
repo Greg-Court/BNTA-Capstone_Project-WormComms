@@ -17,7 +17,7 @@ const LoginPortal = () => {
         setPassword(e.target.value);
     }
 
-    //fetch users
+    //on login we should subscribe to our chats?
 
     const handleLogIn = async () => {
         const users = await getAllUsers();
