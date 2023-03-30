@@ -17,7 +17,7 @@ function MainPageNavbar() {
             </div>   
             
             
-            <ul className= {`flex flex-col-reverse items-center bg-blue-600  z-[-1] md:z-auto left-0 w-full md:-w-auto pl-0 md:flex md:flex-row-reverse md:items-center md:pb-0 pb-2 md:pr-5 absolute ease-in text-sm sm:text-sm md:text-sm lg:text-lg text-white ${click ? 'top-10 opacity-100 bg-blue-600  bg-opacity-80' : 'top-[-490px]'} opacity-100`}>
+            <ul className= {`flex flex-col items-center bg-blue-600  z-[-1] md:z-auto left-0 w-full md:-w-auto pl-0 md:flex md:flex-col md:items-center md:pb-0 pb-2 md:pr-5 absolute ease-in text-sm sm:text-sm md:text-sm lg:text-lg font-poppins text-white ${click ? 'top-10 opacity-100 bg-blue-600  bg-opacity-80' : 'top-[-490px]'} opacity-100`}>
               
               <li className="p-5 md:p-2 md:flex md:justify-between">
                 <Link to="/profile" className=" px-5 hover:text-gray-400 duration-500">PROFILE</Link>
