@@ -34,7 +34,8 @@ public class DataLoader implements ApplicationRunner {
         Message message1 = new Message(james, chat, "hello");
         Message message2 = new Message(greg, chat, "hi");
         Friend friend1 = new Friend(james,greg, Friend.Status.FRIEND,3);
-        Friend friend2 = new Friend(james,hansine, Friend.Status.PENDING,3);
+        Friend friend2 = new Friend(hansine,james, Friend.Status.FRIEND,3);
+        Friend friend3 = new Friend(greg,hansine, Friend.Status.FRIEND,3);
         userRepo.save(greg);
         userRepo.save(hansine);
         userRepo.save(james);
@@ -43,5 +44,31 @@ public class DataLoader implements ApplicationRunner {
         messageRepo.save(message2);
         friendRepo.save(friend1);
         friendRepo.save(friend2);
+        friendRepo.save(friend3);
+
+//        User greg = new User("Greg", "greg@bnta.com");
+//        User hansine = new User("Hansine", "hansine@bnta.com");
+//        User james = new User("James", "james@bnta.com");
+//        Chat chat1 = new Chat();
+//        Message message1 = new Message(james, chat1, "hello");
+//        Message message2 = new Message(greg, chat1, "hi");
+//        chatRepo.save(chat1);
+//        Friend friend1 = new Friend(james, greg, Friend.Status.FRIEND, 3);
+//        Friend friend2 = new Friend(james, hansine, Friend.Status.FRIEND, 3);
+//        Friend friend3 = new Friend(greg, james, Friend.Status.FRIEND, 3);
+//        Friend friend4 = new Friend(greg, hansine, Friend.Status.FRIEND, 3);
+//        Friend friend5 = new Friend(hansine, greg, Friend.Status.FRIEND, 3);
+//        Friend friend6 = new Friend(hansine, james, Friend.Status.FRIEND, 3);
+//        userRepo.save(greg);
+//        userRepo.save(hansine);
+//        userRepo.save(james);
+//        friendRepo.save(friend1);
+//        friendRepo.save(friend2);
+//        friendRepo.save(friend3);
+//        friendRepo.save(friend4);
+//        friendRepo.save(friend5);
+//        friendRepo.save(friend6);
     }
 }
+
+
