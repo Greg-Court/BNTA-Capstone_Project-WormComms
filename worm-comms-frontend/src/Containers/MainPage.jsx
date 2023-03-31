@@ -18,7 +18,7 @@ const MainPage = () => {
 
   useEffect(() => {
     if (stompClient) {
-      stompClient.connect({}, () => {});
+      stompClient.connect({}, () => { });
     }
   }, [stompClient]);
 
@@ -27,10 +27,10 @@ const MainPage = () => {
       const onConnect = () => {
         stompClient.subscribe("/user", (message) => {
           console.log("Message.body: ", JSON.parse(message.body));
-          setMessages((prevMessages) => [
-            ...prevMessages,
-            JSON.parse(message.body),
-          ]);
+            setMessages((prevMessages) => [
+              ...prevMessages,
+              JSON.parse(message.body)
+            ]);
         });
       };
       if (stompClient.connected) {
@@ -55,21 +55,21 @@ const MainPage = () => {
     setConversations(response.data);
   };
 
-    if (currentUser === null) {
-        navigate("/");
-    } else {
-        return (
-            <>
-                <div className="border-1 h-[5vh]">
-                  <MainPageNavbar/>
-                </div>
-                <div className="flex">
-                    <Chats className='flex flex-col'></Chats>
-                    <MessageContainer currentUser={currentUser} stompClient={stompClient} messages={messages} setMessages={setMessages}></MessageContainer>
-                </div>
-            </>
-        )
-    }
+  if (currentUser === null) {
+    navigate("/");
+  } else {
+    return (
+      <>
+        <div className="border-1 h-[5vh]">
+          <MainPageNavbar />
+        </div>
+        <div className="flex">
+          <Chats className='flex flex-col'></Chats>
+          <MessageContainer currentUser={currentUser} stompClient={stompClient} messages={messages} setMessages={setMessages}></MessageContainer>
+        </div>
+      </>
+    )
+  }
 }
 
 export default MainPage;
