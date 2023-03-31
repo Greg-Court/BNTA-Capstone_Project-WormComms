@@ -3,14 +3,17 @@ import { Link } from 'react-router-dom';
 import Menu from '../assets/menu-outline.svg';
 import Close from '../assets/close-circle-outline.svg';
 
+
 function MainPageNavbar() {
 
     const [click, setClick] = useState(false);
 
+
+
     return(
         <>
         <div>
-          <nav className =" flex flex-col  fixed z-40 items-left w-full bg-blue-600 md:flex md:flex-row md:justify-between md:items-center">
+          <nav className =" flex flex-col justify-around fixed z-40 items-left w-full bg-blue-600 md:flex md:flex-row md:justify-between md:items-center">
             
             <div className = "flex w-7/12 mb-50 md:pl-5 pl-5">
               <span className=" flex font-bold rounded-md text-white bg-blue-600 justify-self-center items-center w-full text-3xl sm:text-3xl md:text-3xl lg:text-4xl">WormComms</span>

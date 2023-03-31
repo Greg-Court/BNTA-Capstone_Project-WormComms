@@ -60,8 +60,8 @@ const MainPage = () => {
     } else {
         return (
             <>
-                <div className="border-1 h-[5vh]">
-                  <MainPageNavbar/>
+                <div className=" flex border-1 h-[5vh]">
+                  <MainPageNavbar currentUser={currentUser} stompClient={stompClient}/>
                 </div>
                 <div className="flex">
                     <Chats className='flex flex-col'></Chats>
