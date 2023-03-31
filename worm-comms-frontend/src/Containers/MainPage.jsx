@@ -26,7 +26,7 @@ const MainPage = () => {
     if (stompClient && currentUser) {
       const onConnect = () => {
         stompClient.subscribe("/user", (message) => {
-          console.log("Message.body: ", JSON.parse(message.body));
+          console.log(messages);
           setMessages((prevMessages) => [
             ...prevMessages,
             JSON.parse(message.body),

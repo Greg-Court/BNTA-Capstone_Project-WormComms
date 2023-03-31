@@ -29,7 +29,7 @@ const Messages = ({ messages, currentUser, setMessages }) => {
   return (
     <div className="mx-[2.5%] overflow-y-auto flex flex-col h-full">
       <ul className="flex-grow flex flex-col justify-end">
-        {messages.map((message, index) => (
+        {messages?.map((message, index) => (
           <Message
             message={message}
             key={index}

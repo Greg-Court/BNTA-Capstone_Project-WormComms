@@ -49,6 +49,7 @@ public class User {
 
     @OneToMany(mappedBy = "sender", orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"sender"})
+    @JsonManagedReference
     private List<Message> messages;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -58,6 +59,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "chat_id")
     )
     @JsonIgnoreProperties({"participants"})
+    @JsonBackReference
     private List<Chat> chats;
 
     @OneToMany(mappedBy = "user1", orphanRemoval = true, fetch = FetchType.EAGER)

@@ -41,6 +41,7 @@ public class ChatService {
         for (User participant : participants) {
             userRepository.save(participant);
         }
+        System.out.println(savedChat.toString());
         return savedChat;
     }
 
