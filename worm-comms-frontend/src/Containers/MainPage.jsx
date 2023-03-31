@@ -26,19 +26,11 @@ const MainPage = () => {
     if (stompClient && currentUser) {
       const onConnect = () => {
         stompClient.subscribe("/user", (message) => {
-<<<<<<< HEAD
           console.log(messages);
           setMessages((prevMessages) => [
             ...prevMessages,
             JSON.parse(message.body),
           ]);
-=======
-          console.log("Message.body: ", JSON.parse(message.body));
-            setMessages((prevMessages) => [
-              ...prevMessages,
-              JSON.parse(message.body)
-            ]);
->>>>>>> 64abe855ffb965437368665f65b94f993b0040ed
         });
       };
       if (stompClient.connected) {
