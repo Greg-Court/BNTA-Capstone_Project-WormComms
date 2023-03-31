@@ -31,9 +31,6 @@ public class Friend {
 //    @JsonBackReference
     private User user2;
 
-    @Column(name="created_by")
-    private int createdBy;
-
     @Column
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -56,7 +53,6 @@ public class Friend {
                 "id=" + id +
                 ", user1=" + (user1 != null ? user1.getUsername() : "null") +
                 ", user2=" + (user2 != null ? user2.getUsername() : "null") +
-                ", createdBy=" + createdBy +
                 ", status=" + status +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
@@ -81,29 +77,19 @@ public class Friend {
     }
 
 
-    public Friend(User user1, User user2, Status status, int createdBy) {
+    public Friend(User user1, User user2, Status status) {
         this.user1 = user1;
         this.user2 = user2;
         this.status = status;
-        this.createdBy = createdBy;
     }
 
-    public Friend(int id, User user1, User user2, Status status, LocalDateTime createdAt, LocalDateTime updatedAt, int createdBy) {
+    public Friend(int id, User user1, User user2, Status status, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.user1 = user1;
         this.user2 = user2;
         this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.createdBy = createdBy;
-    }
-
-    public int getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(int createdBy) {
-        this.createdBy = createdBy;
     }
 
     public Friend() {

@@ -64,4 +64,8 @@ public class ChatService {
 //        log.info("Found {} chats for user with ID: {}", chats.size(), userId);
         return chats;
     }
+
+    public Chat getChatById(int id){
+        return chatRepository.findById(id).get();
+    }
 }
