@@ -3,6 +3,7 @@ import { getUserChats, createChat } from "../api";
 import { useCurrentChat } from "../ChatContext";
 import { useCurrentUser } from "../UserContext";
 import Friend from "../Components/Friend";
+import Chat from "../Components/Chat";
 
 const Chats = () => {
   const { currentChat, setCurrentChat } = useCurrentChat();
@@ -22,10 +23,6 @@ const Chats = () => {
     console.log(response.data);
   };
 
-  const handleChatClick = (chat) => {
-    setCurrentChat(chat);
-  };
-
   // this is the function that creates a new chat
   const handleCreateChat = async () => {
     if (newChat.length > 0) {
@@ -36,7 +33,7 @@ const Chats = () => {
       ];
       try {
         const newChat = await createChat({ name, participantIds });
-        console.log({name, participantIds});
+        console.log({ name, participantIds });
         setChats((prevChats) => [...prevChats, newChat]);
       } catch (error) {
         console.error("Error creating chat:", error);
@@ -80,11 +77,9 @@ const Chats = () => {
       <div className="flex items-center justify-around mt-2">
         <h1>Existing Chats:</h1>
       </div>
-      <ul>
+      <ul className="flex flex-col ml-5">
         {chats.map((chat) => (
-          <li key={chat.id} onClick={() => handleChatClick(chat)}>
-            {chat.name}
-          </li>
+          <Chat key={chat.id} chat={chat} setCurrentChat={setCurrentChat} currentChatId={currentChat.id}/>
         ))}
       </ul>
     </div>
