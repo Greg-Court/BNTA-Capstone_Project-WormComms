@@ -48,7 +48,7 @@ public class User {
     private LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "sender", orphanRemoval = true, fetch = FetchType.EAGER)
-    @JsonIgnoreProperties({"sender","chat"})
+    @JsonIgnore //Properties({"sender","chat"})
     private List<Message> messages;
 
     @ManyToMany(fetch = FetchType.EAGER)

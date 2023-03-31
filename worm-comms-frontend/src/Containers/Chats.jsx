@@ -6,21 +6,23 @@ import Friend from "../Components/Friend";
 import Chat from "../Components/Chat";
 
 const Chats = () => {
-  const { currentChat, setCurrentChat } = useCurrentChat();
+  
   const { currentUser, setCurrentUser } = useCurrentUser();
   const [chats, setChats] = useState([]);
   const [newChat, setNewChat] = useState([]);
 
+  //on currentUser change update their chats from the backend
   useEffect(() => {
     if (currentUser) {
       fetchUserChats();
     }
   }, [currentUser]);
 
+  //fetch the current user's chats from the backend
   const fetchUserChats = async () => {
     const response = await getUserChats(currentUser.id);
     setChats(response.data);
-    console.log(response.data);
+    // console.log(response.data);
   };
 
   // this is the function that creates a new chat
@@ -33,9 +35,9 @@ const Chats = () => {
       ];
       try {
         const newChat = await createChat({ name, participantIds });
-        newChat.messages = [];
-        console.log({ name, participantIds });
-        setChats((prevChats) => [...prevChats, newChat]);
+        // console.log({ name, participantIds });
+        //setChats((prevChats) => [...prevChats, newChat]);
+        fetchUserChats();
       } catch (error) {
         console.error("Error creating chat:", error);
       }
@@ -80,7 +82,7 @@ const Chats = () => {
       </div>
       <ul className="flex flex-col">
         {chats.map((chat) => (
-          <Chat key={chat.id} chat={chat} setCurrentChat={setCurrentChat} currentChatId={currentChat?.id}/>
+          <Chat key={chat.id} chat={chat}/>
         ))}
       </ul>
     </div>

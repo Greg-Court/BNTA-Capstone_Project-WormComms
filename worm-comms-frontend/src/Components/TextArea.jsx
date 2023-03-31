@@ -1,6 +1,7 @@
 import { useCurrentUser } from '../UserContext';
 import { useState } from 'react';
 import { useCurrentChat } from '../ChatContext';
+import { BsChevronDoubleLeft } from 'react-icons/bs';
 
 const TextArea = ({ stompClient }) => {
     const { currentUser, setCurrentUser } = useCurrentUser();
@@ -28,16 +29,17 @@ const TextArea = ({ stompClient }) => {
                 content: message.content
             };
             stompClient.send("/app/user", {}, JSON.stringify(messageRequest));
-            console.log(JSON.stringify(messageRequest));
+            //console.log(JSON.stringify(messageRequest));
             setMessage({
                 sender: currentUser,
                 chat: { id: currentChat.id },
                 content: ""
             });
-            console.log(currentUser);
+            // console.log(currentUser);
         }
     };
 
+    //sends message on enter
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
