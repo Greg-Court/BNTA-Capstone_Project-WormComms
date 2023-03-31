@@ -65,7 +65,7 @@ const MainPage = () => {
                 </div>
                 <div className="flex">
                     <Chats className='flex flex-col'></Chats>
-                    <MessageContainer currentUser={currentUser} stompClient={stompClient} messages={messages}></MessageContainer>
+                    <MessageContainer currentUser={currentUser} stompClient={stompClient} messages={messages} setMessages={setMessages}></MessageContainer>
                 </div>
             </>
         )
