@@ -22,15 +22,20 @@ const TextArea = ({ stompClient }) => {
 
     const sendMessage = () => {
         if (message.content !== "") {
-            stompClient.send("/app/user", {}, JSON.stringify(message));
-            console.log(JSON.stringify(message));
+            const messageRequest = {
+                senderId: currentUser.id,
+                chatId: currentChat.id,
+                content: message.content
+            };
+            stompClient.send("/app/user", {}, JSON.stringify(messageRequest));
+            console.log(JSON.stringify(messageRequest));
             setMessage({
                 sender: currentUser,
                 chat: { id: currentChat.id },
                 content: ""
-            })
+            });
         }
-    }
+    };
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
