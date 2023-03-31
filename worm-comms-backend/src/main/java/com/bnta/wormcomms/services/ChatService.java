@@ -41,6 +41,7 @@ public class ChatService {
         for (User participant : participants) {
             userRepository.save(participant);
         }
+        System.out.println(savedChat.toString());
         return savedChat;
     }
 
@@ -63,5 +64,9 @@ public class ChatService {
         List<Chat> chats = chatRepository.findByParticipantsId(userId);
 //        log.info("Found {} chats for user with ID: {}", chats.size(), userId);
         return chats;
+    }
+
+    public Chat getChatById(int id){
+        return chatRepository.findById(id).get();
     }
 }
