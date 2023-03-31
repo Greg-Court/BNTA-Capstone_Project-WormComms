@@ -6,6 +6,14 @@ public class ChatRequest {
     private String name;
     private List<Integer> participantIds;
 
+    @Override
+    public String toString() {
+        return "ChatRequest{" +
+                "name='" + name + '\'' +
+                ", participantIds=" + participantIds +
+                '}';
+    }
+
     public String getName() {
         return name;
     }

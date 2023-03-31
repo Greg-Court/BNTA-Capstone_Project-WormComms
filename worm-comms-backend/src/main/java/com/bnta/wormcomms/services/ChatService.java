@@ -28,19 +28,20 @@ public class ChatService {
 
     public Chat saveChat(ChatRequest chatRequest) {
         Chat chat = new Chat(chatRequest.getName());
-        // Retrieve the participants from the user repository
+        log.info("ChatRequest Chat Name: {}", chatRequest.getName());
+        log.info("Chat participant IDs: {}", chatRequest.getParticipantIds());
         List<User> participants = userRepository.findAllByIds(chatRequest.getParticipantIds());
-
-        // Add the participants to the chat
+        log.info("Chat participants: {}", participants.toString());
         chat.setParticipants(participants);
-
-        // Add the chat to the participants' chats
         for (User participant : participants) {
             participant.getChats().add(chat);
         }
-
-        // Save the chat
-        return chatRepository.save(chat);
+        log.info("Chat: {}", chat.toString());
+        Chat savedChat = chatRepository.save(chat);
+        for (User participant : participants) {
+            userRepository.save(participant);
+        }
+        return savedChat;
     }
 
     public Chat updateChat(int id, Chat chat) {
@@ -58,9 +59,9 @@ public class ChatService {
     }
 
     public List<Chat> getChatsForUser(int userId) {
-        log.info("Getting chats for user with ID: {}", userId);
+//        log.info("Getting chats for user with ID: {}", userId);
         List<Chat> chats = chatRepository.findByParticipantsId(userId);
-        log.info("Found {} chats for user with ID: {}", chats.size(), userId);
+//        log.info("Found {} chats for user with ID: {}", chats.size(), userId);
         return chats;
     }
 }

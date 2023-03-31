@@ -12,9 +12,9 @@ import java.util.List;
 @Entity
 @Table(name="chats")
 // JsonIdentityInfo added to prevent infinite recursion errors when making get requests & other
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 public class Chat {
 
     @Id
@@ -58,6 +58,16 @@ public class Chat {
     }
 
     public Chat() {
+    }
+
+    @Override
+    public String toString() {
+        return "Chat{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 
     public Chat(List<Message> messages) {

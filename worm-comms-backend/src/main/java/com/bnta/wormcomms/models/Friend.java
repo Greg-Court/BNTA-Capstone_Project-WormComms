@@ -50,6 +50,19 @@ public class Friend {
         BLOCKED
     }
 
+    @Override
+    public String toString() {
+        return "Friend{" +
+                "id=" + id +
+                ", user1=" + (user1 != null ? user1.getUsername() : "null") +
+                ", user2=" + (user2 != null ? user2.getUsername() : "null") +
+                ", createdBy=" + createdBy +
+                ", status=" + status +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
+
 
     public LocalDateTime getCreatedAt() {
         return createdAt;

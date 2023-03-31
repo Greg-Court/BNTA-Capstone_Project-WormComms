@@ -62,6 +62,18 @@ public class Message {
 //        chat.getMessages().add(this); // Add this line
     }
 
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", sender=" + (sender != null ? sender.getUsername() : "null") +
+                ", content='" + content + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", isRead=" + isRead +
+                '}';
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
