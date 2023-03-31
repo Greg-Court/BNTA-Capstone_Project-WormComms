@@ -77,7 +77,7 @@ const Chats = () => {
       <div className="flex items-center justify-around mt-2">
         <h1>Existing Chats:</h1>
       </div>
-      <ul className="flex flex-col ml-5">
+      <ul className="flex flex-col">
         {chats.map((chat) => (
           <Chat key={chat.id} chat={chat} setCurrentChat={setCurrentChat} currentChatId={currentChat?.id}/>
         ))}
