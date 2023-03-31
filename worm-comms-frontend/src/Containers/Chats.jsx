@@ -36,6 +36,7 @@ const Chats = () => {
       ];
       try {
         const newChat = await createChat({ name, participantIds });
+        console.log({name, participantIds});
         setChats((prevChats) => [...prevChats, newChat]);
       } catch (error) {
         console.error("Error creating chat:", error);
