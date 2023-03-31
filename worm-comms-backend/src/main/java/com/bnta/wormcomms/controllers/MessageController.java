@@ -1,6 +1,7 @@
 package com.bnta.wormcomms.controllers;
 
 import com.bnta.wormcomms.models.Message;
+import com.bnta.wormcomms.models.MessageRequest;
 import com.bnta.wormcomms.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,18 +30,18 @@ public class MessageController {
 
     @MessageMapping("/user")
     @SendTo("/user")
-    public void createMessage(@RequestBody Message message) {
+    public void createMessage(@RequestBody MessageRequest messageRequest) {
         System.out.println("Sent message");
-        Message savedMessage = messageService.saveMessage(message);
+        Message savedMessage = messageService.saveMessage(messageRequest);
         simpMessagingTemplate.convertAndSend("/user", savedMessage);
     }
 
-    @PostMapping("/messages")
-    public ResponseEntity<Message> restCreateMessage(@RequestBody Message message) {
-        System.out.println("Sent message (REST)");
-        Message savedMessage = messageService.saveMessage(message);
-        return ResponseEntity.ok(savedMessage);
-    }
+//    @PostMapping("/messages")
+//    public ResponseEntity<Message> restCreateMessage(@RequestBody Message message) {
+//        System.out.println("Sent message (REST)");
+//        Message savedMessage = messageService.saveMessage(message);
+//        return ResponseEntity.ok(savedMessage);
+//    }
 
 
     @PutMapping("/{id}")

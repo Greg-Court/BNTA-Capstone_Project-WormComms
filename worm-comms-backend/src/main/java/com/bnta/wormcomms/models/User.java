@@ -47,11 +47,11 @@ public class User {
     @Column(name="updated_at")
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "sender", orphanRemoval = true)
+    @OneToMany(mappedBy = "sender", orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"sender"})
     private List<Message> messages;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "chat_participants",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -60,7 +60,7 @@ public class User {
     @JsonIgnoreProperties({"participants"})
     private List<Chat> chats;
 
-    @OneToMany(mappedBy = "user1", orphanRemoval = true)
+    @OneToMany(mappedBy = "user1", orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"user1"})
     // @JsonIgnore --> this broke the ability to GET chats
     // If you need to keep some relationships while avoiding circular references, you can use the @JsonManagedReference and @JsonBackReference annotations.

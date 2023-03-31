@@ -25,11 +25,11 @@ public class Chat {
     @Column(name="name")
     private String name;
 
-    @OneToMany(mappedBy = "chat", orphanRemoval = true)
+    @OneToMany(mappedBy = "chat", orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"chat"})
     private List<Message> messages;
 
-    @ManyToMany(mappedBy = "chats")
+    @ManyToMany(mappedBy = "chats", fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"chats"})
     private List<User> participants;
 
