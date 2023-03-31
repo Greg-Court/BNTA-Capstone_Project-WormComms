@@ -5,17 +5,18 @@ import { useCurrentUser } from "../UserContext";
 import useWebSocket from "../socket";
 import { useNavigate } from "react-router-dom";
 
-import { getUserById } from "../api";
+import { getUserById, updateUser } from "../api";
 
 
 
 const ProfilePortal = () => {
+    const { currentUser, setCurrentUser } = useCurrentUser();
     const fields = profileFields;
     let fieldState = {};
     fields.forEach(field => fieldState[field.id] = '');
     
     const [profileState, setProfileState] = useState(fieldState);
-    const { currentUser, setCurrentUser } = useCurrentUser();
+  
 
     // const navigate = useNavigate()
     // const stompClient = useWebSocket();
@@ -25,17 +26,31 @@ const ProfilePortal = () => {
     //     stompClient.connect({}, () => {});
     //   }
     // }, [stompClient]);
-
+    
+    
+    // const fetchCurrentUserData = async () => {
+    //     const userToUpdate = await getUserById(currentUser.id).then((response) => response.data);
+    //     setCurrentUser(userToUpdate);
+    // };
+    
+    // useEffect(() => {
+    //     if (currentUser) {
+    //       fetchCurrentUserData();
+    //     }
+    //   }, [currentUser]);
+    
     const handleProfileUpdate= (e) => {
         setProfileState({... profileState, [e.target.id]: e.target.value})
     }
 
     const handleProfileSubmit = async (e) => {
         e.preventDefault();
-        const userToUpdate = await getUserById(currentUser.id).then((response) => response.data);
-        setCurrentUser(userToUpdate);
-        }
-      };
+        const updatedUser = await updateUser(currentUser.id, currentUser).then((response) => response.data);
+        console.log(updatedUser); 
+        }    
+        
+    
+
 
  
 
@@ -44,7 +59,8 @@ const ProfilePortal = () => {
         <form className="mt-8 space-y-6" >
         <div className="">
             {
-                fields.map((field =>
+                fields.map(
+                    (field => 
                     <Input
                         key={field.id}
                         handleChange={handleProfileUpdate}
@@ -54,7 +70,7 @@ const ProfilePortal = () => {
                         id={field.id}
                         name={field.name}
                         type={field.type}
-                        placeholder={ field.placeholder}
+                        placeholder={currentUser[field.placeholder] !== null ? currentUser[field.placeholder]: field.placeholder}
                     />
                 ))
             }
@@ -69,9 +85,8 @@ const ProfilePortal = () => {
         </div>
 
         </form>
-    )
+    );
+};
 
-
-}
 
 export default ProfilePortal;

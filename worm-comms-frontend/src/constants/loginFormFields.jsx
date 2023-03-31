@@ -93,7 +93,7 @@ const profileFields = [
         type: "text",
         autocomplete: "username",
         isRequired: true, 
-        placeholder: "Username"
+        placeholder: "username"
     },
     {
         labelText: "Email address",
@@ -103,7 +103,7 @@ const profileFields = [
         type: "email",
         autocomplete: "email",
         isRequired: true, 
-        placeholder: "Email address"
+        placeholder: "email"
     },
     {
         labelText: "Change Password",
@@ -113,7 +113,7 @@ const profileFields = [
         type: "password",
         autocomplete: "new-password",
         isRequired: true, 
-        placeholder: "New Password"
+        placeholder: "password"
     },
     {
         labelText: "Confirm New Password",
@@ -133,7 +133,7 @@ const profileFields = [
         type: "text",
         autocomplete: "first-name",
         isRequired: true, 
-        placeholder: "First Name"
+        placeholder: "firstName"
     } ,
     {
         labelText: "Last Name",
@@ -143,7 +143,7 @@ const profileFields = [
         type: "text",
         autocomplete: "last-name",
         isRequired: true, 
-        placeholder: "Last Name"
+        placeholder: "lastName"
     },
     {
         labelText: "Personal Bio",
@@ -153,7 +153,7 @@ const profileFields = [
         type: "bio",
         autocomplete: "bio",
         isRequired: true, 
-        placeholder: "Personal Bio"
+        placeholder: "bio"
     }
 ]
 
