@@ -33,6 +33,7 @@ const Chats = () => {
       ];
       try {
         const newChat = await createChat({ name, participantIds });
+        newChat.messages = [];
         console.log({ name, participantIds });
         setChats((prevChats) => [...prevChats, newChat]);
       } catch (error) {
