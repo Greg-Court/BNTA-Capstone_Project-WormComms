@@ -22,7 +22,7 @@ public class Message {
 
     @ManyToOne
     @JoinColumn(name = "sender_id")
-    @JsonIgnoreProperties({"messages"})
+    @JsonIgnoreProperties({"messages","chats"})
     private User sender;
 
     @ManyToOne
