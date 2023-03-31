@@ -35,6 +35,14 @@ public class MessageController {
         simpMessagingTemplate.convertAndSend("/user", savedMessage);
     }
 
+    @PostMapping("/messages")
+    public ResponseEntity<Message> restCreateMessage(@RequestBody Message message) {
+        System.out.println("Sent message (REST)");
+        Message savedMessage = messageService.saveMessage(message);
+        return ResponseEntity.ok(savedMessage);
+    }
+
+
     @PutMapping("/{id}")
     public Message updateMessage(@PathVariable int id, @RequestBody Message message) {
         return messageService.updateMessage(id, message);
