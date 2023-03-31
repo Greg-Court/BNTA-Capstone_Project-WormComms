@@ -79,7 +79,7 @@ const Chats = () => {
       </div>
       <ul className="flex flex-col ml-5">
         {chats.map((chat) => (
-          <Chat key={chat.id} chat={chat} setCurrentChat={setCurrentChat} currentChatId={currentChat.id}/>
+          <Chat key={chat.id} chat={chat} setCurrentChat={setCurrentChat} currentChatId={currentChat?.id}/>
         ))}
       </ul>
     </div>
