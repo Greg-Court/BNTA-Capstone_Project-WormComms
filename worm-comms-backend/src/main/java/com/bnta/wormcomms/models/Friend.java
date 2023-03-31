@@ -11,9 +11,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="friends")
 // JsonIdentityInfo added to prevent infinite recursion errors when making get requests & other
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 public class Friend {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

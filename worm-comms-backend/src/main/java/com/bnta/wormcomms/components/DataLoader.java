@@ -51,9 +51,10 @@ public class DataLoader implements ApplicationRunner {
         Friend friend1 = new Friend(james,greg, Friend.Status.FRIEND,3);
         Friend friend2 = new Friend(hansine,james, Friend.Status.FRIEND,3);
         Friend friend3 = new Friend(greg,hansine, Friend.Status.FRIEND,3);
-        userRepo.save(greg);
+
         userRepo.save(hansine);
         userRepo.save(james);
+        userRepo.save(greg);
         messageRepo.save(message1);
         messageRepo.save(message2);
         friendRepo.save(friend1);

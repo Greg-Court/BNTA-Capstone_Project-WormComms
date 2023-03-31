@@ -10,9 +10,9 @@ import java.util.List;
 @Entity
 @Table(name="app_users")
 // JsonIdentityInfo added to prevent infinite recursion errors when making get requests & other
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id")
 public class User {
 
     @Id
