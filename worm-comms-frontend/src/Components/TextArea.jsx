@@ -15,7 +15,7 @@ const TextArea = ({ stompClient }) => {
     const updateMessage = (e) => {
         setMessage({
             sender: currentUser,
-            chat: { id: 1 },
+            chat: { id: currentChat.id },
             content: e.target.value
         })
     }
@@ -25,7 +25,7 @@ const TextArea = ({ stompClient }) => {
             stompClient.send("/app/user", {}, JSON.stringify(message));
             setMessage({
                 sender: currentUser,
-                chat: { id: 1 },
+                chat: { id: currentChat.id },
                 content: ""
             })
         }
