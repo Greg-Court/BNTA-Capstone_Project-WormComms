@@ -40,7 +40,7 @@ const LoginPortal = () => {
       if (loginState.emailaddress === user.email) {
         setCurrentUser(user);
         navigate("/home");
-        console.log("user found")
+        console.log(user)
       }
     }
   };

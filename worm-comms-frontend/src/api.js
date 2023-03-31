@@ -4,7 +4,7 @@ import axios from 'axios';
 const apiClient = axios.create({
   baseURL: 'http://localhost:8080/api',
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json; charset=utf-8',
   },
 });
 
@@ -48,3 +48,8 @@ export const getChatById = async (id) => {
 export const getUserById = async (id) => {
   return await apiClient.get(`/users/${id}`);
 }
+
+export const updateUser = async (id, user) => {
+  return await apiClient.patch(`/users/${id}`, user);
+}
+
