@@ -1,8 +1,6 @@
 package com.bnta.wormcomms.models;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -27,10 +25,12 @@ public class Chat {
 
     @OneToMany(mappedBy = "chat", orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"chat"})
+    @JsonManagedReference
     private List<Message> messages;
 
     @ManyToMany(mappedBy = "chats", fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"chats"})
+    @JsonBackReference
     private List<User> participants;
 
     @Column(name="created_at")
