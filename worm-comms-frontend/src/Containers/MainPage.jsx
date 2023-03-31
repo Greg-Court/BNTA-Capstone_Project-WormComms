@@ -7,10 +7,14 @@ import { useState, useEffect } from "react";
 import MainPageNavbar from "../Components/MainPageNavbar";
 import { useNavigate } from "react-router-dom";
 import Chats from "./Chats";
+import { useCurrentChat } from "../ChatContext";
 
 const MainPage = () => {
   const { currentUser, setCurrentUser } = useCurrentUser();
-  const [conversations, setConversations] = useState([]);
+  const { currentChat, setCurrentChat } = useCurrentChat();
+
+  //const [conversations, setConversations] = useState([]);
+  const [newMessage, setNewMessage] = useState([]);
   const [messages, setMessages] = useState([]);
 
   const navigate = useNavigate()
@@ -26,11 +30,15 @@ const MainPage = () => {
     if (stompClient && currentUser) {
       const onConnect = () => {
         stompClient.subscribe("/user", (message) => {
-          console.log(messages);
-          setMessages((prevMessages) => [
-            ...prevMessages,
-            JSON.parse(message.body),
-          ]);
+          //the call back for subscribe just appends the message onto whatever chat is being displayed
+          setNewMessage(JSON.parse(message.body));
+          // console.log(currentChat)
+          // console.log(JSON.parse(message.body).chat)
+          // if (currentChat.id === JSON.parse(message.body).chat.id)
+          //   setMessages((prevMessages) => [
+          //     ...prevMessages,
+          //     JSON.parse(message.body),
+          //   ]);
         });
       };
       if (stompClient.connected) {
@@ -45,15 +53,29 @@ const MainPage = () => {
       };
     }
   }, [stompClient, currentUser]);
-
+  
   useEffect(() => {
-    fetchConversations();
-  }, []);
+    if (currentChat != null) {
+      console.log("help")
+      console.log(currentChat)
+      console.log(newMessage)
+      if (currentChat.id === newMessage.chat.id)
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          newMessage,
+        ]);
+    }
+  }, [newMessage])
 
-  const fetchConversations = async () => {
-    const response = await getAllChats();
-    setConversations(response.data);
-  };
+  // don't think this is used
+  // useEffect(() => {
+  //   fetchConversations();
+  // }, []);
+
+  // const fetchConversations = async () => {
+  //   const response = await getAllChats();
+  //   setConversations(response.data);
+  // };
 
   if (currentUser === null) {
     navigate("/");

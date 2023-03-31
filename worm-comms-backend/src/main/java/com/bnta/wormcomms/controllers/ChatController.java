@@ -23,7 +23,7 @@ public class ChatController {
         return chatService.getAllChats();
     }
 
-    @GetMapping("/chat/{id}")
+    @GetMapping("/{id}")
     public Chat getChatById(@PathVariable("id") int id) {
         return chatService.getChatById(id);
     }

@@ -11,8 +11,6 @@ const Messages = ({ messages, currentUser, setMessages }) => {
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    console.log(currentChat)
-    console.log()
     if (currentChat != null) {
       setMessages(currentChat.messages);
     }

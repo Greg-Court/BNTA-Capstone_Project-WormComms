@@ -27,7 +27,7 @@ public class Friend {
 
     @ManyToOne
     @JoinColumn(name="user2")
-    @JsonIgnoreProperties({"friends","messages","chats"})
+    @JsonIgnoreProperties({"friends","messages","chats","password"})
 //    @JsonBackReference
     private User user2;
 
