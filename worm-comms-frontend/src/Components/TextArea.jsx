@@ -34,6 +34,7 @@ const TextArea = ({ stompClient }) => {
                 chat: { id: currentChat.id },
                 content: ""
             });
+            console.log(currentUser);
         }
     };
 
