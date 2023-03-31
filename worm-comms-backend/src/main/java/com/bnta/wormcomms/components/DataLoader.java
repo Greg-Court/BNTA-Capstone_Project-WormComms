@@ -48,9 +48,12 @@ public class DataLoader implements ApplicationRunner {
 
         Message message1 = new Message(james, chat, "hello");
         Message message2 = new Message(greg, chat, "hi");
-        Friend friend1 = new Friend(james,greg, Friend.Status.FRIEND,3);
-        Friend friend2 = new Friend(hansine,james, Friend.Status.FRIEND,3);
-        Friend friend3 = new Friend(greg,hansine, Friend.Status.FRIEND,3);
+        Friend friend1 = new Friend(james,greg, Friend.Status.FRIEND);
+        Friend friend2 = new Friend(hansine,james, Friend.Status.FRIEND);
+        Friend friend3 = new Friend(greg,hansine, Friend.Status.FRIEND);
+        Friend friend4 = new Friend(greg,james, Friend.Status.FRIEND);
+        Friend friend5 = new Friend(hansine,greg, Friend.Status.FRIEND);
+        Friend friend6 = new Friend(james,hansine, Friend.Status.FRIEND);
 
         userRepo.save(hansine);
         userRepo.save(james);
@@ -60,6 +63,9 @@ public class DataLoader implements ApplicationRunner {
         friendRepo.save(friend1);
         friendRepo.save(friend2);
         friendRepo.save(friend3);
+        friendRepo.save(friend4);
+        friendRepo.save(friend5);
+        friendRepo.save(friend6);
 
 //        User greg = new User("Greg", "greg@bnta.com");
 //        User hansine = new User("Hansine", "hansine@bnta.com");
