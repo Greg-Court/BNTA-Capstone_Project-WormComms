@@ -40,3 +40,7 @@ export const createMessage = async (message) => {
 export const getAllUsers = async () => {
   return await apiClient.get('/users');
 }
+
+export const getUserById = async (id) => {
+  return await apiClient.get(`/users/${id}`);
+}
