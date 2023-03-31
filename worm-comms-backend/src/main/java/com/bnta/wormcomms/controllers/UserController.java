@@ -23,6 +23,11 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Integer id) {
+        return userService.getUserById(id);
+    }
+
     @PostMapping
     public User createUser(@RequestBody User user) {
         return userService.saveUser(user);
