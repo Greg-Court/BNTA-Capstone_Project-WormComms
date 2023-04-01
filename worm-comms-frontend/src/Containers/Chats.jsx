@@ -22,7 +22,7 @@ const Chats = () => {
   const fetchUserChats = async () => {
     const response = await getUserChats(currentUser.id);
     setChats(response.data);
-    console.log(response.data);
+    console.log("fetchUserChats/getUserChats: " + JSON.stringify(response.data));
   };
 
   // this is the function that creates a new chat
