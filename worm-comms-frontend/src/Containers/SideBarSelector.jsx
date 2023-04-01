@@ -1,7 +1,7 @@
 import React from "react";
 
 const Tab = ({ label, isSelected, onClick }) => {
-  console.log("isSelected:", isSelected);
+  //console.log("isSelected:", isSelected);
   return (
     <nav
       className={`flex-grow h-full flex justify-center items-center cursor-pointer ${

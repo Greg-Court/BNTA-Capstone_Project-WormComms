@@ -1,11 +1,16 @@
 package com.bnta.wormcomms.controllers;
 
+import com.bnta.wormcomms.models.Chat;
 import com.bnta.wormcomms.models.Message;
 import com.bnta.wormcomms.models.MessageRequest;
+import com.bnta.wormcomms.models.User;
+import com.bnta.wormcomms.repositories.ChatRepo;
 import com.bnta.wormcomms.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.converter.MessageConversionException;
+import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -23,17 +28,31 @@ public class MessageController {
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
 
-    @SubscribeMapping("/user")
-    public List<Message> getAllMessages() {
-        return messageService.getAllMessages();
-    }
+    @Autowired
+    ChatRepo chatRepo;
 
-    @MessageMapping("/user")
-    @SendTo("/user")
+//    @SubscribeMapping("/user")
+//    public List<Message> getAllMessages(@PathVariable("user") String user) {
+//        System.out.println("someone subscribed to " + user);
+//        return messageService.getAllMessages();
+//    }
+
+    @MessageMapping("/newMessage")
+    @MessageExceptionHandler(MessageConversionException.class)
+//    @SendTo("/user")
     public void createMessage(@RequestBody MessageRequest messageRequest) {
-        System.out.println("Sent message");
+        System.out.println("Recieved message");
         Message savedMessage = messageService.saveMessage(messageRequest);
-        simpMessagingTemplate.convertAndSend("/user", savedMessage);
+        //find the chat
+        Chat chat = chatRepo.findById(messageRequest.getChatId()).get();
+        for(User user : chat.getParticipants()) {
+            System.out.println("/user/"+user.getUsername());
+            try {
+                simpMessagingTemplate.convertAndSend("/user/" + user.getUsername(), savedMessage);
+            } catch (Exception e){
+                System.out.println("There was an error");
+            }
+        }
     }
 
 //    @PostMapping("/messages")

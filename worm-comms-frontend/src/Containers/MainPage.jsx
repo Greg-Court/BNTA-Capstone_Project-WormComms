@@ -23,43 +23,33 @@ const MainPage = () => {
 
   useEffect(() => {
     if (stompClient) {
-      stompClient.connect({}, () => { });
+      stompClient.connect({}, () => {
+        onConnect();
+      });
     }
   }, [stompClient]);
 
-  useEffect(() => {
-    if (stompClient && currentUser) {
-      const onConnect = () => {
-        stompClient.subscribe("/user", (message) => {
-          //the call back for subscribe just appends the message onto whatever chat is being displayed
-          setNewMessage(JSON.parse(message.body));
-          // console.log(currentChat)
-          // console.log(JSON.parse(message.body).chat)
-          // if (currentChat.id === JSON.parse(message.body).chat.id)
-          //   setMessages((prevMessages) => [
-          //     ...prevMessages,
-          //     JSON.parse(message.body),
-          //   ]);
-        });
-      };
-      if (stompClient.connected) {
-        onConnect();
-      } else {
-        stompClient.connect({}, onConnect);
-      }
-      return () => {
-        if (stompClient.connected) {
-          stompClient.disconnect();
-        }
-      };
-    }
-  }, [stompClient, currentUser]);
-  
+
+  const onConnect = () => {
+    stompClient.subscribe(`/user/${currentUser.username}`, (message) => {
+      //the call back for subscribe just appends the message onto whatever chat is being displayed
+      setNewMessage(JSON.parse(message.body));
+      // console.log(currentChat)
+      // console.log(JSON.parse(message.body).chat)
+      // if (currentChat.id === JSON.parse(message.body).chat.id)
+      //   setMessages((prevMessages) => [
+      //     ...prevMessages,
+      //     JSON.parse(message.body),
+      //   ]);
+    });
+  };
+
+
   useEffect(() => {
     if (currentChat != null) {
-      console.log("help")
-      console.log(currentChat)
-      console.log(newMessage)
+      //console.log("help")
+      //console.log(currentChat)
+      //console.log(newMessage)
       if (currentChat.id === newMessage.chat.id)
         setMessages((prevMessages) => [
           ...prevMessages,
