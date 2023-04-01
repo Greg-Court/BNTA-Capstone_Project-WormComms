@@ -9,23 +9,17 @@ const Chats = () => {
   const [chats, setChats] = useState([]);
   const [newChat, setNewChat] = useState([]);
 
-  //on currentUser change update their chats from the backend
   useEffect(() => {
     if (currentUser) {
       fetchUserChats();
     }
   }, [currentUser]);
 
-  //fetch the current user's chats from the backend
   const fetchUserChats = async () => {
     const response = await getUserChats(currentUser.id);
-    setChats(response.data);
-    console.log(
-      "fetchUserChats/getUserChats: " + JSON.stringify(response.data)
-    );
+    setChats(response.data.reverse());
   };
 
-  // this is the function that creates a new chat
   const handleCreateChat = async () => {
     if (newChat.length > 0) {
       const name = "New Chat";
@@ -34,9 +28,7 @@ const Chats = () => {
         ...newChat.map((user) => user.id),
       ];
       try {
-        const newChat = await createChat({ name, participantIds });
-        // console.log({ name, participantIds });
-        //setChats((prevChats) => [...prevChats, newChat]);
+        await createChat({ name, participantIds });
         fetchUserChats();
       } catch (error) {
         console.error("Error creating chat:", error);
@@ -48,7 +40,6 @@ const Chats = () => {
     return <Friend friend={friend} key={index}></Friend>;
   });
 
-  // this is the function that updates the newChat state
   const updateNewChat = (e) => {
     const selectedUsers = Array.from(
       e.target.selectedOptions,
@@ -94,7 +85,7 @@ const Chats = () => {
         </button>
       </div>
       <div className="flex items-center justify-around mt-2"></div>
-      <ul className="flex flex-col">
+      <ul className="flex flex-col overflow-y-auto scrollbar-hide h-[70vh]">
         {chats.map((chat) => (
           <div>
             <Chat key={chat.id} chat={chat} />
