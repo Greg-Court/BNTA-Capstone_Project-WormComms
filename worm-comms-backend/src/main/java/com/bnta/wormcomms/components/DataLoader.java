@@ -33,6 +33,12 @@ public class DataLoader implements ApplicationRunner {
         User greg = new User("Greg", "greg@bnta.com");
         User hansine = new User("Hansine", "hansine@bnta.com");
         User james = new User("James", "james@bnta.com");
+        User rick = new User("Rick", "rick@bnta.com");
+        User morty = new User("Morty", "morty@bnta.com");
+        User summer = new User("Summer", "summer@bnta.com");
+        User jerry = new User("Jerry", "jerry@bnta.com");
+        User squanchy = new User("Squanchy", "squanchy@bnta.com");
+        User birdperson = new User("Birdperson", "birdperson@bnta.com");
 
         List<User> participants = new ArrayList<>();
         participants.add(greg);
