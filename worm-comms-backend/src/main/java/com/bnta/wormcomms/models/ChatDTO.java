@@ -20,7 +20,7 @@ public class ChatDTO {
         }
         this.participants = new ArrayList<>();
         for (User user : chat.getParticipants()) {
-            this.participants.add(new UserDTO(user.getUsername(), user.getFirstName(), user.getLastName(), user.getProfilePicture(), user.getBio(), null));
+            this.participants.add(new UserDTO(user.getId(),user.getUsername(), user.getFirstName(), user.getLastName(), user.getProfilePicture(), user.getBio(), null));
         }
     }
 

@@ -3,6 +3,7 @@ package com.bnta.wormcomms.models;
 import java.util.List;
 
 public class UserDTO {
+    private int id; // Add the ID field
     private String username;
     private String firstName;
     private String lastName;
@@ -10,13 +11,23 @@ public class UserDTO {
     private String bio;
     private List<FriendDTO> friends;
 
-    public UserDTO(String username, String firstName, String lastName, String profilePicture, String bio, List<FriendDTO> friends) {
+    public UserDTO(int id, String username, String firstName, String lastName, String profilePicture, String bio, List<FriendDTO> friends) {
+        this.id = id; // Initialize the ID field
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.profilePicture = profilePicture;
         this.bio = bio;
         this.friends = friends;
+    }
+
+    // Add getters and setters for the new ID field
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
