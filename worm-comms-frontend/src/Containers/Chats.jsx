@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { getUserChats, createChat } from "../api";
-import { useCurrentChat } from "../ChatContext";
 import { useCurrentUser } from "../UserContext";
 import Friend from "../Components/Friend";
 import Chat from "../Components/Chat";
 
 const Chats = () => {
-  
   const { currentUser, setCurrentUser } = useCurrentUser();
   const [chats, setChats] = useState([]);
   const [newChat, setNewChat] = useState([]);
@@ -22,7 +20,9 @@ const Chats = () => {
   const fetchUserChats = async () => {
     const response = await getUserChats(currentUser.id);
     setChats(response.data);
-    console.log("fetchUserChats/getUserChats: " + JSON.stringify(response.data));
+    console.log(
+      "fetchUserChats/getUserChats: " + JSON.stringify(response.data)
+    );
   };
 
   // this is the function that creates a new chat
@@ -62,26 +62,30 @@ const Chats = () => {
   };
 
   return (
-    <div className="h-[85vh] pt-5">
+    <div className="h-[85vh]">
       <div className="w-[100%] flex items-center justify-around">
-      <select
-        className="w-3/4 border-2 max-h-48 overflow-y-auto"
-        onChange={updateNewChat}
-        multiple
-      >
-        <option className="h-max-5vh py-2" disabled>
-          Contacts:
-        </option>
-        {friends.map((friend) => (
-          <option
-            className="h-max-5vh py-2 hover:bg-blue-200"
-            style={{ backgroundColor: friend.selected ? 'rgba(0, 0, 255, 0.1)' : 'transparent' }}
-            key={friend.id}
-          >
-            {friend}
+        <select
+          className="w-3/4 border-2 max-h-48 overflow-y-auto mt-5"
+          onChange={updateNewChat}
+          multiple
+        >
+          <option className="h-max-5vh py-2" disabled>
+            Contacts:
           </option>
-        ))}
-      </select>
+          {friends.map((friend) => (
+            <option
+              className="h-max-5vh py-2 hover:bg-blue-200"
+              style={{
+                backgroundColor: friend.selected
+                  ? "rgba(0, 0, 255, 0.1)"
+                  : "transparent",
+              }}
+              key={friend.id}
+            >
+              {friend}
+            </option>
+          ))}
+        </select>
         <button
           onClick={handleCreateChat}
           className="p-2 h-12 w-12 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
@@ -89,12 +93,13 @@ const Chats = () => {
           +
         </button>
       </div>
-      <div className="flex items-center justify-around mt-2">
-        <h1>Existing Chats:</h1>
-      </div>
+      <div className="flex items-center justify-around mt-2"></div>
       <ul className="flex flex-col">
         {chats.map((chat) => (
-          <Chat key={chat.id} chat={chat}/>
+          <div>
+            <Chat key={chat.id} chat={chat} />
+            <div className="border mx-[5%] my-2"></div>
+          </div>
         ))}
       </ul>
     </div>
