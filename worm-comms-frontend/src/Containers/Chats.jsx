@@ -62,7 +62,7 @@ const Chats = () => {
   };
 
   return (
-    <div className="min-w-[25%] h-[95vh] border-2">
+    <div className="h-[85vh]">
       <div className="w-[100%] flex items-center justify-around">
         <select className="w-[80%]" onChange={updateNewChat} multiple>
           <option className="h-max-5vh" disabled>

@@ -49,17 +49,17 @@ const TextArea = ({ stompClient }) => {
 
 
     return (
-        <div className="flex bottom">
+        <div className="flex border-t-2 border-gray-300">
             <textarea
-                className="border-2 w-5/6"
+                className="w-5/6"
                 id="messageInput"
                 name="messageInput"
                 placeholder="Type your message here"
                 value={message.content}
                 onKeyDown={handleKeyDown}
                 onChange={updateMessage}></textarea>
-            <button onClick={sendMessage} className="border-2 w-1/12">Send</button>
-            <button className="border-2 w-1/12">Toggle ChatGPT</button>
+            <button onClick={sendMessage} className="border-l-2 w-1/12">Send</button>
+            <button className="border-l-2 w-1/12">Toggle ChatGPT</button>
         </div>
     )
 }

@@ -8,6 +8,7 @@ import MainPageNavbar from "../Components/MainPageNavbar";
 import { useNavigate } from "react-router-dom";
 import Chats from "./Chats";
 import { useCurrentChat } from "../ChatContext";
+import SideBar from "./SideBar";
 
 const MainPage = () => {
   const { currentUser, setCurrentUser } = useCurrentUser();
@@ -82,11 +83,11 @@ const MainPage = () => {
   } else {
     return (
       <>
-        <div className="border-1 h-[5vh]">
+        <div className="h-[5vh]">
           <MainPageNavbar />
         </div>
         <div className="flex">
-          <Chats className='flex flex-col'></Chats>
+          <SideBar></SideBar>
           <MessageContainer currentUser={currentUser} stompClient={stompClient} messages={messages} setMessages={setMessages}></MessageContainer>
         </div>
       </>

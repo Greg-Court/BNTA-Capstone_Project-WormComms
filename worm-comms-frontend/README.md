@@ -138,3 +138,49 @@ worm-comms-frontend
 └─ vite.config.js
 
 ```
+```
+worm-comms-frontend
+├─ .gitignore
+├─ README.md
+├─ index.html
+├─ package-lock.json
+├─ package.json
+├─ postcss.config.js
+├─ public
+│  └─ vite.svg
+├─ src
+│  ├─ App.jsx
+│  ├─ ChatContext.jsx
+│  ├─ Components
+│  │  ├─ Chat.jsx
+│  │  ├─ Friend.jsx
+│  │  ├─ Input.jsx
+│  │  ├─ LoginHeader.jsx
+│  │  ├─ LoginPortal.jsx
+│  │  ├─ MainPageNavbar.jsx
+│  │  ├─ Message.jsx
+│  │  ├─ Messages.jsx
+│  │  ├─ SignUpPortal.jsx
+│  │  └─ TextArea.jsx
+│  ├─ Containers
+│  │  ├─ Chats.jsx
+│  │  ├─ MainPage.jsx
+│  │  └─ MessageContainer.jsx
+│  ├─ UserContext.jsx
+│  ├─ api.js
+│  ├─ assets
+│  │  ├─ close-circle-outline.svg
+│  │  ├─ menu-outline.svg
+│  │  └─ worm.jpeg
+│  ├─ constants
+│  │  └─ loginFormFields.jsx
+│  ├─ index.css
+│  ├─ main.jsx
+│  ├─ pages
+│  │  ├─ LoginPage.jsx
+│  │  └─ SignUpPage.jsx
+│  └─ socket.js
+├─ tailwind.config.cjs
+└─ vite.config.js
+
+```
