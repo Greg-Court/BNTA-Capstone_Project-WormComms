@@ -33,7 +33,7 @@ const TextArea = ({ stompClient }) => {
         chatId: currentChat.id,
         content: message.content,
       };
-      stompClient.send("/app/user", {}, JSON.stringify(messageRequest));
+      stompClient.send("/app/newMessage", {}, JSON.stringify(messageRequest));
       //console.log(JSON.stringify(messageRequest));
       setMessage({
         sender: currentUser,
