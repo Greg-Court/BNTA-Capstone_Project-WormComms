@@ -10,15 +10,37 @@ public class UserDTO {
     private String profilePicture;
     private String bio;
     private List<FriendDTO> friends;
+    private String email;
 
-    public UserDTO(int id, String username, String firstName, String lastName, String profilePicture, String bio, List<FriendDTO> friends) {
-        this.id = id; // Initialize the ID field
+    public UserDTO(int id, String username, String firstName, String lastName, String profilePicture, String bio, List<FriendDTO> friends, String email) {
+        this.id = id;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.profilePicture = profilePicture;
         this.bio = bio;
         this.friends = friends;
+        this.email = email;
+    }
+
+    public UserDTO(int id, String username, String email, String firstName, String lastName, List<FriendDTO> friends) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.friends = friends;
+    }
+
+    public UserDTO(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.profilePicture = user.getProfilePicture();
+        this.bio = user.getBio();
+        this.friends = user.getFriendDTOs();
+        this.email = user.getEmail();
     }
 
     // Add getters and setters for the new ID field
@@ -76,5 +98,13 @@ public class UserDTO {
 
     public void setFriends(List<FriendDTO> friends) {
         this.friends = friends;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
