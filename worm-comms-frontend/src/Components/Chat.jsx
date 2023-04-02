@@ -3,6 +3,7 @@ import { getChatById } from "../api";
 import { useCurrentChat } from "../ChatContext";
 import { useState } from "react";
 import { updateChat } from "../api";
+import { GrGroup, GrUser } from "react-icons/gr";
 
 const Chat = ({ chat }) => {
   const { currentChat, setCurrentChat } = useCurrentChat();
@@ -51,7 +52,15 @@ const Chat = ({ chat }) => {
       }`}
     >
       <div className="flex items-center">
-        <div className="w-12 h-12 mr-3 rounded-full bg-gray-300" />
+        {chat.participants.length > 2 ? (
+          <div className="w-12 h-12 mr-3 rounded-full bg-blue-400 flex items-center justify-center">
+            <GrGroup className="w-8 h-8" />
+          </div>
+        ) : (
+          <div className="w-12 h-12 mr-3 rounded-full bg-blue-400 flex items-center justify-center">
+            <GrUser className="w-8 h-8" />
+          </div>
+        )}
         <div>
           {isEditing ? (
             <input
