@@ -42,6 +42,7 @@ export const getAllUsers = async () => {
 }
 
 export const getChatById = async (id) => {
+<<<<<<< HEAD
   return await apiClient.get(`/chat/${id}`)
 }
 
@@ -53,3 +54,11 @@ export const updateUser = async (id, user) => {
   return await apiClient.patch(`/users/${id}`, user);
 }
 
+=======
+  return await apiClient.get(`/chats/${id}`)
+}
+
+export const updateChat = async (id, chat) => {
+  return await apiClient.put(`/chats/${id}`, chat);
+};
+>>>>>>> main
