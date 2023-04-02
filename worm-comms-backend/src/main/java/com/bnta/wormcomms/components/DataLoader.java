@@ -64,6 +64,12 @@ public class DataLoader implements ApplicationRunner {
         userRepo.save(hansine);
         userRepo.save(james);
         userRepo.save(greg);
+        userRepo.save(rick);
+        userRepo.save(morty);
+        userRepo.save(summer);
+        userRepo.save(jerry);
+        userRepo.save(squanchy);
+        userRepo.save(birdperson);
         messageRepo.save(message1);
         messageRepo.save(message2);
         friendRepo.save(friend1);

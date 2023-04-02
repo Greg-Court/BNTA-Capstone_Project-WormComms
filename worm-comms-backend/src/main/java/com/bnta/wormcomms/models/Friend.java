@@ -127,5 +127,4 @@ public class Friend {
         this.status = status;
     }
 
-
 }

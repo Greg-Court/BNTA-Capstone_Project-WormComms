@@ -27,7 +27,7 @@ const Chats = () => {
       const name = "New Chat";
       const participantIds = [
         currentUser.id,
-        ...newChat.map((user) => user.id),
+        ...newChat.map((friend) => friend.userId),
       ];
       try {
         await createChat({ name, participantIds });
@@ -41,9 +41,9 @@ const Chats = () => {
   };
 
   const friendsOptions = currentUser.friends.map((friend) => ({
-    value: friend.user2.username,
-    label: friend.user2.username,
-    data: friend.user2,
+    value: friend.username,
+    label: friend.username,
+    data: friend,
   }));
 
   const updateNewChat = (selectedOptions) => {
@@ -85,7 +85,7 @@ const Chats = () => {
       <div className="flex items-center justify-around"></div>
       <ul className="flex flex-col overflow-y-auto scrollbar-hide max-h-[78.5vh]">
         {chats.map((chat) => (
-          <div>
+          <div key={chat.id}>
             <div className="border mx-[5%] my-2"></div>
             <Chat key={chat.id} chat={chat} />
           </div>

@@ -33,7 +33,6 @@ const Chat = ({ chat }) => {
     //get current chat from the backend
     const newUpdatedChat = await getChatById(chat.id);
     setCurrentChat(newUpdatedChat.data);
-    console.log(currentChat);
   };
 
   const isSelected = chat.id === currentChat?.id;

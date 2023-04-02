@@ -1,9 +1,6 @@
 package com.bnta.wormcomms.services;
 
-import com.bnta.wormcomms.models.Chat;
-import com.bnta.wormcomms.models.Friend;
-import com.bnta.wormcomms.models.FriendDTO;
-import com.bnta.wormcomms.models.User;
+import com.bnta.wormcomms.models.*;
 import com.bnta.wormcomms.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +16,14 @@ public class UserService {
     @Autowired
     private UserRepo userRepository;
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserDTO> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        List<UserDTO> userDTOs = new ArrayList<>();
+        for (User user : users) {
+            UserDTO userDTO = new UserDTO(user);
+            userDTOs.add(userDTO);
+        }
+        return userDTOs;
     }
 
     public User saveUser(User user) {
