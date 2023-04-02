@@ -3,6 +3,7 @@ import { getUserChats, createChat } from "../api";
 import { useCurrentUser } from "../UserContext";
 import Friend from "../Components/Friend";
 import Chat from "../Components/Chat";
+import Select from "react-select"
 
 const Chats = () => {
   const { currentUser, setCurrentUser } = useCurrentUser();
@@ -54,9 +55,9 @@ const Chats = () => {
 
   return (
     <div className="h-[85vh]">
-      <div className="w-[100%] flex items-center justify-around">
+      <div className="w-[100%] flex flex-col">
         <select
-          className="w-3/4 border-2 max-h-48 overflow-y-auto mt-5"
+          className="mx-[5%] border-2 max-h-48 overflow-y-auto mt-5"
           onChange={updateNewChat}
           multiple
         >
@@ -79,9 +80,9 @@ const Chats = () => {
         </select>
         <button
           onClick={handleCreateChat}
-          className="p-2 h-12 w-12 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+          className="mx-[5%] mt-2 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
         >
-          +
+          Create New Chat
         </button>
       </div>
       <div className="flex items-center justify-around mt-2"></div>
