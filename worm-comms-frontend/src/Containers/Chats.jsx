@@ -32,6 +32,8 @@ const Chats = () => {
       try {
         await createChat({ name, participantIds });
         fetchUserChats();
+        setSelectedOptions([]);
+        setNewChat([]);
       } catch (error) {
         console.error("Error creating chat:", error);
       }
@@ -55,7 +57,11 @@ const Chats = () => {
         <Select
           className="mx-[5%] overflow-y-auto mt-3"
           options={friendsOptions}
-          onChange={updateNewChat}
+          onChange={(options) => {
+            setSelectedOptions(options);
+            updateNewChat(options);
+          }}
+          value={selectedOptions}
           isMulti
           placeholder="Select Contacts..."
           menuPortalTarget={document.body}
@@ -77,7 +83,7 @@ const Chats = () => {
         </button>
       </div>
       <div className="flex items-center justify-around"></div>
-      <ul className="flex flex-col overflow-y-auto scrollbar-hide max-h-[70vh]">
+      <ul className="flex flex-col overflow-y-auto scrollbar-hide max-h-[78.5vh]">
         {chats.map((chat) => (
           <div>
             <div className="border mx-[5%] my-2"></div>
