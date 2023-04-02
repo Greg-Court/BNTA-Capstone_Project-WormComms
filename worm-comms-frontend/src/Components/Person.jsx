@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { BsPerson } from "react-icons/bs";
 
-const Person = ({ person, currentUser, isFriend }) => {
+const Person = ({ person, currentUser, isFriend, isIncomingRequest }) => {
   const [friendStatus, setFriendStatus] = useState(isFriend);
 
   const handleAddFriend = () => {
@@ -19,6 +19,14 @@ const Person = ({ person, currentUser, isFriend }) => {
     console.log("Block user");
   };
 
+  const handleAcceptRequest = () => {
+    console.log("Accept friend request");
+  };
+
+  const handleRejectRequest = () => {
+    console.log("Reject friend request");
+  };
+
   return (
     <li key={person.id} className="cursor-pointer rounded-xl px-5 py-2 mx-[5%]">
       <div className="flex items-center justify-start">
@@ -30,7 +38,22 @@ const Person = ({ person, currentUser, isFriend }) => {
             {person.username}
           </div>
           <div className="flex items-center">
-            {friendStatus ? (
+            {isIncomingRequest ? (
+              <div className="space-x-2 flex-shrink-0">
+                <button
+                  className="bg-green-500 text-white px-3 py-1 rounded"
+                  onClick={handleAcceptRequest}
+                >
+                  Accept
+                </button>
+                <button
+                  className="bg-red-500 text-white px-3 py-1 rounded"
+                  onClick={handleRejectRequest}
+                >
+                  Reject
+                </button>
+              </div>
+            ) : friendStatus ? (
               <div className="space-x-2 flex-shrink-0">
                 <button
                   className="bg-orange-500 text-white px-3 py-1 rounded"

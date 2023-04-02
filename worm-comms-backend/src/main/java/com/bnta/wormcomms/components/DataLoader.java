@@ -39,6 +39,7 @@ public class DataLoader implements ApplicationRunner {
         User jerry = new User("Jerry", "jerry@bnta.com");
         User squanchy = new User("Squanchy", "squanchy@bnta.com");
         User birdperson = new User("Birdperson", "birdperson@bnta.com");
+        User strangeperson = new User("Strangeperson", "strangeperson@bnta.com");
 
         List<User> participants = new ArrayList<>();
         participants.add(greg);
@@ -60,6 +61,9 @@ public class DataLoader implements ApplicationRunner {
         Friend friend4 = new Friend(greg,james, Friend.Status.FRIEND);
         Friend friend5 = new Friend(hansine,greg, Friend.Status.FRIEND);
         Friend friend6 = new Friend(james,hansine, Friend.Status.FRIEND);
+        Friend friend7 = new Friend(strangeperson,greg, Friend.Status.PENDING);
+        Friend friend8 = new Friend(strangeperson,james, Friend.Status.PENDING);
+        Friend friend9 = new Friend(strangeperson,hansine, Friend.Status.PENDING);
 
         userRepo.save(hansine);
         userRepo.save(james);
@@ -70,6 +74,7 @@ public class DataLoader implements ApplicationRunner {
         userRepo.save(jerry);
         userRepo.save(squanchy);
         userRepo.save(birdperson);
+        userRepo.save(strangeperson);
         messageRepo.save(message1);
         messageRepo.save(message2);
         friendRepo.save(friend1);
@@ -78,6 +83,9 @@ public class DataLoader implements ApplicationRunner {
         friendRepo.save(friend4);
         friendRepo.save(friend5);
         friendRepo.save(friend6);
+        friendRepo.save(friend7);
+        friendRepo.save(friend8);
+        friendRepo.save(friend9);
 
 //        User greg = new User("Greg", "greg@bnta.com");
 //        User hansine = new User("Hansine", "hansine@bnta.com");

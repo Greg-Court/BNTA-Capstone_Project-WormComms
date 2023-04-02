@@ -27,8 +27,9 @@ const People = () => {
   };
 
   const displayOptions = [
-    { value: "friends", label: "Friends" },
     { value: "search_users", label: "Search Users" },
+    { value: "friends", label: "Friends" },
+    { value: "incoming_requests", label: "Incoming Requests" },
   ];
 
   // tests whether at least ONE element in the array matches teh condition
@@ -41,6 +42,11 @@ const People = () => {
       return isFriend(person);
     } else if (displayMode === "search_users") {
       return !isFriend(person) && person.id !== currentUser.id;
+    } else if (displayMode === "incoming_requests") {
+      return person.friends.some(
+        (friend) =>
+          friend.status === "PENDING" && friend.userId === currentUser.id
+      );
     }
     return false;
   });
@@ -49,7 +55,7 @@ const People = () => {
     <div className="h-[85vh]">
       <div className="w-[100%] flex flex-col">
         <Select
-          className="mx-[5%] overflow-y-auto mt-3"
+          className="mx-[5%] overflow-y-auto mt-3 mb-1"
           options={displayOptions}
           onChange={handleDisplayModeChange}
           menuPortalTarget={document.body}
@@ -60,7 +66,7 @@ const People = () => {
         {displayMode === "search_users" && (
           <input
             type="text"
-            className="mx-[5%] my-3 border p-2 rounded"
+            className="mx-[5%] my-2 border p-2 rounded"
             placeholder="Search users..."
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
@@ -73,17 +79,21 @@ const People = () => {
           .filter((person) =>
             person.username.toLowerCase().includes(searchText.toLowerCase())
           )
-          .map((person) => (
-            <div key={person.id}>
-              <div className="border mx-[5%] my-2"></div>
-              <Person
-                key={person.id}
-                person={person}
-                currentUser={currentUser}
-                isFriend={isFriend(person)}
-              />
-            </div>
-          ))}
+          .map((person) => {
+            const isIncomingRequest = displayMode === "incoming_requests";
+            return (
+              <div key={person.id}>
+                <div className="border mx-[5%] my-2"></div>
+                <Person
+                  key={person.id}
+                  person={person}
+                  currentUser={currentUser}
+                  isFriend={isFriend(person)}
+                  isIncomingRequest={isIncomingRequest}
+                />
+              </div>
+            );
+          })}
       </ul>
     </div>
   );
