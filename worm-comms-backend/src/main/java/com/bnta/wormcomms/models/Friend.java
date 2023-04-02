@@ -27,7 +27,7 @@ public class Friend {
 
     @ManyToOne
     @JoinColumn(name="user2")
-    @JsonIgnoreProperties({"friends","messages","chats"})
+    @JsonIgnoreProperties({"friends","messages","chats","password"})
 //    @JsonBackReference
     private User user2;
 
@@ -45,6 +45,21 @@ public class Friend {
         PENDING,
         FRIEND,
         BLOCKED
+    }
+
+    public Friend(User user1, User user2, Status status) {
+        this.user1 = user1;
+        this.user2 = user2;
+        this.status = status;
+    }
+
+    public Friend(int id, User user1, User user2, Status status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.user1 = user1;
+        this.user2 = user2;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     @Override
@@ -76,21 +91,6 @@ public class Friend {
         this.updatedAt = updatedAt;
     }
 
-
-    public Friend(User user1, User user2, Status status) {
-        this.user1 = user1;
-        this.user2 = user2;
-        this.status = status;
-    }
-
-    public Friend(int id, User user1, User user2, Status status, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
-        this.user1 = user1;
-        this.user2 = user2;
-        this.status = status;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
 
     public Friend() {
     }
@@ -126,6 +126,5 @@ public class Friend {
     public void setStatus(Status status) {
         this.status = status;
     }
-
 
 }

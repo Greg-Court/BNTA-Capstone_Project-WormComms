@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { getUserChats, createChat } from "../api";
-import { useCurrentChat } from "../ChatContext";
 import { useCurrentUser } from "../UserContext";
 import Friend from "../Components/Friend";
 import Chat from "../Components/Chat";
+import Select from "react-select";
 
 const Chats = () => {
-  const { currentChat, setCurrentChat } = useCurrentChat();
   const { currentUser, setCurrentUser } = useCurrentUser();
   const [chats, setChats] = useState([]);
   const [newChat, setNewChat] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState([]);
 
   useEffect(() => {
     if (currentUser) {
@@ -19,68 +19,76 @@ const Chats = () => {
 
   const fetchUserChats = async () => {
     const response = await getUserChats(currentUser.id);
-    setChats(response.data);
-    console.log(response.data);
+    setChats(response.data.reverse());
   };
 
-  // this is the function that creates a new chat
   const handleCreateChat = async () => {
     if (newChat.length > 0) {
       const name = "New Chat";
       const participantIds = [
         currentUser.id,
-        ...newChat.map((user) => user.id),
+        ...newChat.map((friend) => friend.userId),
       ];
       try {
-        const newChat = await createChat({ name, participantIds });
-        newChat.messages = [];
-        console.log({ name, participantIds });
-        setChats((prevChats) => [...prevChats, newChat]);
+        await createChat({ name, participantIds });
+        fetchUserChats();
+        setSelectedOptions([]);
+        setNewChat([]);
       } catch (error) {
         console.error("Error creating chat:", error);
       }
     }
   };
 
-  const friends = currentUser.friends.map((friend, index) => {
-    return <Friend friend={friend} key={index}></Friend>;
-  });
+  const friendsOptions = currentUser.friends.map((friend) => ({
+    value: friend.username,
+    label: friend.username,
+    data: friend,
+  }));
 
-  // this is the function that updates the newChat state
-  const updateNewChat = (e) => {
-    const selectedUsers = Array.from(
-      e.target.selectedOptions,
-      (option) => option.value
-    ).map(
-      (username) =>
-        currentUser.friends.find((friend) => friend.user2.username === username)
-          .user2
-    );
+  const updateNewChat = (selectedOptions) => {
+    const selectedUsers = selectedOptions.map((option) => option.data);
     setNewChat(selectedUsers);
   };
 
   return (
-    <div className="min-w-[25%] h-[95vh] border-2">
-      <div className="w-[100%] flex items-center justify-around">
-        <select className="w-[80%]" onChange={updateNewChat} multiple>
-          <option className="h-max-5vh" disabled>
-            Contacts:
-          </option>
-          {friends}
-        </select>
+    <div className="h-[85vh]">
+      <div className="w-[100%] flex flex-col">
+        <Select
+          className="mx-[5%] overflow-y-auto mt-3"
+          options={friendsOptions}
+          onChange={(options) => {
+            setSelectedOptions(options);
+            updateNewChat(options);
+          }}
+          value={selectedOptions}
+          isMulti
+          placeholder="Select Contacts..."
+          menuPortalTarget={document.body}
+          styles={{
+            menuPortal: (base) => ({ ...base, zIndex: 9999 }),
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              handleCreateChat();
+            }
+          }}
+        />
         <button
           onClick={handleCreateChat}
-          className="p-2 h-12 w-12 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+          className="mx-[5%] mt-3 mb-1 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
         >
-          +
+          Create New Chat
         </button>
       </div>
-      <div className="flex items-center justify-around mt-2">
-        <h1>Existing Chats:</h1>
-      </div>
-      <ul className="flex flex-col">
+      <div className="flex items-center justify-around"></div>
+      <ul className="flex flex-col overflow-y-auto scrollbar-hide max-h-[78.5vh]">
         {chats.map((chat) => (
-          <Chat key={chat.id} chat={chat} setCurrentChat={setCurrentChat} currentChatId={currentChat?.id}/>
+          <div key={chat.id}>
+            <div className="border mx-[5%] my-2"></div>
+            <Chat key={chat.id} chat={chat} />
+          </div>
         ))}
       </ul>
     </div>

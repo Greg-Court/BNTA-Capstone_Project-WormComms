@@ -1,6 +1,7 @@
 package com.bnta.wormcomms.controllers;
 
 import com.bnta.wormcomms.models.Chat;
+import com.bnta.wormcomms.models.ChatDTO;
 import com.bnta.wormcomms.models.ChatRequest;
 import com.bnta.wormcomms.models.User;
 import com.bnta.wormcomms.services.ChatService;
@@ -23,14 +24,14 @@ public class ChatController {
         return chatService.getAllChats();
     }
 
-    @GetMapping("/chat/{id}")
+    @GetMapping("/{id}")
     public Chat getChatById(@PathVariable("id") int id) {
         return chatService.getChatById(id);
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<List<Chat>> getUserChats(@PathVariable("id") int id) {
-        List<Chat> userChats = chatService.getChatsForUser(id);
+    public ResponseEntity<List<ChatDTO>> getUserChats(@PathVariable("id") int id) {
+        List<ChatDTO> userChats = chatService.getChatsForUser(id);
         return new ResponseEntity<>(userChats, HttpStatus.OK);
     }
 

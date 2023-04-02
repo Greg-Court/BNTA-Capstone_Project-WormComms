@@ -2,6 +2,7 @@ package com.bnta.wormcomms.controllers;
 
 import com.bnta.wormcomms.models.Chat;
 import com.bnta.wormcomms.models.User;
+import com.bnta.wormcomms.models.UserDTO;
 import com.bnta.wormcomms.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,7 @@ public class UserController {
 
 
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
         return userService.getAllUsers();
     }
 
