@@ -19,7 +19,7 @@ const MainPage = () => {
 
   const navigate = useNavigate()
   const stompClient = useWebSocket();
-
+//comment
   useEffect(() => {
     if (stompClient) {
       stompClient.connect({}, () => {
