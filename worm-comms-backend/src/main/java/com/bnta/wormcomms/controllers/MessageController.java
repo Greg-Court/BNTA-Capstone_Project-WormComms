@@ -47,11 +47,11 @@ public class MessageController {
         Chat chat = chatRepo.findById(messageRequest.getChatId()).get();
         for(User user : chat.getParticipants()) {
             //System.out.println("/user/"+user.getUsername());
-            try {
+//            try {
                 simpMessagingTemplate.convertAndSend("/user/" + user.getUsername(), savedMessage);
-            } catch (Exception e){
-                //System.out.println("There was an error");
-            }
+//            } catch (Exception e){
+//                //System.out.println("There was an error");
+//            }
         }
     }
 

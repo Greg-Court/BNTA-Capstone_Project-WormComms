@@ -19,6 +19,7 @@ public class MessageDTO {
     private int senderId;
 
     private int chatId;
+    private String senderUsername;
 
     public MessageDTO(Message message) {
         this.id = message.getId();
@@ -28,6 +29,7 @@ public class MessageDTO {
         this.isRead = message.isRead();
         this.chatId = message.getChat().getId();
         this.senderId = message.getSender().getId();
+        this.senderUsername = message.getSender().getUsername();
     }
 
     public int getId() {
@@ -84,5 +86,13 @@ public class MessageDTO {
 
     public void setChatId(int chatId) {
         this.chatId = chatId;
+    }
+
+    public String getSenderUsername() {
+        return senderUsername;
+    }
+
+    public void setSenderUsername(String senderUsername) {
+        this.senderUsername = senderUsername;
     }
 }
