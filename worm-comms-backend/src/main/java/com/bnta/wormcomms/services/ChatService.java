@@ -51,7 +51,7 @@ public class ChatService {
         Optional<Chat> optionalChat = chatRepository.findById(id);
         if (optionalChat.isPresent()) {
             Chat existingChat = optionalChat.get();
-            existingChat.setMessages(chat.getMessages());
+            existingChat.setName(chat.getName());
             return chatRepository.save(existingChat);
         }
         throw new NoSuchElementException("Chat not found");
