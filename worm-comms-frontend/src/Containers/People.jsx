@@ -51,11 +51,15 @@ const People = () => {
 
   useEffect(() => {
     if (currentUser?.id) {
-      fetchUsers();
+      fetchData();
     }
   }, [currentUser?.id]);
 
-  const fetchUsers = async () => {
+  useEffect(() => {
+    fetchData();
+  }, [displayMode]);
+
+  const fetchData = async () => {
     const response = await getAllUsers();
     setPeople(response.data);
     const relationshipResponse = await getUserRelationships(currentUser.id);
@@ -110,7 +114,7 @@ const People = () => {
                 key={person.id}
                 person={person}
                 currentUser={currentUser}
-                onRelationshipStatusChange={fetchUsers}
+                onRelationshipStatusChange={fetchData}
               />
             </div>
           ))}
