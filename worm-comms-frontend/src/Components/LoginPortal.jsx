@@ -40,25 +40,12 @@ const LoginPortal = () => {
       if (loginState.emailaddress === user.email) {
         setCurrentUser(user);
         navigate("/home");
-        console.log("user found")
+        console.log(user)
       }
     }
   };
 
-  // Handle Login API Integration here
-  // const authenticateUser = async () =>{
-  //     const users = await getAllUsers();
-  //     for (let user of users.data){
-  //         if(email === users.email && password === 'password'){
-  //             setCurrentUser(user);
-  //         }
-  //     }
 
-  // }
-
-  // const handleLogIn=(e)=>{
-  //     setLoginState({...loginState, [e.target.id]:e.target.value})
-  // }
 
   return (
     <form className="mt-8 space-y-6">

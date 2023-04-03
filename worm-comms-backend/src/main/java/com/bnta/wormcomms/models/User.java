@@ -69,6 +69,7 @@ public class User {
 //    @JsonManagedReference
     private List<Friend> friends;
 
+
     public User(int id, String username, String firstName, String lastName, String profilePicture, String bio, String email, String password, LocalDateTime createdAt, LocalDateTime updatedAt, List<Message> messages, List<Chat> chats) {
         this.id = id;
         this.username = username;
