@@ -1,5 +1,8 @@
 package com.bnta.wormcomms.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDTO {
@@ -19,7 +22,7 @@ public class UserDTO {
         this.lastName = lastName;
         this.profilePicture = profilePicture;
         this.bio = bio;
-        this.friends = friends;
+        this.friends = new ArrayList<>();
         this.email = email;
     }
 
@@ -29,7 +32,7 @@ public class UserDTO {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.friends = friends;
+        this.friends = new ArrayList<>();
     }
 
     public UserDTO(User user) {
@@ -42,6 +45,7 @@ public class UserDTO {
         this.friends = user.getFriendDTOs();
         this.email = user.getEmail();
     }
+
 
     // Add getters and setters for the new ID field
     public int getId() {
