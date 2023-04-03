@@ -31,8 +31,8 @@ public class ChatController {
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<List<Chat>> getUserChats(@PathVariable("id") int id) {
-        List<Chat> userChats = chatService.getChatsForUser(id);
+    public ResponseEntity<List<ChatDTO>> getUserChats(@PathVariable("id") int id) {
+        List<ChatDTO> userChats = chatService.getChatsForUser(id);
         return new ResponseEntity<>(userChats, HttpStatus.OK);
     }
 
