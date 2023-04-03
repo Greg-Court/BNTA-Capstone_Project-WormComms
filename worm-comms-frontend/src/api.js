@@ -70,7 +70,7 @@ export const rejectFriendRequest = async (id) => {
   return await apiClient.put(`/relationships/${id}/reject`);
 };
 
-export const blockFriend = async (id) => {
+export const blockPerson = async (id) => {
   return await apiClient.put(`/relationships/${id}/block`);
 };
 
