@@ -12,8 +12,8 @@ export default function LoginHeader({
         <div className='flex justify-center'>
             <img 
                 alt='our logo'
-                className='h-14 w-14' 
-                src='src/assets/worm.jpeg' />
+                className='h-40 w-40' 
+                src='src/assets/wormBookLogo.png' />
         </div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             {heading}
