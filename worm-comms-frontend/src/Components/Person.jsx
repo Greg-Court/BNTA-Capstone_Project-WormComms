@@ -80,8 +80,8 @@ const Person = ({ person, currentUser, onRelationshipStatusChange }) => {
 
   const handleAcceptRequest = async () => {
     const updatedRelationship = await acceptFriendRequest(
-      currentUser.id,
-      person.id
+      person.id,
+      currentUser.id
     );
     setRelationshipStatus(updatedRelationship.status);
     onRelationshipStatusChange();

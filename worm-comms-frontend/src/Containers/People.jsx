@@ -13,7 +13,7 @@ const People = () => {
 
   const isRelationshipStatus = (person, status) => {
     const relationship = currentUser.relationships.find(
-      (relation) => relation.userId === person.id
+      (relation) => relation.receiverId === person.id
     );
 
     if (status === "") {
@@ -35,7 +35,7 @@ const People = () => {
   };
 
   console.log(people);
-  console.log("Current User:", currentUser)
+  console.log("Current User Relationships", currentUser.relationships)
 
   const displayedPeople = people.filter((person) => {
     if (displayMode === "friends") {
