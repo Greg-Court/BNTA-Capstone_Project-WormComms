@@ -5,7 +5,7 @@ import com.bnta.wormcomms.models.Relationship;
 import com.bnta.wormcomms.models.Message;
 import com.bnta.wormcomms.models.User;
 import com.bnta.wormcomms.repositories.ChatRepo;
-import com.bnta.wormcomms.repositories.FriendRepo;
+import com.bnta.wormcomms.repositories.RelationshipRepo;
 import com.bnta.wormcomms.repositories.UserRepo;
 import com.bnta.wormcomms.repositories.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     UserRepo userRepo;
     @Autowired
-    FriendRepo friendRepo;
+    RelationshipRepo friendRepo;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {

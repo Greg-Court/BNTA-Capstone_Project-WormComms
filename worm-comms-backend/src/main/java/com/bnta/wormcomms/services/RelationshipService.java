@@ -2,7 +2,7 @@ package com.bnta.wormcomms.services;
 
 import com.bnta.wormcomms.models.Relationship;
 import com.bnta.wormcomms.models.RelationshipDTO;
-import com.bnta.wormcomms.repositories.FriendRepo;
+import com.bnta.wormcomms.repositories.RelationshipRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class FriendService {
+public class RelationshipService {
 
     @Autowired
-    private FriendRepo friendRepository;
+    private RelationshipRepo friendRepository;
 
     public Relationship createFriend(Relationship relationship) {
         return friendRepository.save(relationship);

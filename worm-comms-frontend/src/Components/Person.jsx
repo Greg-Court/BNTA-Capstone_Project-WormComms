@@ -5,7 +5,7 @@ import {
   createFriend,
   acceptFriendRequest,
   rejectFriendRequest,
-  blockFriend,
+  blockPerson,
   unfriend,
 } from "../api";
 
@@ -18,7 +18,7 @@ const Person = ({ person, currentUser, isFriend, isIncomingRequest }) => {
     await createFriend(friend);
     setFriendStatus(true);
   };
-  
+
   console.log("Current user relationships: ", currentUser.relationships);
   const handleRemoveFriend = async () => {
     console.log("Remove friend");
@@ -28,39 +28,34 @@ const Person = ({ person, currentUser, isFriend, isIncomingRequest }) => {
     await unfriend(friend.userId);
     setFriendStatus(false);
   };
-  
+
   const handleBlock = async () => {
-    console.log("Block user");
-    let friend = currentUser.friends.find(
-      (friend) => friend.userId === person.id
+    console.log("Block person");
+    const relationship = currentUser.relationships.find(
+      (relationship) => relationship.user2.id === person.id
     );
-    if (!friend) {
-      const friendData = {
-        user1: currentUser,
-        user2: person,
-        status: "PENDING",
-      };
-      friend = await createFriend(friendData);
-      setFriendStatus(true);
-      console.log("Friend:" + JSON.stringify(friend));
-    }
-    await blockFriend(friend.userId);
+    await blockPerson(relationship.id);
+    setFriendStatus(false);
   };
-  
+
   const handleAcceptRequest = async () => {
     console.log("Accept friend request");
-    const friendId = currentUser.friends.find(
-      (friend) => friend.userId === person.id
-    ).id;
-    await acceptFriendRequest(friendId);
+    const relationship = currentUser.relationships.find(
+      (relationship) =>
+        relationship.user2.id === person.id && relationship.status === "PENDING"
+    );
+    await acceptFriendRequest(relationship.id);
+    setFriendStatus(true);
   };
-  
+
   const handleRejectRequest = async () => {
     console.log("Reject friend request");
-    const friendId = currentUser.friends.find(
-      (friend) => friend.userId === person.id
-    ).id;
-    await rejectFriendRequest(friendId);
+    const relationship = currentUser.relationships.find(
+      (relationship) =>
+        relationship.user2.id === person.id && relationship.status === "PENDING"
+    );
+    await rejectFriendRequest(relationship.id);
+    setFriendStatus(false);
   };
 
   return (
