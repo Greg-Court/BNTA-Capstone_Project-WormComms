@@ -1,7 +1,7 @@
 package com.bnta.wormcomms.controllers;
 
-import com.bnta.wormcomms.models.Friend;
-import com.bnta.wormcomms.models.FriendDTO;
+import com.bnta.wormcomms.models.Relationship;
+import com.bnta.wormcomms.models.RelationshipDTO;
 import com.bnta.wormcomms.services.FriendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,24 +12,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/friends")
+@RequestMapping("/api/relationships")
 public class FriendController {
     @Autowired
     private FriendService friendService;
 
     @PostMapping
-    public ResponseEntity<FriendDTO> createFriend(@RequestBody Friend friend) {
-        return new ResponseEntity<>(new FriendDTO(friendService.createFriend(friend)), HttpStatus.CREATED);
+    public ResponseEntity<RelationshipDTO> createFriend(@RequestBody Relationship relationship) {
+        return new ResponseEntity<>(new RelationshipDTO(friendService.createFriend(relationship)), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<FriendDTO>> getUserFriends(@PathVariable int id) {
-        return new ResponseEntity<>(new ArrayList<FriendDTO>(friendService.findAllFriendsByUserId(id)), HttpStatus.OK);
+    public ResponseEntity<List<RelationshipDTO>> getUserFriends(@PathVariable int id) {
+        return new ResponseEntity<>(new ArrayList<RelationshipDTO>(friendService.findAllFriendsByUserId(id)), HttpStatus.OK);
     }
 
     @PutMapping("/{id}/accept")
-    public ResponseEntity<FriendDTO> acceptFriendRequest(@PathVariable int id) {
-        return new ResponseEntity<>(new FriendDTO(friendService.acceptFriendRequest(id)), HttpStatus.OK);
+    public ResponseEntity<RelationshipDTO> acceptFriendRequest(@PathVariable int id) {
+        return new ResponseEntity<>(new RelationshipDTO(friendService.acceptFriendRequest(id)), HttpStatus.OK);
     }
 
     @PutMapping("/{id}/reject")
@@ -39,8 +39,8 @@ public class FriendController {
     }
 
     @PutMapping("/{id}/block")
-    public ResponseEntity<FriendDTO> blockFriend(@PathVariable int id) {
-        return new ResponseEntity<>(new FriendDTO(friendService.blockFriend(id)), HttpStatus.OK);
+    public ResponseEntity<RelationshipDTO> blockFriend(@PathVariable int id) {
+        return new ResponseEntity<>(new RelationshipDTO(friendService.blockFriend(id)), HttpStatus.OK);
     }
 
     @PutMapping("/{id}/unfriend")

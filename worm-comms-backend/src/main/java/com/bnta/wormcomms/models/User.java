@@ -67,7 +67,7 @@ public class User {
     // If you need to keep some relationships while avoiding circular references, you can use the @JsonManagedReference and @JsonBackReference annotations.
     // Annotate the owning side of the relationship with @JsonManagedReference and the inverse side with @JsonBackReference.
 //    @JsonManagedReference
-    private List<Friend> friends;
+    private List<Relationship> relationships;
 
 
     public User(int id, String username, String firstName, String lastName, String profilePicture, String bio, String email, String password, LocalDateTime createdAt, LocalDateTime updatedAt, List<Message> messages, List<Chat> chats) {
@@ -207,25 +207,25 @@ public class User {
         this.email = email;
     }
 
-    public List<Friend> getFriends() {
-        return friends;
+    public List<Relationship> getRelationships() {
+        return relationships;
     }
 
-    public void setFriends(List<Friend> friends) {
-        this.friends = friends;
+    public void setRelationships(List<Relationship> relationships) {
+        this.relationships = relationships;
     }
 
-    public List<FriendDTO> getFriendDTOs() {
-        List<FriendDTO> friendDTOs = new ArrayList<>();
-        List<Friend> friends = this.getFriends();
-        for (Friend friend : friends) {
-            FriendDTO friendDTO = new FriendDTO(friend);
-            friendDTOs.add(friendDTO);
+    public List<RelationshipDTO> getRelationshipDTOs() {
+        List<RelationshipDTO> relationshipDTOS = new ArrayList<>();
+        List<Relationship> relationships = this.getRelationships();
+        for (Relationship relationship : relationships) {
+            RelationshipDTO relationshipDTO = new RelationshipDTO(relationship);
+            relationshipDTOS.add(relationshipDTO);
         }
-        return friendDTOs;
+        return relationshipDTOS;
     }
 
     public UserDTO getUserDTO() {
-        return new UserDTO(id, username, email, firstName, lastName, getFriendDTOs());
+        return new UserDTO(id, username, email, firstName, lastName, getRelationshipDTOs());
     }
 }

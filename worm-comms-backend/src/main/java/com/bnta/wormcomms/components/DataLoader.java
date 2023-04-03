@@ -1,7 +1,7 @@
 package com.bnta.wormcomms.components;
 
 import com.bnta.wormcomms.models.Chat;
-import com.bnta.wormcomms.models.Friend;
+import com.bnta.wormcomms.models.Relationship;
 import com.bnta.wormcomms.models.Message;
 import com.bnta.wormcomms.models.User;
 import com.bnta.wormcomms.repositories.ChatRepo;
@@ -54,15 +54,15 @@ public class DataLoader implements ApplicationRunner {
 
         Message message1 = new Message(james, chat, "hello");
         Message message2 = new Message(greg, chat, "hi");
-        Friend friend1 = new Friend(james,greg, Friend.Status.FRIEND);
-        Friend friend2 = new Friend(hansine,james, Friend.Status.FRIEND);
-        Friend friend3 = new Friend(greg,hansine, Friend.Status.FRIEND);
-        Friend friend4 = new Friend(greg,james, Friend.Status.FRIEND);
-        Friend friend5 = new Friend(hansine,greg, Friend.Status.FRIEND);
-        Friend friend6 = new Friend(james,hansine, Friend.Status.FRIEND);
-        Friend friend7 = new Friend(strangeperson,greg, Friend.Status.PENDING);
-        Friend friend8 = new Friend(strangeperson,james, Friend.Status.PENDING);
-        Friend friend9 = new Friend(strangeperson,hansine, Friend.Status.PENDING);
+        Relationship relationship1 = new Relationship(james,greg, Relationship.Status.FRIEND);
+        Relationship relationship2 = new Relationship(hansine,james, Relationship.Status.FRIEND);
+        Relationship relationship3 = new Relationship(greg,hansine, Relationship.Status.FRIEND);
+        Relationship relationship4 = new Relationship(greg,james, Relationship.Status.FRIEND);
+        Relationship relationship5 = new Relationship(hansine,greg, Relationship.Status.FRIEND);
+        Relationship relationship6 = new Relationship(james,hansine, Relationship.Status.FRIEND);
+        Relationship relationship7 = new Relationship(strangeperson,greg, Relationship.Status.PENDING);
+        Relationship relationship8 = new Relationship(strangeperson,james, Relationship.Status.PENDING);
+        Relationship relationship9 = new Relationship(strangeperson,hansine, Relationship.Status.PENDING);
 
         userRepo.save(hansine);
         userRepo.save(james);
@@ -76,15 +76,15 @@ public class DataLoader implements ApplicationRunner {
         userRepo.save(strangeperson);
         messageRepo.save(message1);
         messageRepo.save(message2);
-        friendRepo.save(friend1);
-        friendRepo.save(friend2);
-        friendRepo.save(friend3);
-        friendRepo.save(friend4);
-        friendRepo.save(friend5);
-        friendRepo.save(friend6);
-        friendRepo.save(friend7);
-        friendRepo.save(friend8);
-        friendRepo.save(friend9);
+        friendRepo.save(relationship1);
+        friendRepo.save(relationship2);
+        friendRepo.save(relationship3);
+        friendRepo.save(relationship4);
+        friendRepo.save(relationship5);
+        friendRepo.save(relationship6);
+        friendRepo.save(relationship7);
+        friendRepo.save(relationship8);
+        friendRepo.save(relationship9);
 
 //        User greg = new User("Greg", "greg@bnta.com");
 //        User hansine = new User("Hansine", "hansine@bnta.com");

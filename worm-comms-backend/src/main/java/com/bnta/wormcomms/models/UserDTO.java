@@ -1,7 +1,5 @@
 package com.bnta.wormcomms.models;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,27 +10,27 @@ public class UserDTO {
     private String lastName;
     private String profilePicture;
     private String bio;
-    private List<FriendDTO> friends;
+    private List<RelationshipDTO> relationships;
     private String email;
 
-    public UserDTO(int id, String username, String firstName, String lastName, String profilePicture, String bio, List<FriendDTO> friends, String email) {
+    public UserDTO(int id, String username, String firstName, String lastName, String profilePicture, String bio, List<RelationshipDTO> relationships, String email) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.profilePicture = profilePicture;
         this.bio = bio;
-        this.friends = new ArrayList<>();
+        this.relationships = new ArrayList<>();
         this.email = email;
     }
 
-    public UserDTO(int id, String username, String email, String firstName, String lastName, List<FriendDTO> friends) {
+    public UserDTO(int id, String username, String email, String firstName, String lastName, List<RelationshipDTO> relationships) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.friends = new ArrayList<>();
+        this.relationships = new ArrayList<>();
     }
 
     public UserDTO(User user) {
@@ -42,7 +40,7 @@ public class UserDTO {
         this.lastName = user.getLastName();
         this.profilePicture = user.getProfilePicture();
         this.bio = user.getBio();
-        this.friends = user.getFriendDTOs();
+        this.relationships = user.getRelationshipDTOs();
         this.email = user.getEmail();
     }
 
@@ -96,12 +94,12 @@ public class UserDTO {
         this.bio = bio;
     }
 
-    public List<FriendDTO> getFriends() {
-        return friends;
+    public List<RelationshipDTO> getRelationships() {
+        return relationships;
     }
 
-    public void setFriends(List<FriendDTO> friends) {
-        this.friends = friends;
+    public void setRelationships(List<RelationshipDTO> relationships) {
+        this.relationships = relationships;
     }
 
     public String getEmail() {
