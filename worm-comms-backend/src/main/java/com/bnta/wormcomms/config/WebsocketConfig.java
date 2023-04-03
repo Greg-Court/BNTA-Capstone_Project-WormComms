@@ -22,7 +22,7 @@ public class WebsocketConfig implements WebSocketMessageBrokerConfigurer {
         // /chatroom and /user: Simple broker destinations for public and private messages, respectively.
         registry.enableSimpleBroker("/chat", "/user");
         // /user: Prefix for user-specific messages, used for private messaging.
-        registry.setUserDestinationPrefix("/user");
+        registry.setUserDestinationPrefix("/user/**");
     }
 
     // registerStompEndpoints(): This method registers a STOMP endpoint, allowing clients to connect using the WebSocket protocol.

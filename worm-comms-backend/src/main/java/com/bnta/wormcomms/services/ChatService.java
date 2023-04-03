@@ -72,6 +72,11 @@ public class ChatService {
     }
 
     public Chat getChatById(int id){
-        return chatRepository.findById(id).get();
+        Optional<Chat> optionalChat = chatRepository.findById(id);
+        if (optionalChat.isPresent()) {
+            return optionalChat.get();
+        } else {
+            throw new NoSuchElementException("Chat with id " + id + " not found");
+        }
     }
 }
