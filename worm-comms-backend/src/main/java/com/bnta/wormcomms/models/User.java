@@ -60,13 +60,15 @@ public class User {
     @JsonIgnoreProperties({"participants","messages"})
     private List<Chat> chats;
 
-    @OneToMany(mappedBy = "user1", orphanRemoval = true, fetch = FetchType.EAGER)
+    // orphanRemoval = true,
+    @OneToMany(mappedBy = "user1", fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"user1"})
     // @JsonIgnore --> this broke the ability to GET chats
     // If you need to keep some relationships while avoiding circular references, you can use the @JsonManagedReference and @JsonBackReference annotations.
     // Annotate the owning side of the relationship with @JsonManagedReference and the inverse side with @JsonBackReference.
 //    @JsonManagedReference
     private List<Friend> friends;
+
 
     public User(int id, String username, String firstName, String lastName, String profilePicture, String bio, String email, String password, LocalDateTime createdAt, LocalDateTime updatedAt, List<Message> messages, List<Chat> chats) {
         this.id = id;

@@ -1,30 +1,55 @@
 import React from "react";
 import { useState } from "react";
 import { BsPerson } from "react-icons/bs";
+import {
+  createFriend,
+  acceptFriendRequest,
+  rejectFriendRequest,
+  blockFriend,
+  unfriend,
+} from "../api";
 
 const Person = ({ person, currentUser, isFriend, isIncomingRequest }) => {
   const [friendStatus, setFriendStatus] = useState(isFriend);
 
-  const handleAddFriend = () => {
+  const handleAddFriend = async () => {
     console.log("Add friend");
+    const friend = { user1: currentUser, user2: person, status: "PENDING" };
+    await createFriend(friend);
     setFriendStatus(true);
   };
-
-  const handleRemoveFriend = () => {
+  
+  const handleRemoveFriend = async () => {
     console.log("Remove friend");
+    const friendId = currentUser.friends.find(
+      (friend) => friend.userId === person.id
+    ).id;
+    await unfriend(friendId);
     setFriendStatus(false);
   };
-
-  const handleBlock = () => {
+  
+  const handleBlock = async () => {
     console.log("Block user");
+    const friendId = currentUser.friends.find(
+      (friend) => friend.userId === person.id
+    ).id;
+    await blockFriend(friendId);
   };
-
-  const handleAcceptRequest = () => {
+  
+  const handleAcceptRequest = async () => {
     console.log("Accept friend request");
+    const friendId = currentUser.friends.find(
+      (friend) => friend.userId === person.id
+    ).id;
+    await acceptFriendRequest(friendId);
   };
-
-  const handleRejectRequest = () => {
+  
+  const handleRejectRequest = async () => {
     console.log("Reject friend request");
+    const friendId = currentUser.friends.find(
+      (friend) => friend.userId === person.id
+    ).id;
+    await rejectFriendRequest(friendId);
   };
 
   return (

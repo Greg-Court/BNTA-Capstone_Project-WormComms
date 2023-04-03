@@ -4,13 +4,14 @@ import axios from 'axios';
 const apiClient = axios.create({
   baseURL: 'http://localhost:8080/api',
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json', 
   },
 });
 
 export const createUser = async (user) => {
   return await apiClient.post('/users', user);
 };
+
 
 export const getAllChats = async () => {
   return await apiClient.get('/chats');
@@ -41,10 +42,41 @@ export const getAllUsers = async () => {
   return await apiClient.get('/users');
 }
 
+export const getUserById = async (id) => {
+  return await apiClient.get(`/users/${id}`, id);
+}
+
 export const getChatById = async (id) => {
-  return await apiClient.get(`/chats/${id}`)
+  return await apiClient.get(`/chats/${id}`);
 }
 
 export const updateChat = async (id, chat) => {
   return await apiClient.put(`/chats/${id}`, chat);
 };
+
+export const createFriend = async (friend) => {
+  return await apiClient.post('/friends', friend);
+};
+
+export const getUserFriends = async (userId) => {
+  return await apiClient.get(`/friends/${userId}`);
+};
+
+export const acceptFriendRequest = async (id) => {
+  return await apiClient.put(`/friends/${id}/accept`);
+};
+
+export const rejectFriendRequest = async (id) => {
+  return await apiClient.put(`/friends/${id}/reject`);
+};
+
+export const blockFriend = async (id) => {
+  return await apiClient.put(`/friends/${id}/block`);
+};
+
+export const unfriend = async (id) => {
+  return await apiClient.put(`/friends/${id}/unfriend`);
+};
+export const updateUser = async (id, user) => {
+  return await apiClient.put(`/users/${id}`, user);
+}
