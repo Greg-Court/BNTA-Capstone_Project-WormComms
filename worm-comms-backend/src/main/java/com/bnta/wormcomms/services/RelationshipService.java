@@ -8,6 +8,7 @@ import com.bnta.wormcomms.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.Relation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,9 @@ public class RelationshipService {
 
     @Autowired
     private UserRepo userRepository;
+
+    @Autowired
+    private RelationshipRepo relationshipRepository;
 
     public Relationship createFriend(Relationship relationship) {
         return friendRepository.save(relationship);
@@ -129,6 +133,16 @@ public class RelationshipService {
         } else {
             throw new RuntimeException("Relationship not found.");
         }
+    }
+
+    public List<RelationshipDTO> findAllRelationships() {
+        List<Relationship> relationships = relationshipRepository.findAll();
+        List<RelationshipDTO> relationshipDTOs = new ArrayList<>();
+        for (Relationship relationship : relationships) {
+            RelationshipDTO relationshipDTO = new RelationshipDTO(relationship);
+            relationshipDTOs.add(relationshipDTO);
+        }
+        return relationshipDTOs;
     }
 
 }

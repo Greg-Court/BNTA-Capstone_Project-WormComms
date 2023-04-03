@@ -23,16 +23,19 @@ const People = () => {
     }
   };
 
-  const hasIncomingRequestFrom = (person) => {
+  const hasIncomingRequest = (person) => {
     const incomingRequest = person.relationships.find(
       (relation) =>
-        relation.receiverId === currentUser.id && relation.status === "PENDING"
+        relation.receiverId === currentUser.id &&
+        relation.status === "PENDING" &&
+        person.id !== currentUser.id
     );
 
     return !!incomingRequest;
   };
 
   console.log(people);
+  console.log("Current User:", currentUser)
 
   const displayedPeople = people.filter((person) => {
     if (displayMode === "friends") {
@@ -40,7 +43,7 @@ const People = () => {
     } else if (displayMode === "search_users") {
       return isRelationshipStatus(person, "");
     } else if (displayMode === "incoming_requests") {
-      return hasIncomingRequestFrom(person);
+      return hasIncomingRequest(person);
     } else if (displayMode === "outgoing_requests") {
       return isRelationshipStatus(person, "PENDING");
     } else if (displayMode === "blocked") {

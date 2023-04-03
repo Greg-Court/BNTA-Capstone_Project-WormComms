@@ -12,9 +12,9 @@ import {
 } from "../api";
 
 const getRelationshipStatus = (currentUser, person) => {
-  const relationship = currentUser.relationships.find(
+  const relationship = person.relationships.find(
     (relation) =>
-      relation.receiverId === person.id || relation.senderId === person.id
+      relation.receiverId === currentUser.id
   );
   if (relationship) {
     return relationship.status;
@@ -23,13 +23,13 @@ const getRelationshipStatus = (currentUser, person) => {
   }
 };
 
-const getRelationshipReceiverId = (currentUser, person) => {
-  const relationship = currentUser.relationships.find(
+const getRelationship = (currentUser, person) => {
+  const relationship = person.relationships.find(
     (relation) =>
-      relation.receiverId === person.id || relation.senderId === person.id
+      relation.receiverId === currentUser.id
   );
   if (relationship) {
-    return relationship.receiverId;
+    return relationship;
   } else {
     return null;
   }
@@ -39,9 +39,15 @@ const Person = ({ person, currentUser, onRelationshipStatusChange }) => {
   const [relationshipStatus, setRelationshipStatus] = useState(
     getRelationshipStatus(currentUser, person)
   );
-  const [relationshipReceiverId, setRelationshipReceiverId] = useState(
-    getRelationshipReceiverId(currentUser, person)
+  const [relationship, setRelationship] = useState(
+    getRelationship(currentUser, person)
   );
+
+  useEffect(() => {
+    setRelationshipStatus(getRelationshipStatus(currentUser, person));
+    setRelationship(getRelationship(currentUser, person));
+  }, [currentUser.relationships, person]);
+
 
   const handleAddFriend = async () => {
     const relationship = {
@@ -113,7 +119,7 @@ const Person = ({ person, currentUser, onRelationshipStatusChange }) => {
       );
     } else if (
       relationshipStatus === "PENDING" &&
-      relationshipReceiverId !== currentUser.id
+      relationship?.receiverId !== currentUser.id
     ) {
       return (
         <div className="space-x-2 flex-shrink-0">
@@ -127,7 +133,7 @@ const Person = ({ person, currentUser, onRelationshipStatusChange }) => {
       );
     } else if (
       relationshipStatus === "PENDING" &&
-      relationshipReceiverId === currentUser.id
+      relationship?.receiverId === currentUser.id
     ) {
       return (
         <div className="space-x-2 flex-shrink-0">

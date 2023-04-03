@@ -3,6 +3,7 @@ package com.bnta.wormcomms.models;
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
+import java.sql.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +70,10 @@ public class User {
 //    @JsonManagedReference
     private List<Relationship> relationships;
 
+    @OneToMany(mappedBy = "user2", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"user2"})
+    private List<Relationship> inverseRelationships;
+
 
     public User(int id, String username, String firstName, String lastName, String profilePicture, String bio, String email, String password, LocalDateTime createdAt, LocalDateTime updatedAt, List<Message> messages, List<Chat> chats) {
         this.id = id;
@@ -83,6 +88,8 @@ public class User {
         this.updatedAt = updatedAt;
         this.messages = new ArrayList<>();
         this.chats = new ArrayList<>();
+        this.relationships = new ArrayList<>();
+        this.inverseRelationships = new ArrayList<>();
     }
 
     public User(String username, String email) {
@@ -90,6 +97,8 @@ public class User {
         this.chats = new ArrayList<>();
         this.username = username;
         this.email = email;
+        this.inverseRelationships = new ArrayList<>();
+        this.relationships = new ArrayList<>();
     }
 
     public User() {
@@ -217,8 +226,9 @@ public class User {
 
     public List<RelationshipDTO> getRelationshipDTOs() {
         List<RelationshipDTO> relationshipDTOS = new ArrayList<>();
-        List<Relationship> relationships = this.getRelationships();
-        for (Relationship relationship : relationships) {
+        List<Relationship> allRelationships = new ArrayList<>(this.getRelationships());
+        allRelationships.addAll(this.getInverseRelationships());
+        for (Relationship relationship : allRelationships) {
             RelationshipDTO relationshipDTO = new RelationshipDTO(relationship);
             relationshipDTOS.add(relationshipDTO);
         }
@@ -227,5 +237,13 @@ public class User {
 
     public UserDTO getUserDTO() {
         return new UserDTO(id, username, email, firstName, lastName, getRelationshipDTOs());
+    }
+
+    public List<Relationship> getInverseRelationships() {
+        return inverseRelationships;
+    }
+
+    public void setInverseRelationships(List<Relationship> inverseRelationships) {
+        this.inverseRelationships = inverseRelationships;
     }
 }

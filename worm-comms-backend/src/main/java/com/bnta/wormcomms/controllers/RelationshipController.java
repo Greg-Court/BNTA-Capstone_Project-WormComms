@@ -68,6 +68,10 @@ public class RelationshipController {
         relationshipService.unfriend(userId, targetUserId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @GetMapping
+    public ResponseEntity<List<RelationshipDTO>> getAllRelationships() {
+        return new ResponseEntity<>(new ArrayList<RelationshipDTO>(relationshipService.findAllRelationships()), HttpStatus.OK);
+    }
 
 }
 
