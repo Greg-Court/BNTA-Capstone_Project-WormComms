@@ -43,6 +43,7 @@ public class ChatController {
 
     @PutMapping("/{id}")
     public Chat updateChat(@PathVariable int id, @RequestBody Chat chat) {
+        System.out.println(chat);
         return chatService.updateChat(id, chat);
     }
 

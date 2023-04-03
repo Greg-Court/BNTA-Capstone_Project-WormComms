@@ -5,13 +5,12 @@ import com.bnta.wormcomms.models.Friend;
 import com.bnta.wormcomms.models.Message;
 import com.bnta.wormcomms.models.User;
 import com.bnta.wormcomms.repositories.ChatRepo;
-import com.bnta.wormcomms.repositories.FriendsRepo;
+import com.bnta.wormcomms.repositories.FriendRepo;
 import com.bnta.wormcomms.repositories.UserRepo;
 import com.bnta.wormcomms.repositories.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.data.repository.core.support.FragmentNotImplementedException;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     UserRepo userRepo;
     @Autowired
-    FriendsRepo friendRepo;
+    FriendRepo friendRepo;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {

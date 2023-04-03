@@ -23,14 +23,15 @@ public class Chat {
     @Column(name="name")
     private String name;
 
-    @OneToMany(mappedBy = "chat", orphanRemoval = true, fetch = FetchType.EAGER)
+    // orphanRemoval = true,
+    @OneToMany(mappedBy = "chat", fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"chat"})
-    @JsonManagedReference
+//    @JsonManagedReference
     private List<Message> messages;
 
     @ManyToMany(mappedBy = "chats", fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"chats"})
-    @JsonBackReference
+//    @JsonBackReference
     private List<User> participants;
 
     @Column(name="created_at")
