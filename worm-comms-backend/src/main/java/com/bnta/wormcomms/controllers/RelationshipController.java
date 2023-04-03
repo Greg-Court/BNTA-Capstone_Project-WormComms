@@ -27,26 +27,47 @@ public class RelationshipController {
         return new ResponseEntity<>(new ArrayList<RelationshipDTO>(relationshipService.findAllFriendsByUserId(id)), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}/accept")
-    public ResponseEntity<RelationshipDTO> acceptFriendRequest(@PathVariable int id) {
-        return new ResponseEntity<>(new RelationshipDTO(relationshipService.acceptFriendRequest(id)), HttpStatus.OK);
+    @PutMapping("/accept/{userId}/{targetUserId}")
+    public ResponseEntity<Relationship> acceptFriendRequest(
+            @PathVariable("userId") int userId, @PathVariable("targetUserId") int targetUserId) {
+        Relationship relationship = relationshipService.acceptFriendRequest(userId, targetUserId);
+        return new ResponseEntity<>(relationship, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}/reject")
-    public ResponseEntity<Void> rejectFriendRequest(@PathVariable int id) {
-        relationshipService.rejectFriendRequest(id);
+    @PutMapping("/block/{userId}/{targetUserId}")
+    public ResponseEntity<Relationship> blockPerson(
+            @PathVariable("userId") int userId, @PathVariable("targetUserId") int targetUserId) {
+        Relationship relationship = relationshipService.blockFriend(userId, targetUserId);
+        return new ResponseEntity<>(relationship, HttpStatus.OK);
+    }
+
+    @PutMapping("/reject/{userId}/{targetUserId}")
+    public ResponseEntity<Void> rejectFriendRequest(
+            @PathVariable("userId") int userId, @PathVariable("targetUserId") int targetUserId) {
+        relationshipService.rejectFriendRequest(userId, targetUserId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/{id}/block")
-    public ResponseEntity<RelationshipDTO> blockFriend(@PathVariable int id) {
-        return new ResponseEntity<>(new RelationshipDTO(relationshipService.blockFriend(id)), HttpStatus.OK);
-    }
-
-    @PutMapping("/{id}/unfriend")
-    public ResponseEntity<Void> unfriend(@PathVariable int id) {
-        relationshipService.unfriend(id);
+    @PutMapping("/cancelRequest/{userId}/{targetUserId}")
+    public ResponseEntity<Void> cancelFriendRequest(
+            @PathVariable("userId") int userId, @PathVariable("targetUserId") int targetUserId) {
+        relationshipService.cancelFriendRequest(userId, targetUserId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PutMapping("/unblock/{userId}/{targetUserId}")
+    public ResponseEntity<Void> unblockPerson(
+            @PathVariable("userId") int userId, @PathVariable("targetUserId") int targetUserId) {
+        relationshipService.unblockPerson(userId, targetUserId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/unfriend/{userId}/{targetUserId}")
+    public ResponseEntity<Void> unfriend(
+            @PathVariable("userId") int userId, @PathVariable("targetUserId") int targetUserId) {
+        relationshipService.unfriend(userId, targetUserId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }
 

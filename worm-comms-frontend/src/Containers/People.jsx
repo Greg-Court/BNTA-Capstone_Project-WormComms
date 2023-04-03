@@ -11,7 +11,44 @@ const People = () => {
   const [displayMode, setDisplayMode] = useState("search_users");
   const [searchText, setSearchText] = useState("");
 
-  // had to change this from currentUser to currentUser.id cause it was causing infinite loop
+  const isRelationshipStatus = (person, status) => {
+    const relationship = currentUser.relationships.find(
+      (relation) => relation.userId === person.id
+    );
+
+    if (status === "") {
+      return !relationship && person.id !== currentUser.id;
+    } else {
+      return relationship && relationship.status === status;
+    }
+  };
+
+  const hasIncomingRequest = (person) => {
+    const incomingRequest = person.relationships.find(
+      (relation) =>
+        relation.userId === currentUser.id && relation.status === "PENDING"
+    );
+
+    return !!incomingRequest;
+  };
+
+  console.log(people);
+
+  const displayedPeople = people.filter((person) => {
+    if (displayMode === "friends") {
+      return isRelationshipStatus(person, "FRIEND");
+    } else if (displayMode === "search_users") {
+      return isRelationshipStatus(person, "");
+    } else if (displayMode === "incoming_requests") {
+      return hasIncomingRequest(person);
+    } else if (displayMode === "outgoing_requests") {
+      return isRelationshipStatus(person, "PENDING");
+    } else if (displayMode === "blocked") {
+      return isRelationshipStatus(person, "BLOCKED");
+    }
+    return false;
+  });
+
   useEffect(() => {
     if (currentUser?.id) {
       fetchUsers();
@@ -21,7 +58,6 @@ const People = () => {
   const fetchUsers = async () => {
     const response = await getAllUsers();
     setPeople(response.data);
-    console.log("PEOPLE:" + JSON.stringify(people));
     const relationshipResponse = await getUserRelationships(currentUser.id);
     setCurrentUser({
       ...currentUser,
@@ -37,26 +73,9 @@ const People = () => {
     { value: "search_users", label: "Users" },
     { value: "friends", label: "Friends" },
     { value: "incoming_requests", label: "Incoming Requests" },
+    { value: "outgoing_requests", label: "Outgoing Requests" },
+    { value: "blocked", label: "Blocked" },
   ];
-
-  // tests whether at least ONE element in the array matches teh condition
-  const isRelationship = (person) => {
-    return currentUser.relationships.some((friend) => friend.userId === person.id);
-  };
-
-  const displayedPeople = people.filter((person) => {
-    if (displayMode === "friends") {
-      return isRelationship(person);
-    } else if (displayMode === "search_users") {
-      return !isRelationship(person) && person.id !== currentUser.id;
-    } else if (displayMode === "incoming_requests") {
-      return person.relationships.some(
-        (friend) =>
-          friend.status === "PENDING" && friend.userId === currentUser.id
-      );
-    }
-    return false;
-  });
 
   return (
     <div className="h-[85vh]">
@@ -70,15 +89,13 @@ const People = () => {
             menuPortal: (base) => ({ ...base, zIndex: 9999 }),
           }}
         />
-        {displayMode === "search_users" && (
-          <input
-            type="text"
-            className="mx-[5%] my-2 border p-2 rounded"
-            placeholder="Search users..."
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-          />
-        )}
+        <input
+          type="text"
+          className="mx-[5%] my-2 border p-2 rounded"
+          placeholder="Search users..."
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
       </div>
       <div className="flex items-center justify-around"></div>
       <ul className="flex flex-col overflow-y-auto scrollbar-hide max-h-[78.5vh]">
@@ -86,21 +103,17 @@ const People = () => {
           .filter((person) =>
             person.username.toLowerCase().includes(searchText.toLowerCase())
           )
-          .map((person) => {
-            const isIncomingRequest = displayMode === "incoming_requests";
-            return (
-              <div key={person.id}>
-                <div className="border mx-[5%] my-2"></div>
-                <Person
-                  key={person.id}
-                  person={person}
-                  currentUser={currentUser}
-                  isFriend={isRelationship(person)}
-                  isIncomingRequest={isIncomingRequest}
-                />
-              </div>
-            );
-          })}
+          .map((person) => (
+            <div key={person.id}>
+              <div className="border mx-[5%] my-2"></div>
+              <Person
+                key={person.id}
+                person={person}
+                currentUser={currentUser}
+                onRelationshipStatusChange={fetchUsers}
+              />
+            </div>
+          ))}
       </ul>
     </div>
   );
