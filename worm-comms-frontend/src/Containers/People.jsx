@@ -11,14 +11,19 @@ const People = () => {
   const [displayMode, setDisplayMode] = useState("search_users");
   const [searchText, setSearchText] = useState("");
 
+
+  // check if specific relationship exists between currentUser and person
   const isRelationshipStatus = (person, status) => {
+    // return first element in array that satisfies the testing function
     const relationship = currentUser.relationships.find(
       (relation) => relation.receiverId === person.id
     );
-
+    // if status "" return users where there is no relationship
     if (status === "") {
       return !relationship && person.id !== currentUser.id;
     } else {
+      // if status is not an emtpy string, return users 
+      // where there is a relationship with the specified status
       return relationship && relationship.status === status;
     }
   };
