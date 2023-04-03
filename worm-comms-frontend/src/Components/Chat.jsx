@@ -15,14 +15,17 @@ const Chat = ({ chat }) => {
     setisEditing(true);
   };
 
+
   const handleNameChange = async (e) => {
     try {
       if (e.key === "Enter") {
         setisEditing(false);
         if (newName !== chat.name) {
+          console.log(chat);
           await updateChat(chat.id, { ...chat, name: newName });
           const updatedChat = await getChatById(chat.id);
           setCurrentChat(updatedChat.data);
+          chat.name = updatedChat.data.name;
         }
       }
     } catch (error) {
@@ -43,7 +46,7 @@ const Chat = ({ chat }) => {
   
   useEffect(() => {
     setLastMessage(getLastMessage());
-  }, [chat, lastMessage])
+  }, [currentChat])
   
 
   const getLastMessage = () => {
@@ -80,7 +83,7 @@ const Chat = ({ chat }) => {
               autoFocus
             />
           ) : (
-            <div className="font-semibold">{chat.name}</div>
+            <div key={chat.id} className="font-semibold">{chat.name}</div>
           )}
           <div className="text-xs text-gray-500">{participants}</div>
         </div>
