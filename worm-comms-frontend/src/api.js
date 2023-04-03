@@ -55,27 +55,27 @@ export const updateChat = async (id, chat) => {
 };
 
 export const createFriend = async (friend) => {
-  return await apiClient.post('/friends', friend);
+  return await apiClient.post('/relationships', friend);
 };
 
-export const getUserFriends = async (userId) => {
-  return await apiClient.get(`/friends/${userId}`);
+export const getUserRelationships = async (userId) => {
+  return await apiClient.get(`/relationships/${userId}`);
 };
 
 export const acceptFriendRequest = async (id) => {
-  return await apiClient.put(`/friends/${id}/accept`);
+  return await apiClient.put(`/relationships/${id}/accept`);
 };
 
 export const rejectFriendRequest = async (id) => {
-  return await apiClient.put(`/friends/${id}/reject`);
+  return await apiClient.put(`/relationships/${id}/reject`);
 };
 
 export const blockFriend = async (id) => {
-  return await apiClient.put(`/friends/${id}/block`);
+  return await apiClient.put(`/relationships/${id}/block`);
 };
 
 export const unfriend = async (id) => {
-  return await apiClient.put(`/friends/${id}/unfriend`);
+  return await apiClient.put(`/relationships/${id}/unfriend`);
 };
 export const updateUser = async (id, user) => {
   return await apiClient.put(`/users/${id}`, user);

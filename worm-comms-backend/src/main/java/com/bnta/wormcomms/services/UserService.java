@@ -41,15 +41,15 @@ public class UserService {
         throw new NoSuchElementException("User not found");
     }
 
-    public List<FriendDTO> getFriendsForUser(int userId) {
+    public List<RelationshipDTO> getFriendsForUser(int userId) {
         Optional<User> user = userRepository.findById(userId);
-        List<Friend> friends = user.get().getFriends();
-        List<FriendDTO> friendDTOs = new ArrayList<>();
-        for (Friend friend : friends) {
-            FriendDTO friendDTO = new FriendDTO(friend);
-            friendDTOs.add(friendDTO);
+        List<Relationship> relationships = user.get().getRelationships();
+        List<RelationshipDTO> relationshipDTOS = new ArrayList<>();
+        for (Relationship relationship : relationships) {
+            RelationshipDTO relationshipDTO = new RelationshipDTO(relationship);
+            relationshipDTOS.add(relationshipDTO);
         }
-        return friendDTOs;
+        return relationshipDTOS;
     }
 
 

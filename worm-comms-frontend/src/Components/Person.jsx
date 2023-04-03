@@ -19,21 +19,32 @@ const Person = ({ person, currentUser, isFriend, isIncomingRequest }) => {
     setFriendStatus(true);
   };
   
+  console.log("Current user friends: ", currentUser.friends);
   const handleRemoveFriend = async () => {
     console.log("Remove friend");
-    const friendId = currentUser.friends.find(
+    const friend = currentUser.friends.find(
       (friend) => friend.userId === person.id
-    ).id;
-    await unfriend(friendId);
+    );
+    await unfriend(friend.userId);
     setFriendStatus(false);
   };
   
   const handleBlock = async () => {
     console.log("Block user");
-    const friendId = currentUser.friends.find(
+    let friend = currentUser.friends.find(
       (friend) => friend.userId === person.id
-    ).id;
-    await blockFriend(friendId);
+    );
+    if (!friend) {
+      const friendData = {
+        user1: currentUser,
+        user2: person,
+        status: "PENDING",
+      };
+      friend = await createFriend(friendData);
+      setFriendStatus(true);
+      console.log("Friend:" + JSON.stringify(friend));
+    }
+    await blockFriend(friend.userId);
   };
   
   const handleAcceptRequest = async () => {

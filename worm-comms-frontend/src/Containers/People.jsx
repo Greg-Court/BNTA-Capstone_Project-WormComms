@@ -3,7 +3,7 @@ import { getAllUsers } from "../api";
 import { useCurrentUser } from "../UserContext";
 import Select from "react-select";
 import Person from "../Components/Person.jsx";
-import { getUserFriends } from "../api";
+import { getUserRelationships } from "../api";
 
 const People = () => {
   const { currentUser, setCurrentUser } = useCurrentUser();
@@ -22,13 +22,10 @@ const People = () => {
     const response = await getAllUsers();
     setPeople(response.data);
     console.log(people);
-    const friendResponse = await getUserFriends(currentUser.id);
-    console.log("CURRENT USERRRRRR" + JSON.stringify(currentUser));
-    console.log("FRIENDZZZZ" + JSON.stringify(currentUser.friends));
-    console.log("FRIENDRESPONZSZZZZZZ" + JSON.stringify(friendResponse.data));
+    const relationshipResponse = await getUserRelationships(currentUser.id);
     setCurrentUser({
       ...currentUser,
-      friends: friendResponse.data,
+      relationships: relationshipResponse.data,
     });
   };
 
@@ -43,17 +40,17 @@ const People = () => {
   ];
 
   // tests whether at least ONE element in the array matches teh condition
-  const isFriend = (person) => {
-    return currentUser.friends.some((friend) => friend.userId === person.id);
+  const isRelationship = (person) => {
+    return currentUser.relationships.some((friend) => friend.userId === person.id);
   };
 
   const displayedPeople = people.filter((person) => {
     if (displayMode === "friends") {
-      return isFriend(person);
+      return isRelationship(person);
     } else if (displayMode === "search_users") {
-      return !isFriend(person) && person.id !== currentUser.id;
+      return !isRelationship(person) && person.id !== currentUser.id;
     } else if (displayMode === "incoming_requests") {
-      return person.friends.some(
+      return person.relationships.some(
         (friend) =>
           friend.status === "PENDING" && friend.userId === currentUser.id
       );
@@ -98,7 +95,7 @@ const People = () => {
                   key={person.id}
                   person={person}
                   currentUser={currentUser}
-                  isFriend={isFriend(person)}
+                  isFriend={isRelationship(person)}
                   isIncomingRequest={isIncomingRequest}
                 />
               </div>

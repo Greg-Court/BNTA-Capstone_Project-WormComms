@@ -1,33 +1,30 @@
 package com.bnta.wormcomms.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="friends")
+@Table(name="relationships")
 // JsonIdentityInfo added to prevent infinite recursion errors when making get requests & other
 //@JsonIdentityInfo(
 //        generator = ObjectIdGenerators.PropertyGenerator.class,
 //        property = "id")
-public class Friend {
+public class Relationship {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
     @JoinColumn(name="user1")
-    @JsonIgnoreProperties({"friends"})
+    @JsonIgnoreProperties({"relationships"})
 //    @JsonBackReference
     private User user1;
 
     @ManyToOne
     @JoinColumn(name="user2")
-    @JsonIgnoreProperties({"friends","messages","chats","password"})
+    @JsonIgnoreProperties({"relationships","messages","chats","password"})
 //    @JsonBackReference
     private User user2;
 
@@ -47,13 +44,13 @@ public class Friend {
         BLOCKED
     }
 
-    public Friend(User user1, User user2, Status status) {
+    public Relationship(User user1, User user2, Status status) {
         this.user1 = user1;
         this.user2 = user2;
         this.status = status;
     }
 
-    public Friend(int id, User user1, User user2, Status status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Relationship(int id, User user1, User user2, Status status, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.user1 = user1;
         this.user2 = user2;
@@ -64,7 +61,7 @@ public class Friend {
 
     @Override
     public String toString() {
-        return "Friend{" +
+        return "Relationship{" +
                 "id=" + id +
                 ", user1=" + (user1 != null ? user1.getUsername() : "null") +
                 ", user2=" + (user2 != null ? user2.getUsername() : "null") +
@@ -92,7 +89,7 @@ public class Friend {
     }
 
 
-    public Friend() {
+    public Relationship() {
     }
 
     public int getId() {

@@ -1,15 +1,15 @@
 package com.bnta.wormcomms.models;
 
-public class FriendDTO {
+public class RelationshipDTO {
     private int userId;
     private String username;
-    private Friend.Status status;
+    private Relationship.Status status;
 
 
-    public FriendDTO(Friend friend) {
-        this.userId = friend.getUser2().getId();
-        this.status = friend.getStatus();
-        this.username = friend.getUser2().getUsername();
+    public RelationshipDTO(Relationship relationship) {
+        this.userId = relationship.getUser2().getId();
+        this.status = relationship.getStatus();
+        this.username = relationship.getUser2().getUsername();
     }
 
     public int getUserId() {
@@ -20,11 +20,11 @@ public class FriendDTO {
         this.userId = userId;
     }
 
-    public Friend.Status getStatus() {
+    public Relationship.Status getStatus() {
         return status;
     }
 
-    public void setStatus(Friend.Status status) {
+    public void setStatus(Relationship.Status status) {
         this.status = status;
     }
 

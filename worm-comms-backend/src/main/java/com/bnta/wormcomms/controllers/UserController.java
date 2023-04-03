@@ -1,7 +1,5 @@
 package com.bnta.wormcomms.controllers;
 
-import com.bnta.wormcomms.models.Chat;
-import com.bnta.wormcomms.models.FriendDTO;
 import com.bnta.wormcomms.models.User;
 import com.bnta.wormcomms.models.UserDTO;
 import com.bnta.wormcomms.services.UserService;
@@ -40,7 +38,7 @@ public class UserController {
         user.setFirstName(userData.get("first-name"));
         user.setLastName(userData.get("last-name"));
         user.setEmail(userData.get("emailaddress"));
-        user.setFriends(new ArrayList<>());
+        user.setRelationships(new ArrayList<>());
         // set other fields
         return userService.saveUser(user);
     }
