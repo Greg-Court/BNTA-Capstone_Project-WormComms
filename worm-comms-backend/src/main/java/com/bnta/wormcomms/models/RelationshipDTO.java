@@ -1,23 +1,23 @@
 package com.bnta.wormcomms.models;
 
 public class RelationshipDTO {
-    private int userId;
+    private int receiverId;
     private String username;
     private Relationship.Status status;
 
 
     public RelationshipDTO(Relationship relationship) {
-        this.userId = relationship.getUser2().getId();
+        this.receiverId = relationship.getUser2().getId();
         this.status = relationship.getStatus();
         this.username = relationship.getUser2().getUsername();
     }
 
-    public int getUserId() {
-        return userId;
+    public int getReceiverId() {
+        return receiverId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setReceiverId(int receiverId) {
+        this.receiverId = receiverId;
     }
 
     public Relationship.Status getStatus() {

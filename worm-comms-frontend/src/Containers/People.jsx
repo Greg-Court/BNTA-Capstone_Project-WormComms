@@ -26,7 +26,7 @@ const People = () => {
   const hasIncomingRequest = (person) => {
     const incomingRequest = person.relationships.find(
       (relation) =>
-        relation.userId === currentUser.id && relation.status === "PENDING"
+        relation.receiverId === currentUser.id && relation.status === "PENDING"
     );
 
     return !!incomingRequest;

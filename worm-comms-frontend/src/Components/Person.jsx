@@ -13,12 +13,12 @@ import {
 
 const getRelationshipStatus = (currentUser, person) => {
   const relationship = currentUser.relationships.find(
-    (relation) => relation.userId === person.id
+    (relation) => relation.receiverId === person.id
   );
   if (relationship) {
     return relationship.status;
   } else {
-    return "NONE";
+    return "";
   }
 };
 
