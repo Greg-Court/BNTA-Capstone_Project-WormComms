@@ -23,7 +23,7 @@ const People = () => {
     }
   };
 
-  const hasIncomingRequest = (person) => {
+  const hasIncomingRequestFrom = (person) => {
     const incomingRequest = person.relationships.find(
       (relation) =>
         relation.receiverId === currentUser.id && relation.status === "PENDING"
@@ -40,7 +40,7 @@ const People = () => {
     } else if (displayMode === "search_users") {
       return isRelationshipStatus(person, "");
     } else if (displayMode === "incoming_requests") {
-      return hasIncomingRequest(person);
+      return hasIncomingRequestFrom(person);
     } else if (displayMode === "outgoing_requests") {
       return isRelationshipStatus(person, "PENDING");
     } else if (displayMode === "blocked") {

@@ -13,7 +13,8 @@ import {
 
 const getRelationshipStatus = (currentUser, person) => {
   const relationship = currentUser.relationships.find(
-    (relation) => relation.receiverId === person.id
+    (relation) =>
+      relation.receiverId === person.id || relation.senderId === person.id
   );
   if (relationship) {
     return relationship.status;
@@ -22,9 +23,24 @@ const getRelationshipStatus = (currentUser, person) => {
   }
 };
 
+const getRelationshipReceiverId = (currentUser, person) => {
+  const relationship = currentUser.relationships.find(
+    (relation) =>
+      relation.receiverId === person.id || relation.senderId === person.id
+  );
+  if (relationship) {
+    return relationship.receiverId;
+  } else {
+    return null;
+  }
+};
+
 const Person = ({ person, currentUser, onRelationshipStatusChange }) => {
   const [relationshipStatus, setRelationshipStatus] = useState(
     getRelationshipStatus(currentUser, person)
+  );
+  const [relationshipReceiverId, setRelationshipReceiverId] = useState(
+    getRelationshipReceiverId(currentUser, person)
   );
 
   const handleAddFriend = async () => {
@@ -95,7 +111,10 @@ const Person = ({ person, currentUser, onRelationshipStatusChange }) => {
           </button>
         </div>
       );
-    } else if (relationshipStatus === "PENDING") {
+    } else if (
+      relationshipStatus === "PENDING" &&
+      relationshipReceiverId !== currentUser.id
+    ) {
       return (
         <div className="space-x-2 flex-shrink-0">
           <button
@@ -106,7 +125,10 @@ const Person = ({ person, currentUser, onRelationshipStatusChange }) => {
           </button>
         </div>
       );
-    } else if (relationshipStatus === "INCOMING_REQUEST") {
+    } else if (
+      relationshipStatus === "PENDING" &&
+      relationshipReceiverId === currentUser.id
+    ) {
       return (
         <div className="space-x-2 flex-shrink-0">
           <button
