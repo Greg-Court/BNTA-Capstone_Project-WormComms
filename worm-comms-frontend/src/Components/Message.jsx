@@ -5,7 +5,7 @@ import { useCurrentUser } from "../UserContext";
 
 const ChatBubbleReceive = ({ text, message }) => {
   return (
-    <div className="max-w-xl p-3 bg-white rounded-xl shadow-lg flex items-center space-x-4 mb-5 grow-from-bottom-left">
+    <div className="border border-blue-500 ml-[2.5%] max-w-xl p-3 bg-white rounded-xl shadow-lg flex items-center space-x-4 mb-5 grow-from-bottom-left">
       <div className="shrink-0">
         <AiOutlineRobot className="h-12 w-12" />
       </div>
@@ -19,7 +19,7 @@ const ChatBubbleReceive = ({ text, message }) => {
 
 const ChatBubbleSend = ({ text }) => {
   return (
-    <div className="max-w-xl p-3 bg-white rounded-xl shadow-lg flex items-center space-x-4 mb-5 grow-from-bottom-right">
+    <div className="border border-blue-500 mr-[2.5%] max-w-xl p-3 bg-white rounded-xl shadow-lg flex items-center space-x-4 mb-5 grow-from-bottom-right">
       <div className="shrink-0"></div>
       <div>
         <div className="text-xl font-medium text-black">Me</div>

@@ -1,6 +1,7 @@
 package com.bnta.wormcomms.services;
 
 import com.bnta.wormcomms.models.Chat;
+import com.bnta.wormcomms.models.ChatDTO;
 import com.bnta.wormcomms.models.ChatRequest;
 import com.bnta.wormcomms.models.User;
 import com.bnta.wormcomms.repositories.ChatRepo;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -59,11 +61,14 @@ public class ChatService {
         chatRepository.deleteById(id);
     }
 
-    public List<Chat> getChatsForUser(int userId) {
-//        log.info("Getting chats for user with ID: {}", userId);
+    public List<ChatDTO> getChatsForUser(int userId) {
         List<Chat> chats = chatRepository.findByParticipantsId(userId);
-//        log.info("Found {} chats for user with ID: {}", chats.size(), userId);
-        return chats;
+        List<ChatDTO> chatDTOS = new ArrayList<>();
+        for (Chat chat : chats) {
+            ChatDTO chatDTO = new ChatDTO(chat);
+            chatDTOS.add(chatDTO);
+        }
+        return chatDTOS;
     }
 
     public Chat getChatById(int id){

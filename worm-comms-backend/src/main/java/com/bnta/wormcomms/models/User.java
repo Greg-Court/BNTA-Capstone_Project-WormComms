@@ -212,4 +212,18 @@ public class User {
     public void setFriends(List<Friend> friends) {
         this.friends = friends;
     }
+
+    public List<FriendDTO> getFriendDTOs() {
+        List<FriendDTO> friendDTOs = new ArrayList<>();
+        List<Friend> friends = this.getFriends();
+        for (Friend friend : friends) {
+            FriendDTO friendDTO = new FriendDTO(friend);
+            friendDTOs.add(friendDTO);
+        }
+        return friendDTOs;
+    }
+
+    public UserDTO getUserDTO() {
+        return new UserDTO(id, username, email, firstName, lastName, getFriendDTOs());
+    }
 }
