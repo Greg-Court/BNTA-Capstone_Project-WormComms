@@ -14,7 +14,6 @@ const MainPage = () => {
   const { currentUser, setCurrentUser } = useCurrentUser();
   const { currentChat, setCurrentChat } = useCurrentChat();
 
-  //const [conversations, setConversations] = useState([]);
   const [newMessage, setNewMessage] = useState([]);
   const [messages, setMessages] = useState([]);
 
@@ -33,22 +32,13 @@ const MainPage = () => {
   const onConnect = () => {
     stompClient.subscribe(`/user/${currentUser.username}`, (message) => {
       //the call back for subscribe just appends the message onto whatever chat is being displayed
-      setNewMessage(JSON.parse(message.body));
-      // console.log(currentChat)
-      // console.log(JSON.parse(message.body).chat)
-      // if (currentChat.id === JSON.parse(message.body).chat.id)
-      //   setMessages((prevMessages) => [
-      //     ...prevMessages,
-      //     JSON.parse(message.body),
-      //   ]);
+      let responseDTO = JSON.parse(message.body);
+      setNewMessage(responseDTO)
     });
   };
 
-
   useEffect(() => {
     if (currentChat != null) {
-      //console.log("help")
-      //console.log(currentChat)
       //console.log(newMessage)
       if (currentChat.id === newMessage.chat.id)
         setMessages((prevMessages) => [
@@ -57,16 +47,6 @@ const MainPage = () => {
         ]);
     }
   }, [newMessage])
-
-  // don't think this is used
-  // useEffect(() => {
-  //   fetchConversations();
-  // }, []);
-
-  // const fetchConversations = async () => {
-  //   const response = await getAllChats();
-  //   setConversations(response.data);
-  // };
 
   if (currentUser === null) {
     navigate("/");
@@ -77,8 +57,8 @@ const MainPage = () => {
           <MainPageNavbar />
         </div>
         <div className="flex">
-          <SideBar></SideBar>
-          <MessageContainer currentUser={currentUser} stompClient={stompClient} messages={messages} setMessages={setMessages}></MessageContainer>
+          <SideBar newMessage={newMessage}></SideBar>
+          <MessageContainer stompClient={stompClient} messages={messages} setMessages={setMessages}></MessageContainer>
         </div>
       </>
     )

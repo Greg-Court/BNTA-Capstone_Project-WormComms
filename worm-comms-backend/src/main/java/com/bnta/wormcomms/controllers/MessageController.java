@@ -1,9 +1,6 @@
 package com.bnta.wormcomms.controllers;
 
-import com.bnta.wormcomms.models.Chat;
-import com.bnta.wormcomms.models.Message;
-import com.bnta.wormcomms.models.MessageRequest;
-import com.bnta.wormcomms.models.User;
+import com.bnta.wormcomms.models.*;
 import com.bnta.wormcomms.repositories.ChatRepo;
 import com.bnta.wormcomms.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +38,10 @@ public class MessageController {
     @MessageExceptionHandler(MessageConversionException.class)
 //    @SendTo("/user")
     public void createMessage(@RequestBody MessageRequest messageRequest) {
-        System.out.println("Recieved message");
+        //System.out.println("Recieved message");
         Message savedMessage = messageService.saveMessage(messageRequest);
+        MessageDTO messageToSend = new MessageDTO(savedMessage);
+        //System.out.println(messageToSend);
         //find the chat
         Chat chat = chatRepo.findById(messageRequest.getChatId()).get();
         for(User user : chat.getParticipants()) {
