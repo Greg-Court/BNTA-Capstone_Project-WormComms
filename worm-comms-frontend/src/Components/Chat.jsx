@@ -1,7 +1,7 @@
 import React from "react";
 import { getChatById } from "../api";
 import { useCurrentChat } from "../ChatContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { updateChat } from "../api";
 import { GrGroup, GrUser } from "react-icons/gr";
 
@@ -9,7 +9,8 @@ const Chat = ({ chat }) => {
   const { currentChat, setCurrentChat } = useCurrentChat();
   const [isEditing, setisEditing] = useState(false);
   const [newName, setNewName] = useState(chat.name);
-
+  const [lastMessage, setLastMessage] = useState(chat.name);
+  
   const handleDoubleClick = () => {
     setisEditing(true);
   };
@@ -36,11 +37,19 @@ const Chat = ({ chat }) => {
   };
 
   const isSelected = chat.id === currentChat?.id;
-  const lastMessage = chat.messages[chat.messages.length - 1];
   const participants = chat.participants
-    .map((participant) => participant.username)
-    .join(", ");
+  .map((participant) => participant.username)
+  .join(", ");
+  
+  useEffect(() => {
+    setLastMessage(getLastMessage());
+  }, [chat, lastMessage])
+  
 
+  const getLastMessage = () => {
+    return chat?.messages?.length > 0 ? chat?.messages[chat?.messages?.length - 1] : null;
+  }
+    
   return (
     <li
       key={chat.id}
@@ -77,8 +86,7 @@ const Chat = ({ chat }) => {
         </div>
       </div>
       <div className="text-xs text-gray-600 mt-1">
-        {/* {lastMessage?.sender.username}: {lastMessage?.content} */}
-        Someone: displaying last message is work in progress!
+        {lastMessage?.senderUsername}: {lastMessage?.content}
       </div>
     </li>
   );
