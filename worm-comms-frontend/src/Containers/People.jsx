@@ -27,7 +27,7 @@ const People = () => {
   };
 
   const displayOptions = [
-    { value: "search_users", label: "Search Users" },
+    { value: "search_users", label: "Users" },
     { value: "friends", label: "Friends" },
     { value: "incoming_requests", label: "Incoming Requests" },
   ];
