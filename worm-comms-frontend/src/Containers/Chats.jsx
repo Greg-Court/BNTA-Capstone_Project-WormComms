@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getUserChats, createChat } from "../api";
 import { useCurrentUser } from "../UserContext";
 import Friend from "../Components/Friend";
-import Chat from "../Components/Chat";
+import Chat from "../Components/Chat.jsx";
 import Select from "react-select";
 
 const Chats = () => {

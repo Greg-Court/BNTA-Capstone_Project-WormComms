@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Menu from "../assets/menu-outline.svg";
 import Close from "../assets/close-circle-outline.svg";
 
+
 function MainPageNavbar() {
   const [click, setClick] = useState(false);
 

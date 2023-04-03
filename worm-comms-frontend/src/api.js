@@ -4,13 +4,14 @@ import axios from 'axios';
 const apiClient = axios.create({
   baseURL: 'http://localhost:8080/api',
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json', 
   },
 });
 
 export const createUser = async (user) => {
   return await apiClient.post('/users', user);
 };
+
 
 export const getAllChats = async () => {
   return await apiClient.get('/chats');
@@ -41,8 +42,12 @@ export const getAllUsers = async () => {
   return await apiClient.get('/users');
 }
 
+export const getUserById = async (id) => {
+  return await apiClient.get(`/users/${id}`, id);
+}
+
 export const getChatById = async (id) => {
-  return await apiClient.get(`/chats/${id}`)
+  return await apiClient.get(`/chats/${id}`);
 }
 
 export const updateChat = async (id, chat) => {
@@ -72,3 +77,6 @@ export const blockFriend = async (id) => {
 export const unfriend = async (id) => {
   return await apiClient.put(`/friends/${id}/unfriend`);
 };
+export const updateUser = async (id, user) => {
+  return await apiClient.put(`/users/${id}`, user);
+}
