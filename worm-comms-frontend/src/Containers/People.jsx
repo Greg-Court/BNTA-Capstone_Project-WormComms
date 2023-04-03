@@ -3,6 +3,7 @@ import { getAllUsers } from "../api";
 import { useCurrentUser } from "../UserContext";
 import Select from "react-select";
 import Person from "../Components/Person.jsx";
+import { getUserFriends } from "../api";
 
 const People = () => {
   const { currentUser, setCurrentUser } = useCurrentUser();
@@ -10,16 +11,25 @@ const People = () => {
   const [displayMode, setDisplayMode] = useState("search_users");
   const [searchText, setSearchText] = useState("");
 
+  // had to change this from currentUser to currentUser.id cause it was causing infinite loop
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser?.id) {
       fetchUsers();
     }
-  }, [currentUser]);
+  }, [currentUser?.id]);
 
   const fetchUsers = async () => {
     const response = await getAllUsers();
     setPeople(response.data);
     console.log(people);
+    const friendResponse = await getUserFriends(currentUser.id);
+    console.log("CURRENT USERRRRRR" + JSON.stringify(currentUser));
+    console.log("FRIENDZZZZ" + JSON.stringify(currentUser.friends));
+    console.log("FRIENDRESPONZSZZZZZZ" + JSON.stringify(friendResponse.data));
+    setCurrentUser({
+      ...currentUser,
+      friends: friendResponse.data,
+    });
   };
 
   const handleDisplayModeChange = (selectedOption) => {
