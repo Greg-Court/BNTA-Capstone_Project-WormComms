@@ -42,7 +42,7 @@ const Chats = ({ newMessage }) => {
     }
   };
 
-  const friendsOptions = currentUser.friends.map((friend) => ({
+  const friendsOptions = currentUser.relationships.map((friend) => ({
     value: friend.username,
     label: friend.username,
     data: friend,

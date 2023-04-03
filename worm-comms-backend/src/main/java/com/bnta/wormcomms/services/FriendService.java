@@ -1,7 +1,7 @@
 package com.bnta.wormcomms.services;
 
-import com.bnta.wormcomms.models.Friend;
-import com.bnta.wormcomms.models.FriendDTO;
+import com.bnta.wormcomms.models.Relationship;
+import com.bnta.wormcomms.models.RelationshipDTO;
 import com.bnta.wormcomms.repositories.FriendRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,44 +16,44 @@ public class FriendService {
     @Autowired
     private FriendRepo friendRepository;
 
-    public Friend createFriend(Friend friend) {
-        return friendRepository.save(friend);
+    public Relationship createFriend(Relationship relationship) {
+        return friendRepository.save(relationship);
     }
 
-    public Optional<Friend> findFriendById(int id) {
+    public Optional<Relationship> findFriendById(int id) {
         return friendRepository.findById(id);
     }
 
-    public List<FriendDTO> findAllFriendsByUserId(int userId) {
-        List<Friend> friends = friendRepository.findAllByUser1_Id(userId);
-        List<FriendDTO> friendDTOs = new ArrayList<>();
+    public List<RelationshipDTO> findAllFriendsByUserId(int userId) {
+        List<Relationship> relationships = friendRepository.findAllByUser1_Id(userId);
+        List<RelationshipDTO> relationshipDTOS = new ArrayList<>();
 
-        for (Friend friend : friends) {
-            friendDTOs.add(new FriendDTO(friend));
+        for (Relationship relationship : relationships) {
+            relationshipDTOS.add(new RelationshipDTO(relationship));
         }
 
-        return friendDTOs;
+        return relationshipDTOS;
     }
 
-    public Friend acceptFriendRequest(int id) {
-        Friend friend = findFriendById(id).orElseThrow(() -> new RuntimeException("Friend request not found"));
-        friend.setStatus(Friend.Status.FRIEND);
-        return friendRepository.save(friend);
+    public Relationship acceptFriendRequest(int id) {
+        Relationship relationship = findFriendById(id).orElseThrow(() -> new RuntimeException("Friend request not found"));
+        relationship.setStatus(Relationship.Status.FRIEND);
+        return friendRepository.save(relationship);
     }
 
     public void rejectFriendRequest(int id) {
-        Friend friend = findFriendById(id).orElseThrow(() -> new RuntimeException("Friend request not found"));
-        friendRepository.delete(friend);
+        Relationship relationship = findFriendById(id).orElseThrow(() -> new RuntimeException("Friend request not found"));
+        friendRepository.delete(relationship);
     }
 
-    public Friend blockFriend(int id) {
-        Friend friend = findFriendById(id).orElseThrow(() -> new RuntimeException("Friend not found"));
-        friend.setStatus(Friend.Status.BLOCKED);
-        return friendRepository.save(friend);
+    public Relationship blockFriend(int id) {
+        Relationship relationship = findFriendById(id).orElseThrow(() -> new RuntimeException("Friend not found"));
+        relationship.setStatus(Relationship.Status.BLOCKED);
+        return friendRepository.save(relationship);
     }
 
     public void unfriend(int id) {
-        Friend friend = findFriendById(id).orElseThrow(() -> new RuntimeException("Friend not found"));
-        friendRepository.delete(friend);
+        Relationship relationship = findFriendById(id).orElseThrow(() -> new RuntimeException("Friend not found"));
+        friendRepository.delete(relationship);
     }
 }

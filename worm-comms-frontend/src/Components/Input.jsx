@@ -22,15 +22,27 @@ export default function Input({
         <label htmlFor={labelFor} className='sr-only'>
             {labelText}
         </label>
-        <input 
-            onChange={handleChange}
-            id={id}
-            name={name}
-            type={type}
-            required={isRequired}
-            className={fixedInputClass+customClass}
-            placeholder={placeholder} 
-        />
+        {labelFor === "bio" ? (
+            <textarea 
+                onChange={handleChange}
+                id={id}
+                name={name}
+                rows={3}
+                required={isRequired}
+                className={"rounded-md appearance-none relative block w-full h-20 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" + customClass}
+                placeholder={placeholder} 
+            />
+        ) : (
+            <input 
+                onChange={handleChange}
+                id={id}
+                name={name}
+                type={type}
+                required={isRequired}
+                className={fixedInputClass + customClass}
+                placeholder={placeholder} 
+            />
+        )}
     </div>
   )
 }
