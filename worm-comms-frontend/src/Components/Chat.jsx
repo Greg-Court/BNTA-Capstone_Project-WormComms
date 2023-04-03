@@ -5,12 +5,12 @@ import { useState, useEffect } from "react";
 import { updateChat } from "../api";
 import { GrGroup, GrUser } from "react-icons/gr";
 
-const Chat = ({ chat }) => {
+const Chat = ({ chat, newMessage }) => {
   const { currentChat, setCurrentChat } = useCurrentChat();
   const [isEditing, setisEditing] = useState(false);
   const [newName, setNewName] = useState(chat.name);
   const [lastMessage, setLastMessage] = useState(chat.name);
-  
+
   const handleDoubleClick = () => {
     setisEditing(true);
   };
@@ -41,26 +41,37 @@ const Chat = ({ chat }) => {
 
   const isSelected = chat.id === currentChat?.id;
   const participants = chat.participants
-  .map((participant) => participant.username)
-  .join(", ");
-  
+    .map((participant) => participant.username)
+    .join(", ");
+
   useEffect(() => {
-    setLastMessage(getLastMessage());
-  }, [currentChat])
-  
+    //if there isn't any messages in the chat we want the chat name
+    // console.log("newMessage.chat.id" + newMessage?.chat?.id)
+    // console.log("chat.id" + chat?.id)
+    // console.log(chat.messages)
+    if(chat?.messages?.length==0){
+      setLastMessage(chat.name);
+    } else if(newMessage.length === 0 ){ //on load we want to get the previous message
+      let lm = chat?.messages.at(-1)
+      setLastMessage(lm?.senderUsername + " : " +lm?.content)
+    } else if(newMessage?.chat?.id===chat?.id){
+      setLastMessage(newMessage?.sender?.username + " : " + newMessage?.content)
+    }
+  }, [newMessage])
+
 
   const getLastMessage = () => {
+
     return chat?.messages?.length > 0 ? chat?.messages[chat?.messages?.length - 1] : null;
   }
-    
+
   return (
     <li
       key={chat.id}
       onClick={handleChatClick}
       onDoubleClick={handleDoubleClick}
-      className={`cursor-pointer rounded-xl px-5 py-2 mx-[5%] ${
-        isSelected ? "font-bold bg-blue-200 shadow-lg" : ""
-      }`}
+      className={`cursor-pointer rounded-xl px-5 py-2 mx-[5%] ${isSelected ? "font-bold bg-blue-200 shadow-lg" : ""
+        }`}
     >
       <div className="flex items-center">
         {chat.participants.length > 2 ? (
@@ -89,7 +100,7 @@ const Chat = ({ chat }) => {
         </div>
       </div>
       <div className="text-xs text-gray-600 mt-1">
-        {lastMessage?.senderUsername}: {lastMessage?.content}
+        {lastMessage}
       </div>
     </li>
   );

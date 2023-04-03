@@ -5,8 +5,10 @@ import Friend from "../Components/Friend";
 import Chat from "../Components/Chat.jsx";
 import Select from "react-select";
 
-const Chats = () => {
+const Chats = ({ newMessage }) => {
+
   const { currentUser, setCurrentUser } = useCurrentUser();
+
   const [chats, setChats] = useState([]);
   const [newChat, setNewChat] = useState([]);
   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -15,12 +17,12 @@ const Chats = () => {
     if (currentUser) {
       fetchUserChats();
     }
-  }, [currentUser]);
+  }, [currentUser,newMessage]);
 
-  const fetchUserChats = async () => {
-    const response = await getUserChats(currentUser.id);
-    setChats(response.data.reverse());
-  };
+    const fetchUserChats = async () => {
+      const response = await getUserChats(currentUser.id);
+      setChats(response.data.reverse());
+    };
 
   const handleCreateChat = async () => {
     if (newChat.length > 0) {
@@ -87,7 +89,7 @@ const Chats = () => {
         {chats.map((chat) => (
           <div key={chat.id}>
             <div className="border mx-[5%] my-2"></div>
-            <Chat key={chat.id} chat={chat} />
+            <Chat key={chat.id} chat={chat} newMessage={newMessage} />
           </div>
         ))}
       </ul>
