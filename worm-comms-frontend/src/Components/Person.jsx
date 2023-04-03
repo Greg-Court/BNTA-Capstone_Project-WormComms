@@ -19,10 +19,10 @@ const Person = ({ person, currentUser, isFriend, isIncomingRequest }) => {
     setFriendStatus(true);
   };
   
-  console.log("Current user friends: ", currentUser.friends);
+  console.log("Current user relationships: ", currentUser.relationships);
   const handleRemoveFriend = async () => {
     console.log("Remove friend");
-    const friend = currentUser.friends.find(
+    const friend = currentUser.relationships.find(
       (friend) => friend.userId === person.id
     );
     await unfriend(friend.userId);

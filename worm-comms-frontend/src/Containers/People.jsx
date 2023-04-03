@@ -21,7 +21,7 @@ const People = () => {
   const fetchUsers = async () => {
     const response = await getAllUsers();
     setPeople(response.data);
-    console.log(people);
+    console.log("PEOPLE:" + JSON.stringify(people));
     const relationshipResponse = await getUserRelationships(currentUser.id);
     setCurrentUser({
       ...currentUser,
