@@ -26,6 +26,8 @@ const ProfilePortal = () => {
       try {
         const response = await updateUser(currentUser.id, JSON.stringify(profileState));
         console.log(response.data);
+        setProfileState({...profileState, response: "Profile updated successfully!"});
+
     } catch (error){
         console.log(error);
         setProfileState({...profileState, error: "Something went wrong. Please try again later."});
@@ -35,6 +37,7 @@ const ProfilePortal = () => {
 
     return (
         <form className="mt-8 space-y-6" >
+          {profileState.response && <div className="text-green-500">{profileState.response}</div>}
         <div className="">
             {
                 fields.map(
