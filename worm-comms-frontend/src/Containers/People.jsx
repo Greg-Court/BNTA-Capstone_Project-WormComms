@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllUsers } from "../api";
 import { useCurrentUser } from "../UserContext";
 import Select from "react-select";
-import Person from "../Components/Person.jsx";
+import Person from "../Components/Person.jsx"
 
 const People = () => {
   const { currentUser, setCurrentUser } = useCurrentUser();

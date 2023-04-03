@@ -78,23 +78,6 @@ const MainPage = () => {
   //   setConversations(response.data);
   // };
 
-<<<<<<< HEAD
-    if (currentUser === null) {
-        navigate("/");
-    } else {
-        return (
-            <>
-                <div className=" flex border-1 h-[5vh]">
-                  <MainPageNavbar currentUser={currentUser} stompClient={stompClient}/>
-                </div>
-                <div className="flex">
-                    <Chats className='flex flex-col'></Chats>
-                    <MessageContainer currentUser={currentUser} stompClient={stompClient} messages={messages}></MessageContainer>
-                </div>
-            </>
-        )
-    }
-=======
   if (currentUser === null) {
     navigate("/");
   } else {
@@ -110,7 +93,6 @@ const MainPage = () => {
       </>
     )
   }
->>>>>>> main
 }
 
 export default MainPage;

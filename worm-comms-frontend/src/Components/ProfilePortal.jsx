@@ -2,58 +2,36 @@ import { useState, useEffect } from "react";
 import { profileFields } from "../constants/loginFormFields";
 import Input from "./Input";
 import { useCurrentUser } from "../UserContext";
-import useWebSocket from "../socket";
 import { useNavigate } from "react-router-dom";
 
 import { getUserById, updateUser } from "../api";
 
-
-
 const ProfilePortal = () => {
-    const { currentUser, setCurrentUser } = useCurrentUser();
+    
+    let navigate = useNavigate();
+
     const fields = profileFields;
     let fieldState = {};
     fields.forEach(field => fieldState[field.id] = '');
     
+    const { currentUser, setCurrentUser } = useCurrentUser();
     const [profileState, setProfileState] = useState(fieldState);
-  
 
-    // const navigate = useNavigate()
-    // const stompClient = useWebSocket();
-  
-    // useEffect(() => {
-    //   if (stompClient) {
-    //     stompClient.connect({}, () => {});
-    //   }
-    // }, [stompClient]);
-    
-    
-    // const fetchCurrentUserData = async () => {
-    //     const userToUpdate = await getUserById(currentUser.id).then((response) => response.data);
-    //     setCurrentUser(userToUpdate);
-    // };
-    
-    // useEffect(() => {
-    //     if (currentUser) {
-    //       fetchCurrentUserData();
-    //     }
-    //   }, [currentUser]);
-    
-    const handleProfileUpdate= (e) => {
-        setProfileState({... profileState, [e.target.id]: e.target.value})
-    }
+    const handleProfileUpdates = async (e) => {
+      setProfileState({ ...profileState, [e.target.id]: e.target.value });
+    };
 
     const handleProfileSubmit = async (e) => {
-        e.preventDefault();
-        const updatedUser = await updateUser(currentUser.id, currentUser).then((response) => response.data);
-        console.log(updatedUser); 
-        }    
-        
+      e.preventDefault();
+      try {
+        const response = await updateUser(currentUser.id, JSON.stringify(profileState));
+        console.log(response.data);
+    } catch (error){
+        console.log(error);
+        setProfileState({...profileState, error: "Something went wrong. Please try again later."});
+    }
+    }
     
-
-
- 
-
 
     return (
         <form className="mt-8 space-y-6" >
@@ -63,14 +41,14 @@ const ProfilePortal = () => {
                     (field => 
                     <Input
                         key={field.id}
-                        handleChange={handleProfileUpdate}
+                        handleChange={handleProfileUpdates}
                         value={profileState[field.id]}
                         labelText={field.labelText}
                         labelFor={field.labelFor}
                         id={field.id}
                         name={field.name}
                         type={field.type}
-                        placeholder={currentUser[field.placeholder] !== null ? currentUser[field.placeholder]: field.placeholder}
+                        placeholder={field.placeholder}
                     />
                 ))
             }
