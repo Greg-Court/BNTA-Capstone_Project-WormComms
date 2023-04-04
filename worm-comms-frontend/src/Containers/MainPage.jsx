@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useCurrentChat } from "../ChatContext";
 import SideBar from "./SideBar";
 import { useOAuthContext } from "../OAuthTokenHeader";
+import axios from "axios";
 
 const MainPage = () => {
   const { currentUser, setCurrentUser } = useCurrentUser();
@@ -31,10 +32,20 @@ const MainPage = () => {
   const stompClient = useWebSocket();
   //comment
 
-  useEffect(() => {
-    // if (currentUser === null) {
-    //   navigate("/");
-    // }
+  useEffect(async () => {
+    const users = await getAllUsers().then((response) => response.data);
+    console.log(users)
+    for (let user of users) {
+     if (loginState.emailaddress === user.email) {
+       setCurrentUser(user);
+       navigate("/home");
+       console.log(user)
+     }
+    }
+    console.log(currentUser)
+    if (currentUser === null) {
+      navigate("/");
+    }
 
     const token = sessionStorage.getItem('id-token');
     const headers = new Headers();
@@ -76,9 +87,10 @@ const MainPage = () => {
     }
   }, [newMessage])
 
-  if (currentUser === null) {
-    navigate("/");
-  } else {
+  // if (currentUser === null) {
+  //   navigate("/");
+  // } else
+   {
     return (
       <>
         <div className="h-[5vh]">

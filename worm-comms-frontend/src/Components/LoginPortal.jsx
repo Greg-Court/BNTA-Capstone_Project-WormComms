@@ -30,6 +30,10 @@ const LoginPortal = () => {
 
   const handleLogIn = async (e) => {
     setLoginState({ ...loginState, [e.target.id]: e.target.value });
+    if(e.target.id===emailaddress){
+      setCurrentUser(loginState.emailaddress)
+    }
+    console.log(e.target.value)
   };
 
   const handleLoginSubmit = async (e) => {
@@ -37,12 +41,14 @@ const LoginPortal = () => {
     const users = await getAllUsers().then((response) => response.data);
     console.log(users)
     for (let user of users) {
-      if (loginState.emailaddress === user.email) {
-        setCurrentUser(user);
-        navigate("/home");
-        console.log(user)
-      }
+     if (loginState.emailaddress === user.email) {
+       setCurrentUser(user);
+       navigate("/home");
+       console.log(user)
+     }
     }
+    
+    setCurrentUser(loginState.emailaddress)
   };
 
   return (
@@ -86,15 +92,17 @@ const LoginPortal = () => {
         </div>
       </div>
       <Link to={"/redirect"}>
+        <button>Authenticate</button>
+        </Link>
+
       <button
-        
+        onClick={handleLoginSubmit}
         type="Button"
         action="submit"
         className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 mt-10"
       >
         Login
       </button>
-      </Link>
     </form>
   );
 };

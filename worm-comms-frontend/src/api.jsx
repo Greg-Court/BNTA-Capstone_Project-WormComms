@@ -1,12 +1,21 @@
 import axios from 'axios';
 
+
 // Create an instance of axios with a base URL and default headers.
 const apiClient = axios.create({
   baseURL: 'http://localhost:8080/api',
   headers: {
-    'Content-Type': 'application/json', 
+      'Content-Type': 'application/json',
+      'mode':'cors',
+      'Authorization' : 'null'
   },
 });
+
+apiClient.interceptors.request.use(async(axiosConfig)=> {
+  console.log(axiosConfig)
+  axiosConfig.headers.Authorization = `Bearer ${sessionStorage.getItem('id-token')}`
+  return axiosConfig
+})
 
 export const createUser = async (user) => {
   return await apiClient.post('/users', user);
@@ -86,7 +95,7 @@ export const blockPerson = async (userId, targetUserId) => {
 export const unblockPerson = async (userId, targetUserId) => {
   return await apiClient.put(`/relationships/unblock/${userId}/${targetUserId}`);
 }
-;
+  ;
 export const updateUser = async (id, user) => {
   return await apiClient.put(`/users/${id}`, user);
 }

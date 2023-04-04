@@ -4,8 +4,12 @@ import authorize from "../Links/authorize";
 import { token } from "../Links/token";
 import { Buffer } from "buffer";
 import { BsConeStriped } from "react-icons/bs";
+import { useContext } from "react";
+import { useOAuthContext } from "../OAuthTokenHeader";
 
 const Redirect = () => {
+
+    const {oAuthToken, setOAuthToken} = useOAuthContext();
 
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
@@ -33,8 +37,9 @@ const Redirect = () => {
                 //console.log('token === ', token)
                 if (token?.id_token) {
                     sessionStorage.setItem("id-token", token.id_token)
+                    setOAuthToken(token.id_token)
                     console.log(sessionStorage.getItem("id-token"))
-                    navigate('/home');
+                    navigate('/');
                 }
             }).catch((err) => console.log(err))
         } else if (!searchParams?.get('code')) {
