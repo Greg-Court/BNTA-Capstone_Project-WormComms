@@ -8,6 +8,15 @@ const apiClient = axios.create({
   },
 });
 
+const updateUserClient = axios.create({
+  baseURL: 'http://localhost:8080/api',
+});
+export const updateUser = async (id, formData) => {
+  return await updateUserClient.put(`/users/${id}`, formData);
+};
+
+
+
 export const createUser = async (user) => {
   return await apiClient.post('/users', user);
 };
@@ -85,8 +94,12 @@ export const blockPerson = async (userId, targetUserId) => {
 
 export const unblockPerson = async (userId, targetUserId) => {
   return await apiClient.put(`/relationships/unblock/${userId}/${targetUserId}`);
-}
-;
-export const updateUser = async (id, user) => {
-  return await apiClient.put(`/users/${id}`, user);
-}
+};
+
+// export const updateUser = async (id, user) => {
+//   return await updateUserClient.put(`/users/${id}`, user);
+// };
+
+// export const updateUser = async (id, formData) => {
+//   return await updateUserClient.put(`/users/${id}`, formData);
+// };
