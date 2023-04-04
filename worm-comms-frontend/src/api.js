@@ -51,6 +51,7 @@ export const getChatById = async (id) => {
 }
 
 export const updateChat = async (id, chat) => {
+  console.log('Sending chat object:', chat);
   return await apiClient.put(`/chats/${id}`, chat);
 };
 
