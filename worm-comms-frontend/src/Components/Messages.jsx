@@ -2,11 +2,12 @@ import React from "react";
 import Message from "./Message";
 import { useEffect, useRef } from "react";
 import { useCurrentChat } from "../ChatContext";
-import { getChatById } from "../api";
+import { useCurrentUser } from "../UserContext";
+import { generateAutoReplyResponse } from "../../autoReply";
 
-const Messages = ({ messages, currentUser, setMessages }) => {
-
+const Messages = ({ messages, setMessages }) => {
   const { currentChat, setCurrentChat } = useCurrentChat();
+  const { currentUser } = useCurrentUser();
 
   const messagesEndRef = useRef(null);
 
@@ -16,7 +17,7 @@ const Messages = ({ messages, currentUser, setMessages }) => {
     if (currentChat != null) {
       setMessages(currentChat.messages);
     }
-  }, [currentChat])
+  }, [currentChat]);
 
   useEffect(() => {
     scrollToBottom();
@@ -39,7 +40,6 @@ const Messages = ({ messages, currentUser, setMessages }) => {
       </ul>
       <div ref={messagesEndRef}></div>
     </div>
-
   );
 };
 

@@ -1,23 +1,30 @@
 import { useCurrentUser } from "../UserContext";
 import { useState } from "react";
 import { useCurrentChat } from "../ChatContext";
-import { BsChevronDoubleLeft } from "react-icons/bs";
+import { generateAutoReplyArray } from "../../autoReply";
+import { generateAutoReplyResponse } from "../../autoReply";
 
 const TextArea = ({ stompClient }) => {
   const { currentUser, setCurrentUser } = useCurrentUser();
   const { currentChat, setCurrentChat } = useCurrentChat();
-    const [isSelected, setIsSelected] = useState(false);
-
-    const handleClick = () => {
-      setIsSelected(!isSelected);
-    };
-
   const [message, setMessage] = useState({
     sender: currentUser,
     chat: { id: 1 },
     content: "",
   });
 
+
+  const handleAutoReply = async () => {
+    console.log(currentChat.messages)
+    const messageArray = generateAutoReplyArray(currentChat.messages, currentUser);
+    const chatGPTResponse = await generateAutoReplyResponse(messageArray);
+    // console.log(chatGPTResponse);
+    console.log(messageArray)
+    setMessage({
+      ...message,
+      content: chatGPTResponse,
+    });
+  };
   const updateMessage = (e) => {
     setMessage({
       sender: currentUser,
@@ -66,12 +73,7 @@ const TextArea = ({ stompClient }) => {
       <button onClick={sendMessage} className="border-l-2 w-1/12">
         Send
       </button>
-      <button
-        className={`border-l-2 w-1/6 ${
-          isSelected ? "bg-blue-500 text-white" : ""
-        }`}
-        onClick={handleClick}
-      >
+      <button className="border-l-2 w-1/6" onClick={handleAutoReply}>
         Autoreply™
       </button>
     </div>
