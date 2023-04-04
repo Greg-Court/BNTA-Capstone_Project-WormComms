@@ -163,6 +163,16 @@ const ProfilePortal = () => {
     const [profileState, setProfileState] = useState({});
     const { currentUser } = useCurrentUser();
 
+    const refreshUser = async () => {
+        const users = await getAllUsers().then((response) => response.data);
+        console.log(users);
+        for (let user of users) {
+          if (currentUser.email === user.email) {
+            setCurrentUser(user);
+          }
+        }
+      };
+
     const fields = [
         ...profileFields,
         {
@@ -200,11 +210,13 @@ const ProfilePortal = () => {
             const response = await updateUser(currentUser.id, formData);
             console.log(response.data);
             setProfileState({...profileState, response: "Profile updated successfully!"});
+            refreshUser();
     
         } catch (error){
             console.log(error);
             setProfileState({...profileState, error: "Something went wrong. Please try again later."});
         }
+
     };
 
     return (

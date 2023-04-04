@@ -9,7 +9,7 @@ import { useCurrentUser } from "../UserContext";
 const ChatBubbleReceive = ({ text, message}) => {
 
   const senderProfilePicture =  new URL(`../../../worm-comms-backend/uploads/${message.sender.profilePicture}`, import.meta.url).href
-  
+  console.log(message.sender)
 
   return (
     <div className="border border-blue-500 ml-[2.5%] max-w-xl p-3 bg-white rounded-xl shadow-lg flex items-center space-x-4 mb-5 grow-from-bottom-left">
