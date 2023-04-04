@@ -44,26 +44,37 @@ const Chat = ({ chat, newMessage }) => {
     .map((participant) => participant.username)
     .join(", ");
 
+  // useEffect(() => {
+  //   //if there isn't any messages in the chat we want the chat name
+  //   // console.log("newMessage.chat.id" + newMessage?.chat?.id)
+  //   // console.log("chat.id" + chat?.id)
+  //   // console.log(chat.messages)
+  //   if(chat?.messages?.length==0){
+  //     setLastMessage(chat.name);
+  //   } else if(newMessage.length === 0 ){ //on load we want to get the previous message
+  //     let lm = chat?.messages.at(-1)
+  //     setLastMessage(lm?.senderUsername + " : " +lm?.content)
+  //   } else if(newMessage?.chat?.id===chat?.id){
+  //     setLastMessage(newMessage?.sender?.username + " : " + newMessage?.content)
+  //   }
+  // }, [newMessage])
+
   useEffect(() => {
-    //if there isn't any messages in the chat we want the chat name
-    // console.log("newMessage.chat.id" + newMessage?.chat?.id)
-    // console.log("chat.id" + chat?.id)
-    // console.log(chat.messages)
-    if(chat?.messages?.length==0){
-      setLastMessage(chat.name);
-    } else if(newMessage.length === 0 ){ //on load we want to get the previous message
-      let lm = chat?.messages.at(-1)
-      setLastMessage(lm?.senderUsername + " : " +lm?.content)
-    } else if(newMessage?.chat?.id===chat?.id){
-      setLastMessage(newMessage?.sender?.username + " : " + newMessage?.content)
+    const updateLastMessage = () => {
+      if (chat?.messages?.length === 0) {
+        setLastMessage(chat.name);
+      } else {
+        let lm = chat?.messages.at(-1);
+        setLastMessage(lm?.senderUsername + ": " + lm?.content);
+      }
+    };
+  
+    if (newMessage?.chat?.id === chat?.id) {
+      setLastMessage(newMessage?.sender?.username + ": " + newMessage?.content);
+    } else {
+      updateLastMessage();
     }
-  }, [newMessage])
-
-
-  const getLastMessage = () => {
-
-    return chat?.messages?.length > 0 ? chat?.messages[chat?.messages?.length - 1] : null;
-  }
+  }, [newMessage, chat]);
 
   return (
     <li
@@ -90,7 +101,7 @@ const Chat = ({ chat, newMessage }) => {
               value={newName}
               onChange={(e) => setNewName(e.target.value)}
               onKeyDown={handleNameChange}
-              className="border rounded-md px-2 py-1"
+              className="border rounded-md px-2 py-1 w-full"
               autoFocus
             />
           ) : (

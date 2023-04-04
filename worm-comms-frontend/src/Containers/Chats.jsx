@@ -10,6 +10,32 @@ const Chats = ({ newMessage, refreshUser }) => {
   const [chats, setChats] = useState([]);
   const [newChat, setNewChat] = useState([]);
   const [selectedOptions, setSelectedOptions] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+
+  const handleSearchChange = (e) => {
+    setSearchInput(e.target.value);
+  };
+
+  const filterChats = (chats) => {
+    if (!searchInput) {
+      return chats;
+    }
+
+    const lowerCaseSearchInput = searchInput.toLowerCase();
+
+    return chats.filter((chat) => {
+      const lowerCaseName = chat.name.toLowerCase();
+      const hasMatchingName = lowerCaseName.includes(lowerCaseSearchInput);
+
+      const hasMatchingParticipant = chat.participants.some((participant) =>
+        participant.username.toLowerCase().includes(lowerCaseSearchInput)
+      );
+
+      return hasMatchingName || hasMatchingParticipant;
+    });
+  };
+
+  const displayedChats = filterChats(chats);
 
   useEffect(() => {
     if (currentUser) {
@@ -63,7 +89,7 @@ const Chats = ({ newMessage, refreshUser }) => {
 
   return (
     <div className="h-[85vh]">
-      <div className="w-[100%] flex flex-col">
+      <div className="w-[100%] flex flex-col shadow-md border-gray-300 border-b-2">
         <Select
           className="mx-[5%] overflow-y-auto mt-3"
           options={friendsOptions}
@@ -88,14 +114,23 @@ const Chats = ({ newMessage, refreshUser }) => {
         />
         <button
           onClick={handleCreateChat}
-          className="mx-[5%] mt-3 mb-1 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+          className="mx-[5%] mt-3 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
         >
           Create New Chat
         </button>
+        <div className="w-[90%] mx-auto flex items-center my-3">
+          <input
+            type="text"
+            placeholder="Search chats or participants"
+            className="flex-1 border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+            value={searchInput}
+            onChange={handleSearchChange}
+          />
+        </div>
       </div>
       <div className="flex items-center justify-around"></div>
-      <ul className="flex flex-col overflow-y-auto scrollbar-hide max-h-[78.5vh]">
-        {chats.map((chat) => (
+      <ul className="flex flex-col overflow-y-auto scrollbar-hide max-h-[72vh]">
+        {displayedChats.map((chat) => (
           <div key={chat.id}>
             <div className="border mx-[5%] my-2"></div>
             <Chat key={chat.id} chat={chat} newMessage={newMessage} />

@@ -104,7 +104,7 @@ const People = ({refreshUser}) => {
 
   return (
     <div className="h-[85vh]">
-      <div className="w-[100%] flex flex-col">
+      <div className="w-[100%] flex flex-col shadow-md border-gray-300 border-b-2">
         <Select
           className="mx-[5%] overflow-y-auto mt-3 mb-1"
           options={displayOptions}
@@ -123,7 +123,7 @@ const People = ({refreshUser}) => {
         />
       </div>
       <div className="flex items-center justify-around"></div>
-      <ul className="flex flex-col overflow-y-auto scrollbar-hide max-h-[78.5vh]">
+      <ul className="flex flex-col overflow-y-auto scrollbar-hide max-h-[78vh]">
         {displayedPeople
           .filter((person) =>
             person.username.toLowerCase().includes(searchText.toLowerCase())
