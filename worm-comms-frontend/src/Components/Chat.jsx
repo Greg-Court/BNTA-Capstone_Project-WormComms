@@ -76,6 +76,13 @@ const Chat = ({ chat, newMessage }) => {
     }
   }, [newMessage, chat]);
 
+  const truncateLastMessage = (message, maxLength = 65) => {
+    if (message.length <= maxLength) {
+      return message;
+    }
+    return message.slice(0, maxLength) + "...";
+  };
+
   return (
     <li
       key={chat.id}
@@ -111,7 +118,7 @@ const Chat = ({ chat, newMessage }) => {
         </div>
       </div>
       <div className="text-xs text-gray-600 mt-1">
-        {lastMessage}
+        {truncateLastMessage(lastMessage)}
       </div>
     </li>
   );
