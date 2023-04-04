@@ -3,21 +3,24 @@ import { AiOutlineRobot } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
 import { useCurrentUser } from "../UserContext";
 
-const ChatBubbleReceive = ({ text, message, currentUser}) => {
+const ChatBubbleReceive = ({ text, message, currentUser }) => {
+  console.log(message);
   return (
     <div className="border border-blue-500 ml-[2.5%] max-w-xl p-3 bg-white rounded-xl shadow-lg flex items-center space-x-4 mb-5 grow-from-bottom-left">
       <div className="shrink-0">
-        <img src={`../../../worm-comms-backend/uploads/${currentUser.profilePicture}`} className="h-12 w-12 rounded-full" />
+        <BsPerson className="h-12 w-12" />
       </div>
       <div>
-        <div className="text-xl font-medium text-black">{message.senderUsername}</div>
+        <div className="text-xl font-medium text-black">
+          {message.senderUsername}
+        </div>
         <p className="text-slate-500">{text}</p>
       </div>
     </div>
   );
 };
 
-const ChatBubbleSend = ({ text,  }) => {
+const ChatBubbleSend = ({ text }) => {
   return (
     <div className="border border-blue-500 mr-[2.5%] max-w-xl p-3 bg-white rounded-xl shadow-lg flex items-center space-x-4 mb-5 grow-from-bottom-right">
       <div className="shrink-0"></div>
@@ -30,7 +33,6 @@ const ChatBubbleSend = ({ text,  }) => {
   );
 };
 
-
 const Message = ({ message, index }) => {
   const { currentUser, setCurrentUser } = useCurrentUser();
   const isSent = message.senderId === currentUser.id;
@@ -39,13 +41,21 @@ const Message = ({ message, index }) => {
   if (isSent) {
     return (
       <div key={index} className="w-full flex justify-end">
-        <ChatBubbleSend currentUser={currentUser} key={index} text={message.content}/>
+        <ChatBubbleSend
+          currentUser={currentUser}
+          key={index}
+          text={message.content}
+        />
       </div>
     );
   } else {
     return (
       <div key={index} className="w-full flex justify-start">
-        <ChatBubbleReceive key={index} text={message.content} message={message} />
+        <ChatBubbleReceive
+          key={index}
+          text={message.content}
+          message={message}
+        />
       </div>
     );
   }
