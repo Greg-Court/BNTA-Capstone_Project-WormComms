@@ -11,20 +11,42 @@ const People = () => {
   const [displayMode, setDisplayMode] = useState("search_users");
   const [searchText, setSearchText] = useState("");
 
+  // had to add this to refresh the current user's relationships
+  useEffect(() => {
+    const refreshUser = async () => {
+      const users = await getAllUsers().then((response) => response.data);
+      console.log(users);
+      for (let user of users) {
+        if (currentUser.email === user.email) {
+          setCurrentUser(user);
+        }
+      }
+    };
+    refreshUser();
+  }, [people]);
 
-  // check if specific relationship exists between currentUser and person
+  // check if there is a specific relationship between two users
   const isRelationshipStatus = (person, status) => {
-    // return first element in array that satisfies the testing function
-    const relationship = currentUser.relationships.find(
+    // find the relationships where the current user is the sender
+    const sentRelationship = currentUser.relationships.find(
       (relation) => relation.receiverId === person.id
     );
-    // if status "" return users where there is no relationship
+    // find relationships where the current user is the receiver
+    const receivedRelationship = currentUser.relationships.find(
+      (relation) => relation.senderId === person.id
+    );
+
     if (status === "") {
-      return !relationship && person.id !== currentUser.id;
+      return (
+        !sentRelationship &&
+        !receivedRelationship &&
+        person.id !== currentUser.id
+      );
     } else {
-      // if status is not an emtpy string, return users 
-      // where there is a relationship with the specified status
-      return relationship && relationship.status === status;
+      return (
+        (sentRelationship && sentRelationship.status === status && person.id !== currentUser.id) ||
+        (receivedRelationship && receivedRelationship.status === status && person.id !== currentUser.id)
+      );
     }
   };
 
@@ -36,11 +58,12 @@ const People = () => {
         person.id !== currentUser.id
     );
 
-    return !!incomingRequest;
+    return !!incomingRequest; // !! typecasts value to boolean
   };
 
   console.log(people);
-  console.log("Current User Relationships", currentUser.relationships)
+  console.log("Current User Relationships", currentUser.relationships);
+  console.log("Current User", currentUser);
 
   const displayedPeople = people.filter((person) => {
     if (displayMode === "friends") {
