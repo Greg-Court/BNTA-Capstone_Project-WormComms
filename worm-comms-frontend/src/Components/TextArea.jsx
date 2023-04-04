@@ -67,7 +67,7 @@ const TextArea = ({ stompClient }) => {
         Send
       </button>
       <button
-        className={`border-l-2 w-1/12 ${
+        className={`border-l-2 w-1/6 ${
           isSelected ? "bg-blue-500 text-white" : ""
         }`}
         onClick={handleClick}
