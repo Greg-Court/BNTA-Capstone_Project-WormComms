@@ -1,12 +1,13 @@
-server:
-  port: 8080
-  servlet:
-    context-path:
-
-spring:
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8081
-          jwk-set-uri: http://localhost:8081/oauth2/jwks
+# again this is setup to use the OAuth server
+#server:
+#  port: 8080
+#  servlet:
+#    context-path:
+#
+#spring:
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: http://localhost:8081
+#          jwk-set-uri: http://localhost:8081/oauth2/jwks

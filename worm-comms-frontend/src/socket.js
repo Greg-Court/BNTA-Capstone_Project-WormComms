@@ -7,7 +7,7 @@ const useWebSocket = () => {
   const [client, setClient] = useState(null);
   useEffect(() => {
     // Create a new STOMP client using the WebSocket URL
-    const endpoint = `http://localhost:8080/ws/${sessionStorage.getItem('id-token')}`
+    const endpoint = `http://localhost:8080/ws`
 
     const stompClient = Stomp.over(() => new SockJS(endpoint));
 

@@ -6,13 +6,11 @@ const apiClient = axios.create({
   baseURL: 'http://localhost:8080/api',
   headers: {
       'Content-Type': 'application/json',
-      'mode':'cors',
       'Authorization' : 'null'
   },
 });
 
 apiClient.interceptors.request.use(async(axiosConfig)=> {
-  console.log(axiosConfig)
   axiosConfig.headers.Authorization = `Bearer ${sessionStorage.getItem('id-token')}`
   return axiosConfig
 })

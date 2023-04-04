@@ -20,7 +20,6 @@ const MainPage = () => {
 
   const refreshUser = async () => {
     const users = await getAllUsers().then((response) => response.data);
-    console.log(users);
     for (let user of users) {
       if (currentUser.email === user.email) {
         setCurrentUser(user);
@@ -28,38 +27,18 @@ const MainPage = () => {
     }
   };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const stompClient = useWebSocket();
-  //comment
 
-  useEffect(async () => {
-    const users = await getAllUsers().then((response) => response.data);
-    console.log(users)
-    for (let user of users) {
-     if (loginState.emailaddress === user.email) {
-       setCurrentUser(user);
-       navigate("/home");
-       console.log(user)
-     }
-    }
-    console.log(currentUser)
-    if (currentUser === null) {
-      navigate("/");
-    }
-
-    const token = sessionStorage.getItem('id-token');
-    const headers = new Headers();
-
-    headers.set('Content-type', 'plain/test');
-    headers.set('Authorization', `Bearer ${token}`)
-
-    setOAuthToken(headers);
-  }, [])
 
   useEffect(() => {
     if (stompClient) {
       stompClient.connect({
-        headers: oAuthToken
+        headers: {
+          'Content-Type': 'application/json',
+          'mode':'cors',
+          'Authorization' : `Bearer ${oAuthToken}`
+      },
       }, () => {
         onConnect();
       });
@@ -71,7 +50,7 @@ const MainPage = () => {
     stompClient.subscribe(`/user/${currentUser.username}`, (message) => {
       //the call back for subscribe just appends the message onto whatever chat is being displayed
       let responseDTO = JSON.parse(message.body);
-      console.log(responseDTO)
+      //console.log(responseDTO)
       setNewMessage(responseDTO)
     });
   };
@@ -87,10 +66,9 @@ const MainPage = () => {
     }
   }, [newMessage])
 
-  // if (currentUser === null) {
-  //   navigate("/");
-  // } else
-   {
+  if (currentUser === null) {
+    navigate("/");
+  } else {
     return (
       <>
         <div className="h-[5vh]">

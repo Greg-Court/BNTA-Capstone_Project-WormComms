@@ -10,7 +10,7 @@ const Messages = ({ messages, currentUser, setMessages }) => {
 
   const messagesEndRef = useRef(null);
 
-  console.log(JSON.stringify(messages))
+  // console.log(JSON.stringify(messages))
 
   useEffect(() => {
     if (currentChat != null) {

@@ -21,7 +21,7 @@ const Chat = ({ chat, newMessage }) => {
       if (e.key === "Enter") {
         setisEditing(false);
         if (newName !== chat.name) {
-          console.log(chat);
+          // console.log(chat);
           await updateChat(chat.id, { ...chat, name: newName });
           const updatedChat = await getChatById(chat.id);
           setCurrentChat(updatedChat.data);

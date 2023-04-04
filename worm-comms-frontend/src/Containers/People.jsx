@@ -51,9 +51,9 @@ const People = ({refreshUser}) => {
     return !!incomingRequest; // !! typecasts value to boolean
   };
 
-  console.log(people);
-  console.log("Current User Relationships", currentUser.relationships);
-  console.log("Current User", currentUser);
+  //console.log(people);
+  // console.log("Current User Relationships", currentUser.relationships);
+  // console.log("Current User", currentUser);
 
   const displayedPeople = people.filter((person) => {
     if (displayMode === "friends") {

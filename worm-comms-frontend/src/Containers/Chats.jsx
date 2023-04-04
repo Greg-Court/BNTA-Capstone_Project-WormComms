@@ -62,7 +62,7 @@ const Chats = ({ newMessage, refreshUser }) => {
       }
     }
   };
-  console.log(newChat);
+
 
   // changed this to use the senderUsername when the current user is the receiver,
   // and receiverUsername when the current user is the sender
@@ -80,7 +80,7 @@ const Chats = ({ newMessage, refreshUser }) => {
             relationship.senderUsername,
     }));
 
-  console.log(JSON.stringify(friendsOptions));
+  // console.log(JSON.stringify(friendsOptions));
 
   const updateNewChat = (selectedOptions) => {
     const selectedUsers = selectedOptions.map((option) => option.value);

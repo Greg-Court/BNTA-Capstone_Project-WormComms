@@ -16,7 +16,7 @@ const Redirect = () => {
 
     useEffect(() => {
         if (searchParams.get('code')) {
-            console.log("got code")
+            //console.log("got code")
             sessionStorage.setItem('code', searchParams.get('code'))
 
             //we shoudln't be hard coding the client or secret really
@@ -43,7 +43,7 @@ const Redirect = () => {
                 }
             }).catch((err) => console.log(err))
         } else if (!searchParams?.get('code')) {
-            console.log("let's get a code")
+            //console.log("let's get a code")
             //calling our authorization link
             window.location.href = authorize;
         }

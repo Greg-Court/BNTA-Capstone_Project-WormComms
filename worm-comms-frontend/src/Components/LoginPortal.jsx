@@ -30,25 +30,17 @@ const LoginPortal = () => {
 
   const handleLogIn = async (e) => {
     setLoginState({ ...loginState, [e.target.id]: e.target.value });
-    if(e.target.id===emailaddress){
-      setCurrentUser(loginState.emailaddress)
-    }
-    console.log(e.target.value)
   };
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     const users = await getAllUsers().then((response) => response.data);
-    console.log(users)
     for (let user of users) {
      if (loginState.emailaddress === user.email) {
        setCurrentUser(user);
        navigate("/home");
-       console.log(user)
      }
     }
-    
-    setCurrentUser(loginState.emailaddress)
   };
 
   return (
