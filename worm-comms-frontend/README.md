@@ -121,38 +121,10 @@ worm-comms-frontend
 │  └─ vite.svg
 ├─ src
 │  ├─ App.jsx
-│  ├─ Components
-│  │  ├─ Contact.jsx
-│  │  ├─ LoginPortal.jsx
-│  │  ├─ Messages.jsx
-│  │  └─ TextArea.jsx
-│  ├─ Containers
-│  │  ├─ Contacts.jsx
-│  │  ├─ MainPage.jsx
-│  │  └─ MessageContainer.jsx
-│  ├─ assets
-│  │  └─ react.svg
-│  ├─ index.css
-│  └─ main.jsx
-├─ tailwind.config.cjs
-└─ vite.config.js
-
-```
-```
-worm-comms-frontend
-├─ .gitignore
-├─ README.md
-├─ index.html
-├─ package-lock.json
-├─ package.json
-├─ postcss.config.js
-├─ public
-│  └─ vite.svg
-├─ src
-│  ├─ App.jsx
 │  ├─ ChatContext.jsx
 │  ├─ Components
 │  │  ├─ Chat.jsx
+│  │  ├─ ChatHeader.jsx
 │  │  ├─ Friend.jsx
 │  │  ├─ Input.jsx
 │  │  ├─ LoginHeader.jsx
@@ -160,24 +132,32 @@ worm-comms-frontend
 │  │  ├─ MainPageNavbar.jsx
 │  │  ├─ Message.jsx
 │  │  ├─ Messages.jsx
+│  │  ├─ Person.jsx
+│  │  ├─ ProfilePortal.jsx
 │  │  ├─ SignUpPortal.jsx
 │  │  └─ TextArea.jsx
 │  ├─ Containers
 │  │  ├─ Chats.jsx
 │  │  ├─ MainPage.jsx
-│  │  └─ MessageContainer.jsx
+│  │  ├─ MessageContainer.jsx
+│  │  ├─ People.jsx
+│  │  ├─ Requests.jsx
+│  │  ├─ SideBar.jsx
+│  │  └─ SideBarSelector.jsx
 │  ├─ UserContext.jsx
 │  ├─ api.js
 │  ├─ assets
 │  │  ├─ close-circle-outline.svg
 │  │  ├─ menu-outline.svg
-│  │  └─ worm.jpeg
+│  │  ├─ worm.jpeg
+│  │  └─ wormbookLogo.png
 │  ├─ constants
 │  │  └─ loginFormFields.jsx
 │  ├─ index.css
 │  ├─ main.jsx
 │  ├─ pages
 │  │  ├─ LoginPage.jsx
+│  │  ├─ ProfilePage.jsx
 │  │  └─ SignUpPage.jsx
 │  └─ socket.js
 ├─ tailwind.config.cjs

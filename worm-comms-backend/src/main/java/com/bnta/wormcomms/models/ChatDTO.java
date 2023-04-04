@@ -24,6 +24,9 @@ public class ChatDTO {
         }
     }
 
+    public ChatDTO() {
+    }
+
     public int getId() {
         return id;
     }
@@ -63,4 +66,6 @@ public class ChatDTO {
     public void setParticipants(List<UserDTO> participants) {
         this.participants = participants;
     }
+
+
 }

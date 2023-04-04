@@ -51,32 +51,42 @@ export const getChatById = async (id) => {
 }
 
 export const updateChat = async (id, chat) => {
+  console.log('Sending chat object:', chat);
   return await apiClient.put(`/chats/${id}`, chat);
 };
 
-export const createFriend = async (friend) => {
-  return await apiClient.post('/relationships', friend);
+export const createRelationship = async (relationship) => {
+  return await apiClient.post('/relationships', relationship);
 };
 
 export const getUserRelationships = async (userId) => {
   return await apiClient.get(`/relationships/${userId}`);
 };
 
-export const acceptFriendRequest = async (id) => {
-  return await apiClient.put(`/relationships/${id}/accept`);
+export const acceptFriendRequest = async (userId, targetUserId) => {
+  return await apiClient.put(`/relationships/accept/${userId}/${targetUserId}`);
 };
 
-export const rejectFriendRequest = async (id) => {
-  return await apiClient.put(`/relationships/${id}/reject`);
+export const cancelFriendRequest = async (userId, targetUserId) => {
+  return await apiClient.put(`/relationships/cancelRequest/${userId}/${targetUserId}`);
 };
 
-export const blockFriend = async (id) => {
-  return await apiClient.put(`/relationships/${id}/block`);
+export const rejectFriendRequest = async (userId, targetUserId) => {
+  return await apiClient.put(`/relationships/reject/${userId}/${targetUserId}`);
 };
 
-export const unfriend = async (id) => {
-  return await apiClient.put(`/relationships/${id}/unfriend`);
+export const unfriend = async (userId, targetUserId) => {
+  return await apiClient.put(`/relationships/unfriend/${userId}/${targetUserId}`);
 };
+
+export const blockPerson = async (userId, targetUserId) => {
+  return await apiClient.put(`/relationships/block/${userId}/${targetUserId}`);
+};
+
+export const unblockPerson = async (userId, targetUserId) => {
+  return await apiClient.put(`/relationships/unblock/${userId}/${targetUserId}`);
+}
+;
 export const updateUser = async (id, user) => {
   return await apiClient.put(`/users/${id}`, user);
 }

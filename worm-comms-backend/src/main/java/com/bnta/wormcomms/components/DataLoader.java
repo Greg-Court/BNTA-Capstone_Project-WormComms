@@ -5,7 +5,7 @@ import com.bnta.wormcomms.models.Relationship;
 import com.bnta.wormcomms.models.Message;
 import com.bnta.wormcomms.models.User;
 import com.bnta.wormcomms.repositories.ChatRepo;
-import com.bnta.wormcomms.repositories.FriendRepo;
+import com.bnta.wormcomms.repositories.RelationshipRepo;
 import com.bnta.wormcomms.repositories.UserRepo;
 import com.bnta.wormcomms.repositories.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     UserRepo userRepo;
     @Autowired
-    FriendRepo friendRepo;
+    RelationshipRepo friendRepo;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -40,20 +40,20 @@ public class DataLoader implements ApplicationRunner {
         User birdperson = new User("Birdperson", "birdperson@bnta.com");
         User strangeperson = new User("Strangeperson", "strangeperson@bnta.com");
 
-        List<User> participants = new ArrayList<>();
-        participants.add(greg);
-        participants.add(james);
-        Chat chat = new Chat("testchat9000", participants);
-        // I was stuck on this for ages, I couldnt figure out why participants were not showing in the chat
-        // Because it's a bidirectional relationship, you need to make sure to set the relationship on both sides
-        for (User participant : participants) {
-            participant.getChats().add(chat);
-        }
-        // Also need to save the Chat first, before anything else
-        chatRepo.save(chat);
+//        List<User> participants = new ArrayList<>();
+//        participants.add(greg);
+//        participants.add(james);
+//        Chat chat = new Chat("testchat9000", participants);
+//        // I was stuck on this for ages, I couldnt figure out why participants were not showing in the chat
+//        // Because it's a bidirectional relationship, you need to make sure to set the relationship on both sides
+//        for (User participant : participants) {
+//            participant.getChats().add(chat);
+//        }
+//        // Also need to save the Chat first, before anything else
+//        chatRepo.save(chat);
 
-        Message message1 = new Message(james, chat, "hello");
-        Message message2 = new Message(greg, chat, "hi");
+//        Message message1 = new Message(james, chat, "hello");
+//        Message message2 = new Message(greg, chat, "hi");
         Relationship relationship1 = new Relationship(james,greg, Relationship.Status.FRIEND);
         Relationship relationship2 = new Relationship(hansine,james, Relationship.Status.FRIEND);
         Relationship relationship3 = new Relationship(greg,hansine, Relationship.Status.FRIEND);
@@ -74,17 +74,17 @@ public class DataLoader implements ApplicationRunner {
         userRepo.save(squanchy);
         userRepo.save(birdperson);
         userRepo.save(strangeperson);
-        messageRepo.save(message1);
-        messageRepo.save(message2);
-        friendRepo.save(relationship1);
-        friendRepo.save(relationship2);
-        friendRepo.save(relationship3);
-        friendRepo.save(relationship4);
-        friendRepo.save(relationship5);
-        friendRepo.save(relationship6);
-        friendRepo.save(relationship7);
-        friendRepo.save(relationship8);
-        friendRepo.save(relationship9);
+//        messageRepo.save(message1);
+//        messageRepo.save(message2);
+//        friendRepo.save(relationship1);
+//        friendRepo.save(relationship2);
+//        friendRepo.save(relationship3);
+//        friendRepo.save(relationship4);
+//        friendRepo.save(relationship5);
+//        friendRepo.save(relationship6);
+//        friendRepo.save(relationship7);
+//        friendRepo.save(relationship8);
+//        friendRepo.save(relationship9);
 
 //        User greg = new User("Greg", "greg@bnta.com");
 //        User hansine = new User("Hansine", "hansine@bnta.com");

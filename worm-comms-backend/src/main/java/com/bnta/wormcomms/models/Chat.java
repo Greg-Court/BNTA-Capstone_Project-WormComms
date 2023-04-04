@@ -122,4 +122,6 @@ public class Chat {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

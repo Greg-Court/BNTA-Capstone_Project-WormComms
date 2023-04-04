@@ -36,7 +36,6 @@ public class MessageController {
 
     @MessageMapping("/newMessage")
     @MessageExceptionHandler(MessageConversionException.class)
-//    @SendTo("/user")
     public void createMessage(@RequestBody MessageRequest messageRequest) {
         //System.out.println("Recieved message");
         Message savedMessage = messageService.saveMessage(messageRequest);
@@ -46,11 +45,11 @@ public class MessageController {
         Chat chat = chatRepo.findById(messageRequest.getChatId()).get();
         for(User user : chat.getParticipants()) {
             //System.out.println("/user/"+user.getUsername());
-//            try {
-                simpMessagingTemplate.convertAndSend("/user/" + user.getUsername(), savedMessage);
-//            } catch (Exception e){
-//                //System.out.println("There was an error");
-//            }
+            // try {
+            simpMessagingTemplate.convertAndSend("/user/" + user.getUsername(), messageToSend);
+            // } catch (Exception e){
+            //System.out.println("There was an error");
+            // }
         }
     }
 

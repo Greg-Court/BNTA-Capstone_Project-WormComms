@@ -32,6 +32,9 @@ public class MessageDTO {
         this.senderUsername = message.getSender().getUsername();
     }
 
+    public MessageDTO() {
+    }
+
     public int getId() {
         return id;
     }
