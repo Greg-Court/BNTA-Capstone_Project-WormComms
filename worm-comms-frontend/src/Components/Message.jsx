@@ -3,11 +3,14 @@ import { AiOutlineRobot } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
 import { useCurrentUser } from "../UserContext";
 
-const ChatBubbleReceive = ({ text, message, currentUser}) => {
+
+
+
+const ChatBubbleReceive = ({ text, message}) => {
   return (
     <div className="border border-blue-500 ml-[2.5%] max-w-xl p-3 bg-white rounded-xl shadow-lg flex items-center space-x-4 mb-5 grow-from-bottom-left">
       <div className="shrink-0">
-        <img src={`../../../worm-comms-backend/uploads/${currentUser.profilePicture}`} className="h-12 w-12 rounded-full" />
+      <BsPerson className="h-12 w-12" />
       </div>
       <div>
         <div className="text-xl font-medium text-black">{message.senderUsername}</div>
@@ -17,7 +20,11 @@ const ChatBubbleReceive = ({ text, message, currentUser}) => {
   );
 };
 
-const ChatBubbleSend = ({ text,  }) => {
+const ChatBubbleSend = ({ text, currentUser  }) => {
+ 
+  const userProfilePicture =  new URL(`../../../worm-comms-backend/uploads/${currentUser.profilePicture}`, import.meta.url).href
+
+  
   return (
     <div className="border border-blue-500 mr-[2.5%] max-w-xl p-3 bg-white rounded-xl shadow-lg flex items-center space-x-4 mb-5 grow-from-bottom-right">
       <div className="shrink-0"></div>
@@ -25,7 +32,7 @@ const ChatBubbleSend = ({ text,  }) => {
         <div className="text-xl font-medium text-black">Me</div>
         <p className="text-slate-500">{text}</p>
       </div>
-      <BsPerson className="h-12 w-12" />
+      <img src={userProfilePicture} className="h-12 w-12 rounded-full" />
     </div>
   );
 };
