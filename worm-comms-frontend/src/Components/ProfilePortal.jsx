@@ -16,29 +16,67 @@ const ProfilePortal = () => {
     
     const { currentUser, setCurrentUser } = useCurrentUser();
     const [profileState, setProfileState] = useState(fieldState);
+    const [profilePicture, setProfilePicture] = useState(null);
+
 
     const handleProfileUpdates = async (e) => {
       setProfileState({ ...profileState, [e.target.id]: e.target.value });
     };
 
     const handleProfileSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        const response = await updateUser(currentUser.id, JSON.stringify(profileState));
-        console.log(response.data);
-        setProfileState({...profileState, response: "Profile updated successfully!"});
-
-    } catch (error){
-        console.log(error);
-        setProfileState({...profileState, error: "Something went wrong. Please try again later."});
-    }
-    }
-    
+        e.preventDefault();
+        try {
+          const formData = new FormData();
+          Object.entries(profileState).forEach(([key, value]) => {
+            formData.append(key, value);
+          });
+          if (profilePicture) {
+            const file = profilePicture[0];
+            const reader = new FileReader();
+            reader.onload = () => {
+              formData.append('profilePicture', reader.result);
+              submitFormData(formData);
+            };
+            reader.readAsDataURL(file);
+          } else {
+            submitFormData(formData);
+          }
+        } catch (error) {
+          console.log(error);
+          setProfileState({
+            ...profileState,
+            error: 'Something went wrong. Please try again later.',
+          });
+        }
+      };
+      
+      const submitFormData = async (formData) => {
+        try {
+          const response = await updateUser(currentUser.id, formData);
+          console.log(response.data);
+          setProfileState({
+            ...profileState,
+            response: 'Profile updated successfully!',
+          });
+        } catch (error) {
+          console.log(error);
+          setProfileState({
+            ...profileState,
+            error: 'Something went wrong. Please try again later.',
+          });
+        }
+      };
 
     return (
         <form className="mt-8 space-y-6" >
           {profileState.response && <div className="text-green-500">{profileState.response}</div>}
         <div className="">
+        <input 
+            type="file"
+            id="profilePicture"
+            name="profilePicture"
+            onChange={(e) => setProfilePicture(e.target.files)}
+        />
             {
                 fields.map(
                     (field => 
