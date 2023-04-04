@@ -26,7 +26,7 @@ public class ChatController {
     }
 
     @GetMapping("/{id}")
-    public Chat getChatById(@PathVariable("id") int id) {
+    public ChatDTO getChatById(@PathVariable("id") int id) {
         return chatService.getChatById(id);
     }
 

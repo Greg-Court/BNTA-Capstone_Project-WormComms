@@ -71,10 +71,10 @@ public class ChatService {
         return chatDTOS;
     }
 
-    public Chat getChatById(int id){
+    public ChatDTO getChatById(int id){
         Optional<Chat> optionalChat = chatRepository.findById(id);
         if (optionalChat.isPresent()) {
-            return optionalChat.get();
+            return new ChatDTO(optionalChat.get());
         } else {
             throw new NoSuchElementException("Chat with id " + id + " not found");
         }

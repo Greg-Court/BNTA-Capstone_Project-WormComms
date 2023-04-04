@@ -41,6 +41,7 @@ const MainPage = () => {
     stompClient.subscribe(`/user/${currentUser.username}`, (message) => {
       //the call back for subscribe just appends the message onto whatever chat is being displayed
       let responseDTO = JSON.parse(message.body);
+      console.log(responseDTO)
       setNewMessage(responseDTO)
     });
   };
@@ -48,7 +49,7 @@ const MainPage = () => {
   useEffect(() => {
     if (currentChat != null) {
       //console.log(newMessage)
-      if (currentChat.id === newMessage.chat.id)
+      if (currentChat.id === newMessage.chatId)
         setMessages((prevMessages) => [
           ...prevMessages,
           newMessage,
