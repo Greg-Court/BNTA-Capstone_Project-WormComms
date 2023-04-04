@@ -47,11 +47,11 @@ public class ChatService {
         return savedChat;
     }
 
-    public Chat updateChat(int id, Chat chat) {
+    public Chat updateChat(int id, ChatDTO chatDTO) {
         Optional<Chat> optionalChat = chatRepository.findById(id);
         if (optionalChat.isPresent()) {
             Chat existingChat = optionalChat.get();
-            existingChat.setName(chat.getName());
+            existingChat.setName(chatDTO.getName());
             return chatRepository.save(existingChat);
         }
         throw new NoSuchElementException("Chat not found");
@@ -71,10 +71,10 @@ public class ChatService {
         return chatDTOS;
     }
 
-    public Chat getChatById(int id){
+    public ChatDTO getChatById(int id){
         Optional<Chat> optionalChat = chatRepository.findById(id);
         if (optionalChat.isPresent()) {
-            return optionalChat.get();
+            return new ChatDTO(optionalChat.get());
         } else {
             throw new NoSuchElementException("Chat with id " + id + " not found");
         }

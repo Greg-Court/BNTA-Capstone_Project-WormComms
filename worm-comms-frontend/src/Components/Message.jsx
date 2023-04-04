@@ -4,13 +4,14 @@ import { BsPerson } from "react-icons/bs";
 import { useCurrentUser } from "../UserContext";
 
 const ChatBubbleReceive = ({ text, message }) => {
+  console.log(message)
   return (
     <div className="border border-blue-500 ml-[2.5%] max-w-xl p-3 bg-white rounded-xl shadow-lg flex items-center space-x-4 mb-5 grow-from-bottom-left">
       <div className="shrink-0">
         <AiOutlineRobot className="h-12 w-12" />
       </div>
       <div>
-        <div className="text-xl font-medium text-black">{message.sender.username}</div>
+        <div className="text-xl font-medium text-black">{message.senderUsername}</div>
         <p className="text-slate-500">{text}</p>
       </div>
     </div>
@@ -30,9 +31,10 @@ const ChatBubbleSend = ({ text }) => {
   );
 };
 
+
 const Message = ({ message, index }) => {
   const { currentUser, setCurrentUser } = useCurrentUser();
-  const isSent = message.sender.id === currentUser.id;
+  const isSent = message.senderId === currentUser.id;
   //console.log("Message.sender:", message.sender);
   //console.log("currentUser:", currentUser);
   if (isSent) {

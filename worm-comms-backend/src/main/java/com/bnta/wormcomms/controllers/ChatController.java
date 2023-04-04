@@ -26,7 +26,7 @@ public class ChatController {
     }
 
     @GetMapping("/{id}")
-    public Chat getChatById(@PathVariable("id") int id) {
+    public ChatDTO getChatById(@PathVariable("id") int id) {
         return chatService.getChatById(id);
     }
 
@@ -42,9 +42,9 @@ public class ChatController {
     }
 
     @PutMapping("/{id}")
-    public Chat updateChat(@PathVariable int id, @RequestBody Chat chat) {
-        System.out.println(chat);
-        return chatService.updateChat(id, chat);
+    public Chat updateChat(@PathVariable int id, @RequestBody ChatDTO chatDTO) {
+        System.out.println(chatDTO);
+        return chatService.updateChat(id, chatDTO);
     }
 
     @DeleteMapping("/{id}")

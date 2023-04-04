@@ -44,6 +44,8 @@ public class UserDTO {
         this.email = user.getEmail();
     }
 
+    public UserDTO() {
+    }
 
     // Add getters and setters for the new ID field
     public int getId() {

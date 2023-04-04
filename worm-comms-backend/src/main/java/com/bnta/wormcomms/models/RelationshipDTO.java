@@ -16,6 +16,9 @@ public class RelationshipDTO {
         this.senderUsername = relationship.getUser1().getUsername();
     }
 
+    public RelationshipDTO() {
+    }
+
     public int getReceiverId() {
         return receiverId;
     }

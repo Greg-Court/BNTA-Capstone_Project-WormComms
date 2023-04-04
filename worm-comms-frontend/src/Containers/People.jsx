@@ -5,21 +5,38 @@ import Select from "react-select";
 import Person from "../Components/Person.jsx";
 import { getUserRelationships } from "../api";
 
-const People = () => {
+const People = ({refreshUser}) => {
   const { currentUser, setCurrentUser } = useCurrentUser();
   const [people, setPeople] = useState([]);
   const [displayMode, setDisplayMode] = useState("search_users");
   const [searchText, setSearchText] = useState("");
 
+  useEffect(() => {
+    refreshUser();
+  }, [people]);
+
+  // check if there is a specific relationship between two users
   const isRelationshipStatus = (person, status) => {
-    const relationship = currentUser.relationships.find(
+    // find the relationships where the current user is the sender
+    const sentRelationship = currentUser.relationships.find(
       (relation) => relation.receiverId === person.id
+    );
+    // find relationships where the current user is the receiver
+    const receivedRelationship = currentUser.relationships.find(
+      (relation) => relation.senderId === person.id
     );
 
     if (status === "") {
-      return !relationship && person.id !== currentUser.id;
+      return (
+        !sentRelationship &&
+        !receivedRelationship &&
+        person.id !== currentUser.id
+      );
     } else {
-      return relationship && relationship.status === status;
+      return (
+        (sentRelationship && sentRelationship.status === status && person.id !== currentUser.id) ||
+        (receivedRelationship && receivedRelationship.status === status && person.id !== currentUser.id)
+      );
     }
   };
 
@@ -31,11 +48,12 @@ const People = () => {
         person.id !== currentUser.id
     );
 
-    return !!incomingRequest;
+    return !!incomingRequest; // !! typecasts value to boolean
   };
 
   console.log(people);
-  console.log("Current User Relationships", currentUser.relationships)
+  console.log("Current User Relationships", currentUser.relationships);
+  console.log("Current User", currentUser);
 
   const displayedPeople = people.filter((person) => {
     if (displayMode === "friends") {
@@ -86,7 +104,7 @@ const People = () => {
 
   return (
     <div className="h-[85vh]">
-      <div className="w-[100%] flex flex-col">
+      <div className="w-[100%] flex flex-col shadow-md border-gray-300 border-b-2">
         <Select
           className="mx-[5%] overflow-y-auto mt-3 mb-1"
           options={displayOptions}
@@ -105,7 +123,7 @@ const People = () => {
         />
       </div>
       <div className="flex items-center justify-around"></div>
-      <ul className="flex flex-col overflow-y-auto scrollbar-hide max-h-[78.5vh]">
+      <ul className="flex flex-col overflow-y-auto scrollbar-hide max-h-[78vh]">
         {displayedPeople
           .filter((person) =>
             person.username.toLowerCase().includes(searchText.toLowerCase())

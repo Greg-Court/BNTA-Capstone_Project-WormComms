@@ -12,9 +12,10 @@ import {
 } from "../api";
 
 const getRelationshipStatus = (currentUser, person) => {
-  const relationship = person.relationships.find(
+  const relationship = currentUser.relationships.find(
     (relation) =>
-      relation.receiverId === currentUser.id
+      (relation.senderId === currentUser.id && relation.receiverId === person.id) ||
+      (relation.receiverId === currentUser.id && relation.senderId === person.id)
   );
   if (relationship) {
     return relationship.status;
