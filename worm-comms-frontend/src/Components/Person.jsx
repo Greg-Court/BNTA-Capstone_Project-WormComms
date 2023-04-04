@@ -1,63 +1,186 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BsPerson } from "react-icons/bs";
 import {
-  createFriend,
+  createRelationship,
   acceptFriendRequest,
   rejectFriendRequest,
   blockPerson,
   unfriend,
+  cancelFriendRequest,
+  unblockPerson,
 } from "../api";
 
-const Person = ({ person, currentUser, isFriend, isIncomingRequest }) => {
-  const [friendStatus, setFriendStatus] = useState(isFriend);
+const getRelationshipStatus = (currentUser, person) => {
+  const relationship = person.relationships.find(
+    (relation) =>
+      relation.receiverId === currentUser.id
+  );
+  if (relationship) {
+    return relationship.status;
+  } else {
+    return "";
+  }
+};
+
+const getRelationship = (currentUser, person) => {
+  const relationship = person.relationships.find(
+    (relation) =>
+      relation.receiverId === currentUser.id
+  );
+  if (relationship) {
+    return relationship;
+  } else {
+    return null;
+  }
+};
+
+const Person = ({ person, currentUser, onRelationshipStatusChange }) => {
+  const [relationshipStatus, setRelationshipStatus] = useState(
+    getRelationshipStatus(currentUser, person)
+  );
+  const [relationship, setRelationship] = useState(
+    getRelationship(currentUser, person)
+  );
+
+  useEffect(() => {
+    setRelationshipStatus(getRelationshipStatus(currentUser, person));
+    setRelationship(getRelationship(currentUser, person));
+  }, [currentUser.relationships, person]);
+
 
   const handleAddFriend = async () => {
-    console.log("Add friend");
-    const friend = { user1: currentUser, user2: person, status: "PENDING" };
-    await createFriend(friend);
-    setFriendStatus(true);
+    const relationship = {
+      user1: currentUser,
+      user2: person,
+      status: "PENDING",
+    };
+    await createRelationship(relationship);
+    setRelationshipStatus("PENDING");
+    onRelationshipStatusChange();
   };
 
-  console.log("Current user relationships: ", currentUser.relationships);
   const handleRemoveFriend = async () => {
-    console.log("Remove friend");
-    const friend = currentUser.relationships.find(
-      (friend) => friend.userId === person.id
-    );
-    await unfriend(friend.userId);
-    setFriendStatus(false);
+    await unfriend(currentUser.id, person.id);
+    setRelationshipStatus("");
+    onRelationshipStatusChange();
   };
 
   const handleBlock = async () => {
-    console.log("Block person");
-    const relationship = currentUser.relationships.find(
-      (relationship) => relationship.user2.id === person.id
-    );
-    await blockPerson(relationship.id);
-    setFriendStatus(false);
+    await blockPerson(currentUser.id, person.id);
+    setRelationshipStatus("BLOCKED");
+    onRelationshipStatusChange();
+  };
+
+  const handleCancelRequest = async () => {
+    await cancelFriendRequest(currentUser.id, person.id);
+    setRelationshipStatus("");
+    onRelationshipStatusChange();
   };
 
   const handleAcceptRequest = async () => {
-    console.log("Accept friend request");
-    const relationship = currentUser.relationships.find(
-      (relationship) =>
-        relationship.user2.id === person.id && relationship.status === "PENDING"
+    const updatedRelationship = await acceptFriendRequest(
+      person.id,
+      currentUser.id
     );
-    await acceptFriendRequest(relationship.id);
-    setFriendStatus(true);
+    setRelationshipStatus(updatedRelationship.status);
+    onRelationshipStatusChange();
   };
 
   const handleRejectRequest = async () => {
-    console.log("Reject friend request");
-    const relationship = currentUser.relationships.find(
-      (relationship) =>
-        relationship.user2.id === person.id && relationship.status === "PENDING"
-    );
-    await rejectFriendRequest(relationship.id);
-    setFriendStatus(false);
+    await rejectFriendRequest(currentUser.id, person.id);
+    setRelationshipStatus("");
+    onRelationshipStatusChange();
   };
 
+  const handleUnblock = async () => {
+    await unblockPerson(currentUser.id, person.id);
+    setRelationshipStatus("");
+    onRelationshipStatusChange();
+  };
+
+  const relationshipActions = () => {
+    if (relationshipStatus === "FRIEND") {
+      return (
+        <div className="space-x-2 flex-shrink-0">
+          <button
+            className="bg-orange-500 text-white px-3 py-1 rounded"
+            onClick={handleRemoveFriend}
+          >
+            Unfriend
+          </button>
+          <button
+            className="bg-red-500 text-white px-3 py-1 rounded"
+            onClick={handleBlock}
+          >
+            Block
+          </button>
+        </div>
+      );
+    } else if (
+      relationshipStatus === "PENDING" &&
+      relationship?.receiverId !== currentUser.id
+    ) {
+      return (
+        <div className="space-x-2 flex-shrink-0">
+          <button
+            className="bg-red-500 text-white px-3 py-1 rounded"
+            onClick={handleCancelRequest}
+          >
+            Cancel Request
+          </button>
+        </div>
+      );
+    } else if (
+      relationshipStatus === "PENDING" &&
+      relationship?.receiverId === currentUser.id
+    ) {
+      return (
+        <div className="space-x-2 flex-shrink-0">
+          <button
+            className="bg-green-500 text-white px-3 py-1 rounded"
+            onClick={handleAcceptRequest}
+          >
+            Accept
+          </button>
+          <button
+            className="bg-red-500 text-white px-3 py-1 rounded"
+            onClick={handleRejectRequest}
+          >
+            Reject
+          </button>
+        </div>
+      );
+    } else if (relationshipStatus === "BLOCKED") {
+      return (
+        <div className="space-x-2 flex-shrink-0">
+          <button
+            className="bg-green-500 text-white px-3 py-1 rounded"
+            onClick={handleUnblock}
+          >
+            Unblock
+          </button>
+        </div>
+      );
+    } else {
+      return (
+        <div className="space-x-2 flex-shrink-0">
+          <button
+            className="bg-green-500 text-white px-3 py-1 rounded"
+            onClick={handleAddFriend}
+          >
+            Add
+          </button>
+          <button
+            className="bg-red-500 text-white px-3 py-1 rounded"
+            onClick={handleBlock}
+          >
+            Block
+          </button>
+        </div>
+      );
+    }
+  };
   return (
     <li key={person.id} className="cursor-pointer rounded-xl px-5 py-2 mx-[5%]">
       <div className="flex items-center justify-start">
@@ -68,54 +191,7 @@ const Person = ({ person, currentUser, isFriend, isIncomingRequest }) => {
           <div className="flex font-semibold items-center">
             {person.username}
           </div>
-          <div className="flex items-center">
-            {isIncomingRequest ? (
-              <div className="space-x-2 flex-shrink-0">
-                <button
-                  className="bg-green-500 text-white px-3 py-1 rounded"
-                  onClick={handleAcceptRequest}
-                >
-                  Accept
-                </button>
-                <button
-                  className="bg-red-500 text-white px-3 py-1 rounded"
-                  onClick={handleRejectRequest}
-                >
-                  Reject
-                </button>
-              </div>
-            ) : friendStatus ? (
-              <div className="space-x-2 flex-shrink-0">
-                <button
-                  className="bg-orange-500 text-white px-3 py-1 rounded"
-                  onClick={handleRemoveFriend}
-                >
-                  Unfriend
-                </button>
-                <button
-                  className="bg-red-500 text-white px-3 py-1 rounded"
-                  onClick={handleBlock}
-                >
-                  Block
-                </button>
-              </div>
-            ) : (
-              <div className="space-x-2 flex-shrink-0">
-                <button
-                  className="bg-green-500 text-white px-3 py-1 rounded"
-                  onClick={handleAddFriend}
-                >
-                  Add
-                </button>
-                <button
-                  className="bg-red-500 text-white px-3 py-1 rounded"
-                  onClick={handleBlock}
-                >
-                  Block
-                </button>
-              </div>
-            )}
-          </div>
+          <div className="flex items-center">{relationshipActions()}</div>
         </div>
       </div>
     </li>

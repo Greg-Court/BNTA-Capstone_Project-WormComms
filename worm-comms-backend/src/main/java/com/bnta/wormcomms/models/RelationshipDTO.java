@@ -1,23 +1,27 @@
 package com.bnta.wormcomms.models;
 
 public class RelationshipDTO {
-    private int userId;
-    private String username;
+    private int receiverId;
+    private int senderId;
+    private String receiverUsername;
+    private String senderUsername;
     private Relationship.Status status;
 
 
     public RelationshipDTO(Relationship relationship) {
-        this.userId = relationship.getUser2().getId();
+        this.receiverId = relationship.getUser2().getId();
+        this.senderId = relationship.getUser1().getId();
         this.status = relationship.getStatus();
-        this.username = relationship.getUser2().getUsername();
+        this.receiverUsername = relationship.getUser2().getUsername();
+        this.senderUsername = relationship.getUser1().getUsername();
     }
 
-    public int getUserId() {
-        return userId;
+    public int getReceiverId() {
+        return receiverId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setReceiverId(int receiverId) {
+        this.receiverId = receiverId;
     }
 
     public Relationship.Status getStatus() {
@@ -28,11 +32,27 @@ public class RelationshipDTO {
         this.status = status;
     }
 
-    public String getUsername() {
-        return username;
+    public String getReceiverUsername() {
+        return receiverUsername;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setReceiverUsername(String receiverUsername) {
+        this.receiverUsername = receiverUsername;
+    }
+
+    public int getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(int senderId) {
+        this.senderId = senderId;
+    }
+
+    public String getSenderUsername() {
+        return senderUsername;
+    }
+
+    public void setSenderUsername(String senderUsername) {
+        this.senderUsername = senderUsername;
     }
 }
