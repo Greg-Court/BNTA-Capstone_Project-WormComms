@@ -40,6 +40,7 @@ public class MessageController {
         //System.out.println("Recieved message");
         Message savedMessage = messageService.saveMessage(messageRequest);
         MessageDTO messageToSend = new MessageDTO(savedMessage);
+        System.out.println(messageToSend.toString());
         //System.out.println(messageToSend);
         //find the chat
         Chat chat = chatRepo.findById(messageRequest.getChatId()).get();

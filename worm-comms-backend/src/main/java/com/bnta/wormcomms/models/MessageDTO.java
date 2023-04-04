@@ -17,9 +17,9 @@ public class MessageDTO {
     private boolean isRead;
 
     private int senderId;
-
     private int chatId;
     private String senderUsername;
+    private UserDTO sender;
 
     public MessageDTO(Message message) {
         this.id = message.getId();
@@ -30,9 +30,25 @@ public class MessageDTO {
         this.chatId = message.getChat().getId();
         this.senderId = message.getSender().getId();
         this.senderUsername = message.getSender().getUsername();
+        this.sender = new UserDTO(message.getSender());
     }
 
     public MessageDTO() {
+    }
+
+    @Override
+    public String toString() {
+        return "MessageDTO{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", isRead=" + isRead +
+                ", senderId=" + senderId +
+                ", chatId=" + chatId +
+                ", senderUsername='" + senderUsername + '\'' +
+                ", sender=" + sender.toString() +
+                '}';
     }
 
     public int getId() {
@@ -97,5 +113,13 @@ public class MessageDTO {
 
     public void setSenderUsername(String senderUsername) {
         this.senderUsername = senderUsername;
+    }
+
+    public UserDTO getSender() {
+        return sender;
+    }
+
+    public void setSender(UserDTO sender) {
+        this.sender = sender;
     }
 }

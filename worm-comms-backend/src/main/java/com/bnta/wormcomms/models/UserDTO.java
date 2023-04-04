@@ -47,6 +47,20 @@ public class UserDTO {
     public UserDTO() {
     }
 
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", profilePicture='" + profilePicture + '\'' +
+                ", bio='" + bio + '\'' +
+                ", relationships=" + relationships +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
     // Add getters and setters for the new ID field
     public int getId() {
         return id;

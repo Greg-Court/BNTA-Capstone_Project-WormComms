@@ -54,15 +54,12 @@ public class DataLoader implements ApplicationRunner {
 
 //        Message message1 = new Message(james, chat, "hello");
 //        Message message2 = new Message(greg, chat, "hi");
-        Relationship relationship1 = new Relationship(james,greg, Relationship.Status.FRIEND);
-        Relationship relationship2 = new Relationship(hansine,james, Relationship.Status.FRIEND);
-        Relationship relationship3 = new Relationship(greg,hansine, Relationship.Status.FRIEND);
-        Relationship relationship4 = new Relationship(greg,james, Relationship.Status.FRIEND);
-        Relationship relationship5 = new Relationship(hansine,greg, Relationship.Status.FRIEND);
-        Relationship relationship6 = new Relationship(james,hansine, Relationship.Status.FRIEND);
-        Relationship relationship7 = new Relationship(strangeperson,greg, Relationship.Status.PENDING);
-        Relationship relationship8 = new Relationship(strangeperson,james, Relationship.Status.PENDING);
-        Relationship relationship9 = new Relationship(strangeperson,hansine, Relationship.Status.PENDING);
+//        Relationship relationship1 = new Relationship(james,greg, Relationship.Status.FRIEND);
+//        Relationship relationship2 = new Relationship(hansine,james, Relationship.Status.FRIEND);
+//        Relationship relationship3 = new Relationship(greg,hansine, Relationship.Status.FRIEND);
+//        Relationship relationship7 = new Relationship(strangeperson,greg, Relationship.Status.PENDING);
+//        Relationship relationship8 = new Relationship(strangeperson,james, Relationship.Status.PENDING);
+//        Relationship relationship9 = new Relationship(strangeperson,hansine, Relationship.Status.PENDING);
 
         userRepo.save(hansine);
         userRepo.save(james);
@@ -79,9 +76,9 @@ public class DataLoader implements ApplicationRunner {
 //        friendRepo.save(relationship1);
 //        friendRepo.save(relationship2);
 //        friendRepo.save(relationship3);
-//        friendRepo.save(relationship4);
-//        friendRepo.save(relationship5);
-//        friendRepo.save(relationship6);
+////        friendRepo.save(relationship4);
+////        friendRepo.save(relationship5);
+////        friendRepo.save(relationship6);
 //        friendRepo.save(relationship7);
 //        friendRepo.save(relationship8);
 //        friendRepo.save(relationship9);
