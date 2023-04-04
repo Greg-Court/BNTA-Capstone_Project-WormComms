@@ -67,7 +67,7 @@ const MainPage = () => {
         </div>
         <div className="flex">
           <SideBar newMessage={newMessage} refreshUser={refreshUser}></SideBar>
-          <MessageContainer stompClient={stompClient} messages={messages} setMessages={setMessages}></MessageContainer>
+          <MessageContainer stompClient={stompClient} messages={messages} setMessages={setMessages} refreshUser={refreshUser}></MessageContainer>
         </div>
       </>
     )

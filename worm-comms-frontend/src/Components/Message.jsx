@@ -27,11 +27,9 @@ const ChatBubbleReceive = ({ text, message}) => {
   );
 };
 
-const ChatBubbleSend = ({ text, currentUser  }) => {
+const ChatBubbleSend = ({ text, currentUser }) => {
  
   const userProfilePicture =  new URL(`../../../worm-comms-backend/uploads/${currentUser.profilePicture}`, import.meta.url).href
-  console.log(currentUser)
-
   
   return (
     <div className="border border-blue-500 mr-[2.5%] max-w-xl p-3 bg-white rounded-xl shadow-lg flex items-center space-x-4 mb-5 grow-from-bottom-right">
@@ -52,7 +50,7 @@ const Message = ({ message, index }) => {
   //console.log("currentUser:", currentUser);
   if (isSent) {
     return (
-      <div key={index} className="w-full flex justify-end">
+      <div key={`${message.id}-${currentUser.profilePicture}`} className="w-full flex justify-end">
         <ChatBubbleSend
           currentUser={currentUser}
           key={index}

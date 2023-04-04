@@ -235,10 +235,6 @@ public class User {
         return relationshipDTOS;
     }
 
-    public UserDTO getUserDTO() {
-        return new UserDTO(id, username, email, firstName, lastName, getRelationshipDTOs());
-    }
-
     public List<Relationship> getInverseRelationships() {
         return inverseRelationships;
     }

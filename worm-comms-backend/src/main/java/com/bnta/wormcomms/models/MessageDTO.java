@@ -30,10 +30,25 @@ public class MessageDTO {
         this.chatId = message.getChat().getId();
         this.senderId = message.getSender().getId();
         this.senderUsername = message.getSender().getUsername();
-        this.sender = message.getSender().getUserDTO();
+        this.sender = new UserDTO(message.getSender());
     }
 
     public MessageDTO() {
+    }
+
+    @Override
+    public String toString() {
+        return "MessageDTO{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", isRead=" + isRead +
+                ", senderId=" + senderId +
+                ", chatId=" + chatId +
+                ", senderUsername='" + senderUsername + '\'' +
+                ", sender=" + sender.toString() +
+                '}';
     }
 
     public int getId() {
