@@ -3,11 +3,11 @@ import { AiOutlineRobot } from "react-icons/ai";
 import { BsPerson } from "react-icons/bs";
 import { useCurrentUser } from "../UserContext";
 
-const ChatBubbleReceive = ({ text, message }) => {
+const ChatBubbleReceive = ({ text, message, currentUser}) => {
   return (
     <div className="border border-blue-500 ml-[2.5%] max-w-xl p-3 bg-white rounded-xl shadow-lg flex items-center space-x-4 mb-5 grow-from-bottom-left">
       <div className="shrink-0">
-        <AiOutlineRobot className="h-12 w-12" />
+        <img src={`../../../worm-comms-backend/uploads/${currentUser.profilePicture}`} className="h-12 w-12 rounded-full" />
       </div>
       <div>
         <div className="text-xl font-medium text-black">{message.sender.username}</div>
@@ -17,7 +17,7 @@ const ChatBubbleReceive = ({ text, message }) => {
   );
 };
 
-const ChatBubbleSend = ({ text }) => {
+const ChatBubbleSend = ({ text,  }) => {
   return (
     <div className="border border-blue-500 mr-[2.5%] max-w-xl p-3 bg-white rounded-xl shadow-lg flex items-center space-x-4 mb-5 grow-from-bottom-right">
       <div className="shrink-0"></div>
@@ -38,7 +38,7 @@ const Message = ({ message, index }) => {
   if (isSent) {
     return (
       <div key={index} className="w-full flex justify-end">
-        <ChatBubbleSend key={index} text={message.content}/>
+        <ChatBubbleSend currentUser={currentUser} key={index} text={message.content}/>
       </div>
     );
   } else {

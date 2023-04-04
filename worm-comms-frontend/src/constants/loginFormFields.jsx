@@ -64,21 +64,21 @@ const signUpFields = [
     },
     {
         labelText: "First Name",
-        labelFor: "first-name", 
-        id: "first-name",
-        name: "first-name",
+        labelFor: "firstName", 
+        id: "firstName",
+        name: "firstName",
         type: "text",
-        autocomplete: "first-name",
+        autocomplete: "firstName",
         isRequired: true, 
         placeholder: "First Name"
     } ,
     {
         labelText: "Last Name",
-        labelFor: "last-name", 
-        id: "last-name",
-        name: "last-name",
+        labelFor: "lastName", 
+        id: "lastName",
+        name: "lastName",
         type: "text",
-        autocomplete: "last-name",
+        autocomplete: "lastName",
         isRequired: true, 
         placeholder: "Last Name"
     }
@@ -107,11 +107,11 @@ const profileFields = [
     },
     {
         labelText: "Change Password",
-        labelFor: "newpassword", 
-        id: "newpassword",
-        name: "newpassword",
+        labelFor: "password", 
+        id: "password",
+        name: "password",
         type: "password",
-        autocomplete: "new-password",
+        autocomplete: "password",
         isRequired: true, 
         placeholder: "password"
     },
@@ -127,21 +127,21 @@ const profileFields = [
     },
     {
         labelText: "First Name",
-        labelFor: "first-name", 
-        id: "first-name",
-        name: "first-name",
+        labelFor: "firstName", 
+        id: "firstName",
+        name: "firstName",
         type: "text",
-        autocomplete: "first-name",
+        autocomplete: "firstName",
         isRequired: true, 
         placeholder: "firstName"
     } ,
     {
         labelText: "Last Name",
-        labelFor: "last-name", 
-        id: "last-name",
-        name: "last-name",
+        labelFor: "lastName", 
+        id: "lastName",
+        name: "lastName",
         type: "text",
-        autocomplete: "last-name",
+        autocomplete: "lastName",
         isRequired: true, 
         placeholder: "lastName"
     },
@@ -154,7 +154,8 @@ const profileFields = [
         autocomplete: "bio",
         isRequired: true, 
         placeholder: "bio"
-    }
+    }, 
+
 ]
 
 export {loginFields, signUpFields, profileFields};
