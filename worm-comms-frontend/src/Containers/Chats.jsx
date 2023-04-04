@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { getUserChats, createChat } from "../api";
 import { useCurrentUser } from "../UserContext";
-import Friend from "../Components/Friend";
 import Chat from "../Components/Chat.jsx";
 import Select from "react-select";
 
-const Chats = ({ newMessage }) => {
+const Chats = ({ newMessage, refreshUser }) => {
   const { currentUser, setCurrentUser } = useCurrentUser();
 
   const [chats, setChats] = useState([]);
@@ -72,6 +71,7 @@ const Chats = ({ newMessage }) => {
             setSelectedOptions(options);
             updateNewChat(options);
           }}
+          onMenuOpen={refreshUser}
           value={selectedOptions}
           isMulti
           placeholder="Select Contacts..."

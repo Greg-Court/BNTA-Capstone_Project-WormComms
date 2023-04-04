@@ -1,12 +1,10 @@
 import MessageContainer from "./MessageContainer";
-import LoginPortal from "../Components/LoginPortal";
-import { getAllChats } from "../api";
+import { getAllUsers } from "../api";
 import useWebSocket from "../socket";
 import { useCurrentUser } from "../UserContext";
 import { useState, useEffect } from "react";
 import MainPageNavbar from "../Components/MainPageNavbar";
 import { useNavigate } from "react-router-dom";
-import Chats from "./Chats";
 import { useCurrentChat } from "../ChatContext";
 import SideBar from "./SideBar";
 
@@ -16,6 +14,16 @@ const MainPage = () => {
 
   const [newMessage, setNewMessage] = useState([]);
   const [messages, setMessages] = useState([]);
+
+  const refreshUser = async () => {
+    const users = await getAllUsers().then((response) => response.data);
+    console.log(users);
+    for (let user of users) {
+      if (currentUser.email === user.email) {
+        setCurrentUser(user);
+      }
+    }
+  };
 
   const navigate = useNavigate()
   const stompClient = useWebSocket();
@@ -57,7 +65,7 @@ const MainPage = () => {
           <MainPageNavbar />
         </div>
         <div className="flex">
-          <SideBar newMessage={newMessage}></SideBar>
+          <SideBar newMessage={newMessage} refreshUser={refreshUser}></SideBar>
           <MessageContainer stompClient={stompClient} messages={messages} setMessages={setMessages}></MessageContainer>
         </div>
       </>

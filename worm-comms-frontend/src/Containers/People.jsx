@@ -5,23 +5,13 @@ import Select from "react-select";
 import Person from "../Components/Person.jsx";
 import { getUserRelationships } from "../api";
 
-const People = () => {
+const People = ({refreshUser}) => {
   const { currentUser, setCurrentUser } = useCurrentUser();
   const [people, setPeople] = useState([]);
   const [displayMode, setDisplayMode] = useState("search_users");
   const [searchText, setSearchText] = useState("");
 
-  // had to add this to refresh the current user's relationships
   useEffect(() => {
-    const refreshUser = async () => {
-      const users = await getAllUsers().then((response) => response.data);
-      console.log(users);
-      for (let user of users) {
-        if (currentUser.email === user.email) {
-          setCurrentUser(user);
-        }
-      }
-    };
     refreshUser();
   }, [people]);
 
