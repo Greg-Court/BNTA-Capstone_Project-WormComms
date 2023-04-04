@@ -9,7 +9,7 @@ import { useCurrentUser } from "../UserContext";
 const ChatBubbleReceive = ({ text, message}) => {
 
   const senderProfilePicture =  new URL(`../../../worm-comms-backend/uploads/${message.sender.profilePicture}`, import.meta.url).href
-
+  
 
   return (
     <div className="border border-blue-500 ml-[2.5%] max-w-xl p-3 bg-white rounded-xl shadow-lg flex items-center space-x-4 mb-5 grow-from-bottom-left">
@@ -18,7 +18,9 @@ const ChatBubbleReceive = ({ text, message}) => {
       <img src={senderProfilePicture} className="h-12 w-12 rounded-full" />
       </div>
       <div>
-        <div className="text-xl font-medium text-black">{message.senderUsername}</div>
+        <div className="text-xl font-medium text-black">
+          {message.senderUsername}
+        </div>
         <p className="text-slate-500">{text}</p>
       </div>
     </div>
@@ -43,7 +45,6 @@ const ChatBubbleSend = ({ text, currentUser  }) => {
   );
 };
 
-
 const Message = ({ message, index }) => {
   const { currentUser, setCurrentUser } = useCurrentUser();
   const isSent = message.senderId === currentUser.id;
@@ -52,13 +53,21 @@ const Message = ({ message, index }) => {
   if (isSent) {
     return (
       <div key={index} className="w-full flex justify-end">
-        <ChatBubbleSend currentUser={currentUser} key={index} text={message.content}/>
+        <ChatBubbleSend
+          currentUser={currentUser}
+          key={index}
+          text={message.content}
+        />
       </div>
     );
   } else {
     return (
       <div key={index} className="w-full flex justify-start">
-        <ChatBubbleReceive key={index} text={message.content} message={message} />
+        <ChatBubbleReceive
+          key={index}
+          text={message.content}
+          message={message}
+        />
       </div>
     );
   }
