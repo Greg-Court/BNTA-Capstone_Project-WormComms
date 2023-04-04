@@ -11,6 +11,8 @@ import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import ProfilePortal from "./Components/ProfilePortal";
 import ProfilePage from "./pages/ProfilePage";
+import Redirect from "./Components/Redirect";
+import OAuthProvider from "./OAuthTokenHeader";
 
 function App() {
 
@@ -18,6 +20,7 @@ function App() {
 
   return (
     <>
+    <OAuthProvider>
     <ChatProvider>
     <UserProvider>
         <BrowserRouter>
@@ -26,10 +29,13 @@ function App() {
             <Route path="/signup" element={<SignUpPage/>} />
             <Route path="/home" element={<MainPage/>}/>
             <Route path="/profile" element={<ProfilePage/>} />
+            <Route path="/redirect" element={<Redirect/>} />
+            <Route path="/authorized" element={<Redirect/>}/>
           </Routes>
         </BrowserRouter>
       </UserProvider>
       </ChatProvider>
+      </OAuthProvider>
     </>
   );
 

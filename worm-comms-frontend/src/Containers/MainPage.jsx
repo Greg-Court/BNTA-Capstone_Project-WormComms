@@ -9,20 +9,39 @@ import { useNavigate } from "react-router-dom";
 import Chats from "./Chats";
 import { useCurrentChat } from "../ChatContext";
 import SideBar from "./SideBar";
+import { useOAuthContext } from "../OAuthTokenHeader";
 
 const MainPage = () => {
   const { currentUser, setCurrentUser } = useCurrentUser();
   const { currentChat, setCurrentChat } = useCurrentChat();
+  const { oAuthToken, setOAuthToken } = useOAuthContext();
 
   const [newMessage, setNewMessage] = useState([]);
   const [messages, setMessages] = useState([]);
 
   const navigate = useNavigate()
   const stompClient = useWebSocket();
-//comment
+  //comment
+
+  useEffect(() => {
+    // if (currentUser === null) {
+    //   navigate("/");
+    // }
+
+    const token = sessionStorage.getItem('id-token');
+    const headers = new Headers();
+
+    headers.set('Content-type', 'plain/test');
+    headers.set('Authorization', `Bearer ${token}`)
+
+    setOAuthToken(headers);
+  }, [])
+
   useEffect(() => {
     if (stompClient) {
-      stompClient.connect({}, () => {
+      stompClient.connect({
+        headers: oAuthToken
+      }, () => {
         onConnect();
       });
     }
@@ -48,21 +67,19 @@ const MainPage = () => {
     }
   }, [newMessage])
 
-  if (currentUser === null) {
-    navigate("/");
-  } else {
-    return (
-      <>
-        <div className="h-[5vh]">
-          <MainPageNavbar />
-        </div>
-        <div className="flex">
-          <SideBar newMessage={newMessage}></SideBar>
-          <MessageContainer stompClient={stompClient} messages={messages} setMessages={setMessages}></MessageContainer>
-        </div>
-      </>
-    )
-  }
+
+  return (
+    <>
+      <div className="h-[5vh]">
+        <MainPageNavbar />
+      </div>
+      <div className="flex">
+        <SideBar newMessage={newMessage}></SideBar>
+        <MessageContainer stompClient={stompClient} messages={messages} setMessages={setMessages}></MessageContainer>
+      </div>
+    </>
+  )
 }
+
 
 export default MainPage;

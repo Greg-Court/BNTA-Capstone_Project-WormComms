@@ -9,12 +9,27 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.cors(c -> {
+            CorsConfigurationSource source = s -> {
+                CorsConfiguration cc = new CorsConfiguration();
+                cc.setAllowCredentials(true);
+                cc.setAllowedOrigins(List.of("http://localhost:8080","http://192.168.0.61:5173"));
+                cc.setAllowedHeaders(List.of("*"));
+                cc.setAllowedMethods(List.of("*"));
+                return cc;
+            };
+            c.configurationSource(source);
+        });
         return http.formLogin()
                 .and()
                 .authorizeHttpRequests()

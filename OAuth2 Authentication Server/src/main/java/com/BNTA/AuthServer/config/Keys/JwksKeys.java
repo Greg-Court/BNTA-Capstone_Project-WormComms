@@ -17,9 +17,11 @@ public class JwksKeys {
         try {
             KeyPairGenerator g = KeyPairGenerator.getInstance("RSA");
             var keyPair = g.generateKeyPair();
+            g.initialize(2048);
 
             RSAPublicKey rsaPublicKey = (RSAPublicKey) keyPair.getPublic();
             RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) keyPair.getPrivate();
+
             return new RSAKey.Builder(rsaPublicKey).privateKey(rsaPrivateKey).keyID(UUID.randomUUID().toString()).build();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("Problem generating keys");
