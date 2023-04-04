@@ -118,15 +118,13 @@ const Chats = ({ newMessage, refreshUser }) => {
         >
           Create New Chat
         </button>
-        <div className="w-[90%] mx-auto flex items-center my-3">
-          <input
-            type="text"
-            placeholder="Search chats or participants"
-            className="flex-1 border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
-            value={searchInput}
-            onChange={handleSearchChange}
-          />
-        </div>
+        <input
+          type="text"
+          placeholder="Search Chats..."
+          className="mx-[5%] my-2 border p-2 rounded"
+          value={searchInput}
+          onChange={handleSearchChange}
+        />
       </div>
       <div className="flex items-center justify-around"></div>
       <ul className="flex flex-col overflow-y-auto scrollbar-hide max-h-[72vh]">
