@@ -4,15 +4,10 @@ import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name="chats")
-// JsonIdentityInfo added to prevent infinite recursion errors when making get requests & other
-//@JsonIdentityInfo(
-//        generator = ObjectIdGenerators.PropertyGenerator.class,
-//        property = "id")
 public class Chat {
 
     @Id
@@ -23,15 +18,12 @@ public class Chat {
     @Column(name="name")
     private String name;
 
-    // orphanRemoval = true,
     @OneToMany(mappedBy = "chat", fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"chat"})
-//    @JsonManagedReference
     private List<Message> messages;
 
     @ManyToMany(mappedBy = "chats", fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"chats"})
-//    @JsonBackReference
     private List<User> participants;
 
     @Column(name="created_at")
@@ -52,6 +44,16 @@ public class Chat {
     public Chat(String name, List<User> participants) {
         this.name = name;
         this.participants = participants;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
     }
 
     public Chat(String name) {

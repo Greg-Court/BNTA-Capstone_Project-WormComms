@@ -9,10 +9,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="messages")
-// JsonIdentityInfo added to prevent infinite recursion errors when making get requests & other
-//@JsonIdentityInfo(
-//        generator = ObjectIdGenerators.PropertyGenerator.class,
-//        property = "id")
 public class Message {
 
     @Id
@@ -59,7 +55,16 @@ public class Message {
         this.sender = sender;
         this.chat = chat;
         this.content = content;
-//        chat.getMessages().add(this); // Add this line
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
     }
 
     @Override

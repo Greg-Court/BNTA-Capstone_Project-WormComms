@@ -10,10 +10,6 @@ import java.util.List;
 
 @Entity
 @Table(name="app_users")
-// JsonIdentityInfo added to prevent infinite recursion errors when making get requests & other
-//@JsonIdentityInfo(
-//        generator = ObjectIdGenerators.PropertyGenerator.class,
-//        property = "id")
 public class User {
 
     @Id
@@ -61,31 +57,22 @@ public class User {
     @JsonIgnoreProperties({"participants","messages"})
     private List<Chat> chats;
 
-    // orphanRemoval = true,
     @OneToMany(mappedBy = "user1", fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"user1"})
-    // @JsonIgnore --> this broke the ability to GET chats
-    // If you need to keep some relationships while avoiding circular references, you can use the @JsonManagedReference and @JsonBackReference annotations.
-    // Annotate the owning side of the relationship with @JsonManagedReference and the inverse side with @JsonBackReference.
-//    @JsonManagedReference
     private List<Relationship> relationships;
 
     @OneToMany(mappedBy = "user2", fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"user2"})
     private List<Relationship> inverseRelationships;
 
-
-    public User(int id, String username, String firstName, String lastName, String profilePicture, String bio, String email, String password, LocalDateTime createdAt, LocalDateTime updatedAt, List<Message> messages, List<Chat> chats) {
+    public User(int id, String username, String firstName, String lastName, String bio, String email, String password, List<Message> messages, List<Chat> chats) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.profilePicture = profilePicture;
         this.bio = bio;
         this.email = email;
         this.password = password;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
         this.messages = new ArrayList<>();
         this.chats = new ArrayList<>();
         this.relationships = new ArrayList<>();
@@ -119,6 +106,16 @@ public class User {
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
     }
 
     public int getId() {

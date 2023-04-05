@@ -1,5 +1,9 @@
 package com.bnta.wormcomms.models;
 
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 

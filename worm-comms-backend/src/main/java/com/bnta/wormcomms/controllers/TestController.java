@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @GetMapping("/test")
-    //@SendTo("/topic/test")
     public String handleTestMessage() {
         System.out.println("Authenticated response??");
         return "Hello from backend!";

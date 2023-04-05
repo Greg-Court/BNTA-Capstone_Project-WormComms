@@ -61,7 +61,6 @@ public class UserController {
         user.setLastName(userData.get("lastName"));
         user.setEmail(userData.get("email"));
         user.setRelationships(new ArrayList<>());
-        // set other fields
         return userService.saveUser(user);
     }
 
@@ -91,7 +90,7 @@ public class UserController {
                     String fileName = profilePicture.get().getOriginalFilename();
                     Path path = Paths.get(fileUploadPath, fileName);
                     Files.write(path, profilePicture.get().getBytes());
-                    user.setProfilePicture(fileName); // or user.setProfilePicture(path.toString());
+                    user.setProfilePicture(fileName);
                 }
             } catch (IOException e) {
                 e.printStackTrace();

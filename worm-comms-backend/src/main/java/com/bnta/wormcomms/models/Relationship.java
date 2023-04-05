@@ -7,10 +7,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name="relationships")
-// JsonIdentityInfo added to prevent infinite recursion errors when making get requests & other
-//@JsonIdentityInfo(
-//        generator = ObjectIdGenerators.PropertyGenerator.class,
-//        property = "id")
 public class Relationship {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,13 +15,11 @@ public class Relationship {
     @ManyToOne
     @JoinColumn(name="user1")
     @JsonIgnoreProperties({"relationships"})
-//    @JsonBackReference
     private User user1;
 
     @ManyToOne
     @JoinColumn(name="user2")
     @JsonIgnoreProperties({"relationships","messages","chats","password"})
-//    @JsonBackReference
     private User user2;
 
     @Column
@@ -69,6 +63,16 @@ public class Relationship {
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
     }
 
 

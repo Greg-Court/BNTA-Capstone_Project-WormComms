@@ -41,6 +41,9 @@ public class DataLoader implements ApplicationRunner {
         User strangeperson = new User("Strangeperson", "strangeperson@bnta.com","password");
 
 
+
+
+
 //        List<User> participants = new ArrayList<>();
 //        participants.add(greg);
 //        participants.add(james);

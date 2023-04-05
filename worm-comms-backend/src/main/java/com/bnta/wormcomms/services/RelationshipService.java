@@ -1,14 +1,10 @@
 package com.bnta.wormcomms.services;
-
 import com.bnta.wormcomms.models.Relationship;
 import com.bnta.wormcomms.models.RelationshipDTO;
-import com.bnta.wormcomms.models.User;
 import com.bnta.wormcomms.repositories.RelationshipRepo;
 import com.bnta.wormcomms.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.management.relation.Relation;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
