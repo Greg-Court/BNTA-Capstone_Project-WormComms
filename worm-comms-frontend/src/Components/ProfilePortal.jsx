@@ -49,7 +49,6 @@ const ProfilePortal = () => {
             const response = await updateUser(currentUser.id, formData);
             console.log(response.data);
             setProfileState({...profileState, response: "Profile updated successfully!"});
-    
         } catch (error){
             console.log(error);
             setProfileState({...profileState, error: "Something went wrong. Please try again later."});

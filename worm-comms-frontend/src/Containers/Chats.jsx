@@ -130,7 +130,7 @@ const Chats = ({ newMessage, refreshUser }) => {
         {displayedChats.map((chat) => (
           <div key={chat.id}>
             <div className="border mx-[5%] my-2"></div>
-            <Chat key={chat.id} chat={chat} newMessage={newMessage} />
+            <Chat key={chat.id} chat={chat} newMessage={newMessage} fetchUserChats={fetchUserChats}/>
           </div>
         ))}
       </ul>
