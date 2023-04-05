@@ -9,6 +9,7 @@ import com.bnta.wormcomms.repositories.UserRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,5 +79,14 @@ public class ChatService {
         } else {
             throw new NoSuchElementException("Chat with id " + id + " not found");
         }
+    }
+
+    public void removeUserFromChat(int chatId, int userId) {
+        Chat chat = chatRepository.findById(chatId).orElseThrow(() -> new NotFoundException("Chat not found"));
+        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
+        chat.getParticipants().remove(user);
+        user.getChats().remove(chat);
+        chatRepository.save(chat);
+        userRepository.save(user);
     }
 }
