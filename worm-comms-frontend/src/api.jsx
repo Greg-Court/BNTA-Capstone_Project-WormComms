@@ -107,7 +107,10 @@ export const leaveChat = async (chatId, userId) => {
   return await apiClient.delete(`/chats/${chatId}/leave/${userId}`);
 };
 
-
 export const deleteMessage = async (id) => {
   return await apiClient.delete(`/chats/message/${id}`)
+}
+
+export const checkUserPassword = async (email, password) => {
+  return await apiClient.put(`/users?email=${email}&password=${password}`);
 }
