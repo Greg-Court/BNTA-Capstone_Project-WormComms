@@ -7,5 +7,6 @@ export default defineConfig({
   build: {
     // Set the base URL to a relative path
     base: './',
+    outDir: 'build' // Add this line to set the output directory
   },
 })
