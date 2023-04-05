@@ -5,6 +5,7 @@ import { useCurrentUser } from "../UserContext";
 import { Menu, Item, useContextMenu } from 'react-contexify'
 import "react-contexify/ReactContexify.css";
 import { deleteMessage } from "../api";
+import { useCurrentChat } from "../ChatContext";
 
 const ChatBubbleReceive = ({ text, message }) => {
   const senderProfilePicture = message.sender.profilePicture
@@ -33,7 +34,9 @@ const ChatBubbleReceive = ({ text, message }) => {
   );
 };
 
-const ChatBubbleSend = ({ text, currentUser, message }) => {
+const ChatBubbleSend = ({ text, currentUser, message, updateMessages }) => {
+
+  const { currentChat, setCurrentChat } = useCurrentChat();
 
   const MENU_ID = `message-context-menu-${message.id}`;
 
@@ -51,7 +54,9 @@ const ChatBubbleSend = ({ text, currentUser, message }) => {
 
   const handleMessageDelete = (e) => {
     deleteMessage(message.id)
-    console.log("message ===", message)
+    const index = currentChat.messages.indexOf(message);
+    currentChat.messages.splice(index, 1)
+    updateMessages();
   }
 
   const userProfilePicture = currentUser.profilePicture
@@ -83,7 +88,7 @@ const ChatBubbleSend = ({ text, currentUser, message }) => {
   );
 };
 
-const Message = ({ message, index }) => {
+const Message = ({ message, index, updateMessages }) => {
   const { currentUser, setCurrentUser } = useCurrentUser();
   const isSent = message.senderId === currentUser.id;
   if (isSent) {
@@ -97,6 +102,7 @@ const Message = ({ message, index }) => {
           key={index}
           text={message.content}
           message={message}
+          updateMessages={updateMessages}
         />
       </div>
     );
