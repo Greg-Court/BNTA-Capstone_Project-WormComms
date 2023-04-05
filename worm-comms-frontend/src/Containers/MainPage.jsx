@@ -13,10 +13,9 @@ import axios from "axios";
 const MainPage = () => {
   const { currentUser, setCurrentUser } = useCurrentUser();
   const { currentChat, setCurrentChat } = useCurrentChat();
-  const { oAuthToken, setOAuthToken } = useOAuthContext();
+  const { oAuthToken } = useOAuthContext();
 
   const [newMessage, setNewMessage] = useState([]);
-  const [messages, setMessages] = useState([]);
 
   const refreshUser = async () => {
     const users = await getAllUsers().then((response) => response.data);
@@ -47,22 +46,20 @@ const MainPage = () => {
 
 
   const onConnect = () => {
-    stompClient.subscribe(`/user/${currentUser.username}`, (message) => {
+    stompClient.subscribe(`/user/${currentUser.id}`, (message) => {
       //the call back for subscribe just appends the message onto whatever chat is being displayed
       let responseDTO = JSON.parse(message.body);
-      //console.log(responseDTO)
       setNewMessage(responseDTO)
     });
   };
 
   useEffect(() => {
     if (currentChat != null) {
-      //console.log(newMessage)
       if (currentChat.id === newMessage.chatId)
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          newMessage,
-        ]);
+        setCurrentChat((prevChat) => ({
+          ...prevChat,
+          messages: [...prevChat.messages, newMessage],
+        }));
     }
   }, [newMessage])
 
@@ -76,7 +73,7 @@ const MainPage = () => {
         </div>
         <div className="flex">
           <SideBar newMessage={newMessage} refreshUser={refreshUser}></SideBar>
-          <MessageContainer stompClient={stompClient} messages={messages} setMessages={setMessages} refreshUser={refreshUser}></MessageContainer>
+          <MessageContainer stompClient={stompClient} refreshUser={refreshUser}></MessageContainer>
         </div>
       </>
     )

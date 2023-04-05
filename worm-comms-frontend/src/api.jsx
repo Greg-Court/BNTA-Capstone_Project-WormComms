@@ -1,27 +1,27 @@
-import axios from 'axios';
-
+import axios from "axios";
 
 // Create an instance of axios with a base URL and default headers.
 const apiClient = axios.create({
-  baseURL: 'http://localhost:8080/api',
+  baseURL: "http://localhost:8080/api",
   headers: {
-      'Content-Type': 'application/json',
-      'Authorization' : 'null'
+    "Content-Type": "application/json",
+    Authorization: "null",
   },
 });
 
-apiClient.interceptors.request.use(async(axiosConfig)=> {
-  axiosConfig.headers.Authorization = `Bearer ${sessionStorage.getItem('id-token')}`
-  return axiosConfig
-})
+apiClient.interceptors.request.use(async (axiosConfig) => {
+  axiosConfig.headers.Authorization = `Bearer ${sessionStorage.getItem(
+    "id-token"
+  )}`;
+  return axiosConfig;
+});
 
 export const createUser = async (user) => {
-  return await apiClient.post('/users', user);
+  return await apiClient.post("/users", user);
 };
 
-
 export const getAllChats = async () => {
-  return await apiClient.get('/chats');
+  return await apiClient.get("/chats");
 };
 
 export const getUserChats = async (userId) => {
@@ -34,36 +34,36 @@ export const createChat = async ({ name, participantIds }) => {
 };
 
 export const createConversation = async (conversation) => {
-  return await apiClient.post('/chats', conversation);
+  return await apiClient.post("/chats", conversation);
 };
 
 export const getAllMessages = async () => {
-  return await apiClient.get('/messages');
+  return await apiClient.get("/messages");
 };
 
 export const createMessage = async (message) => {
-  return await apiClient.post('/messages', message);
+  return await apiClient.post("/messages", message);
 };
 
 export const getAllUsers = async () => {
-  return await apiClient.get('/users');
-}
+  return await apiClient.get("/users");
+};
 
 export const getUserById = async (id) => {
   return await apiClient.get(`/users/${id}`, id);
-}
+};
 
 export const getChatById = async (id) => {
   return await apiClient.get(`/chats/${id}`);
-}
+};
 
 export const updateChat = async (id, chat) => {
-  console.log('Sending chat object:', chat);
+  console.log("Sending chat object:", chat);
   return await apiClient.put(`/chats/${id}`, chat);
 };
 
 export const createRelationship = async (relationship) => {
-  return await apiClient.post('/relationships', relationship);
+  return await apiClient.post("/relationships", relationship);
 };
 
 export const getUserRelationships = async (userId) => {
@@ -75,7 +75,9 @@ export const acceptFriendRequest = async (userId, targetUserId) => {
 };
 
 export const cancelFriendRequest = async (userId, targetUserId) => {
-  return await apiClient.put(`/relationships/cancelRequest/${userId}/${targetUserId}`);
+  return await apiClient.put(
+    `/relationships/cancelRequest/${userId}/${targetUserId}`
+  );
 };
 
 export const rejectFriendRequest = async (userId, targetUserId) => {
@@ -83,7 +85,9 @@ export const rejectFriendRequest = async (userId, targetUserId) => {
 };
 
 export const unfriend = async (userId, targetUserId) => {
-  return await apiClient.put(`/relationships/unfriend/${userId}/${targetUserId}`);
+  return await apiClient.put(
+    `/relationships/unfriend/${userId}/${targetUserId}`
+  );
 };
 
 export const blockPerson = async (userId, targetUserId) => {
@@ -91,12 +95,18 @@ export const blockPerson = async (userId, targetUserId) => {
 };
 
 export const unblockPerson = async (userId, targetUserId) => {
-  return await apiClient.put(`/relationships/unblock/${userId}/${targetUserId}`);
-}
-  ;
+  return await apiClient.put(
+    `/relationships/unblock/${userId}/${targetUserId}`
+  );
+};
 export const updateUser = async (id, user) => {
   return await apiClient.put(`/users/${id}`, user);
-}
+};
+
+export const leaveChat = async (chatId, userId) => {
+  return await apiClient.delete(`/chats/${chatId}/leave/${userId}`);
+};
+
 
 export const deleteMessage = async (id) => {
   return await apiClient.delete(`/chats/message/${id}`)

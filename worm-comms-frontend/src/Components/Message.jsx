@@ -86,8 +86,6 @@ const ChatBubbleSend = ({ text, currentUser, message }) => {
 const Message = ({ message, index }) => {
   const { currentUser, setCurrentUser } = useCurrentUser();
   const isSent = message.senderId === currentUser.id;
-  //console.log("Message.sender:", message.sender);
-  //console.log("currentUser:", currentUser);
   if (isSent) {
     return (
       <div

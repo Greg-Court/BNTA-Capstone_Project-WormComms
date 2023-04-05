@@ -5,7 +5,7 @@ import Chat from "../Components/Chat.jsx";
 import Select from "react-select";
 
 const Chats = ({ newMessage, refreshUser }) => {
-  const { currentUser, setCurrentUser } = useCurrentUser();
+  const { currentUser } = useCurrentUser();
 
   const [chats, setChats] = useState([]);
   const [newChat, setNewChat] = useState([]);
@@ -62,7 +62,6 @@ const Chats = ({ newMessage, refreshUser }) => {
       }
     }
   };
-
 
   // changed this to use the senderUsername when the current user is the receiver,
   // and receiverUsername when the current user is the sender
@@ -131,7 +130,7 @@ const Chats = ({ newMessage, refreshUser }) => {
         {displayedChats.map((chat) => (
           <div key={chat.id}>
             <div className="border mx-[5%] my-2"></div>
-            <Chat key={chat.id} chat={chat} newMessage={newMessage} />
+            <Chat key={chat.id} chat={chat} newMessage={newMessage} fetchUserChats={fetchUserChats}/>
           </div>
         ))}
       </ul>

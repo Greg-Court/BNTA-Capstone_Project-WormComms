@@ -5,8 +5,8 @@ import { generateAutoReplyArray } from "../../autoReply";
 import { generateAutoReplyResponse } from "../../autoReply";
 
 const TextArea = ({ stompClient }) => {
-  const { currentUser, setCurrentUser } = useCurrentUser();
-  const { currentChat, setCurrentChat } = useCurrentChat();
+  const { currentUser } = useCurrentUser();
+  const { currentChat } = useCurrentChat();
   const [message, setMessage] = useState({
     sender: currentUser,
     chat: { id: 1 },

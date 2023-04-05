@@ -3,8 +3,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import authorize from "../Links/authorize";
 import { token } from "../Links/token";
 import { Buffer } from "buffer";
-import { BsConeStriped } from "react-icons/bs";
-import { useContext } from "react";
 import { useOAuthContext } from "../OAuthTokenHeader";
 
 const Redirect = () => {
