@@ -5,23 +5,21 @@ import { useCurrentChat } from "../ChatContext";
 import { useCurrentUser } from "../UserContext";
 import { generateAutoReplyResponse } from "../../autoReply";
 
-const Messages = ({ messages, setMessages }) => {
+const Messages = () => {
   const { currentChat, setCurrentChat } = useCurrentChat();
   const { currentUser } = useCurrentUser();
 
   const messagesEndRef = useRef(null);
 
-  // console.log(JSON.stringify(messages))
-
-  useEffect(() => {
-    if (currentChat != null) {
-      setMessages(currentChat.messages);
-    }
-  }, [currentChat]);
+  // useEffect(() => {
+  //   if (currentChat != null) {
+  //     setMessages(currentChat.messages);
+  //   }
+  // }, [currentChat]);
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [currentChat?.messages]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -30,7 +28,7 @@ const Messages = ({ messages, setMessages }) => {
   return (
     <div className="overflow-y-auto flex flex-col h-full">
       <ul className="flex-grow flex flex-col justify-end">
-        {messages?.map((message, index) => (
+        {currentChat?.messages.map((message, index) => (
           <Message
             message={message}
             key={index}

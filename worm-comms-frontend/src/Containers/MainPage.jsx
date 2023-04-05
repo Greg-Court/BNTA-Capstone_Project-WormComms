@@ -47,7 +47,7 @@ const MainPage = () => {
 
 
   const onConnect = () => {
-    stompClient.subscribe(`/user/${currentUser.username}`, (message) => {
+    stompClient.subscribe(`/user/${currentUser.id}`, (message) => {
       //the call back for subscribe just appends the message onto whatever chat is being displayed
       let responseDTO = JSON.parse(message.body);
       //console.log(responseDTO)
@@ -59,10 +59,14 @@ const MainPage = () => {
     if (currentChat != null) {
       //console.log(newMessage)
       if (currentChat.id === newMessage.chatId)
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          newMessage,
-        ]);
+        // setMessages((prevMessages) => [
+        //   ...prevMessages,
+        //   newMessage,
+        // ]);
+        setCurrentChat((prevChat) => ({
+          ...prevChat,
+          messages: [...prevChat.messages, newMessage],
+        }));
     }
   }, [newMessage])
 
@@ -76,7 +80,7 @@ const MainPage = () => {
         </div>
         <div className="flex">
           <SideBar newMessage={newMessage} refreshUser={refreshUser}></SideBar>
-          <MessageContainer stompClient={stompClient} messages={messages} setMessages={setMessages} refreshUser={refreshUser}></MessageContainer>
+          <MessageContainer stompClient={stompClient} setMessages={setMessages} refreshUser={refreshUser}></MessageContainer>
         </div>
       </>
     )
