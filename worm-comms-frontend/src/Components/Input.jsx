@@ -14,7 +14,8 @@ export default function Input({
     isRequired=false,
     placeholder,
     customClass, 
-    value
+    value,
+    onKeyDown
 }) {
 
   const location = useLocation();
@@ -52,6 +53,7 @@ export default function Input({
                 className={fixedInputClass + customClass}
                 placeholder={placeholder}
                 value={value}
+                onKeyDown={onKeyDown}
                 />
         )}
     </div>
