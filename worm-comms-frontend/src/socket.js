@@ -7,7 +7,7 @@ const useWebSocket = () => {
   const [client, setClient] = useState(null);
   useEffect(() => {
     // Create a new STOMP client using the WebSocket URL
-    const endpoint = `http://localhost:8080/ws`
+    const endpoint = import.meta.env.VITE_APP_WS_BASE_URL
 
     const stompClient = Stomp.over(() => new SockJS(endpoint));
 
