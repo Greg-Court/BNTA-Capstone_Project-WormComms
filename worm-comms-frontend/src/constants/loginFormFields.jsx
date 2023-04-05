@@ -1,8 +1,8 @@
 const loginFields =[
     {
         labelText: "Email address",
-        labelFor: "emailaddress", 
-        id: "emailaddress",
+        labelFor: "email", 
+        id: "email",
         name: "email",
         type: "email",
         autocomplete: "email",
@@ -34,8 +34,8 @@ const signUpFields = [
     },
     {
         labelText: "Email address",
-        labelFor: "emailaddress", 
-        id: "emailaddress",
+        labelFor: "email", 
+        id: "email",
         name: "email",
         type: "email",
         autocomplete: "email",
@@ -93,17 +93,17 @@ const profileFields = [
         type: "text",
         autocomplete: "username",
         isRequired: true, 
-        placeholder: "username"
+        placeholder: "Username"
     },
     {
         labelText: "Email address",
-        labelFor: "emailaddress", 
-        id: "emailaddress",
+        labelFor: "email", 
+        id: "email",
         name: "email",
         type: "email",
         autocomplete: "email",
         isRequired: true, 
-        placeholder: "email"
+        placeholder: "Email"
     },
     {
         labelText: "Change Password",
@@ -113,7 +113,7 @@ const profileFields = [
         type: "password",
         autocomplete: "password",
         isRequired: true, 
-        placeholder: "password"
+        placeholder: "Password"
     },
     {
         labelText: "Confirm New Password",
@@ -133,7 +133,7 @@ const profileFields = [
         type: "text",
         autocomplete: "firstName",
         isRequired: true, 
-        placeholder: "firstName"
+        placeholder: "First Name"
     } ,
     {
         labelText: "Last Name",
@@ -143,17 +143,17 @@ const profileFields = [
         type: "text",
         autocomplete: "lastName",
         isRequired: true, 
-        placeholder: "lastName"
+        placeholder: "Last Name"
     },
     {
         labelText: "Personal Bio",
         labelFor: "bio", 
         id: "bio",
         name: "bio",
-        type: "bio",
+        type: "text",
         autocomplete: "bio",
         isRequired: true, 
-        placeholder: "bio"
+        placeholder: "Bio"
     }, 
 
 ]

@@ -19,7 +19,7 @@ const SignUpPortal = () => {
 const handleSignUpSubmit = async (e) => {
     e.preventDefault();
     const users = await getAllUsers().then((response) => response.data);
-    if (!users.some(user => user.email === signUpState.emailaddress)) {
+    if (!users.some(user => user.email === signUpState.email)) {
         try {
             const response = await createUser(JSON.stringify(signUpState));
             console.log(response.data);

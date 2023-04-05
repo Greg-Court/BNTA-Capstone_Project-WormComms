@@ -18,6 +18,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -35,6 +36,17 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @PutMapping
+    public boolean checkUserPassword(@RequestParam("email") String email, @RequestParam("password") String password){
+        List <User> users = userService.getUsers();
+        for(User user: users){
+            if(user.getEmail().equals(email) && user.getPassword().equals(password)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Integer id) {
         return userService.getUserById(id);
@@ -47,7 +59,7 @@ public class UserController {
         user.setPassword(userData.get("password"));
         user.setFirstName(userData.get("firstName"));
         user.setLastName(userData.get("lastName"));
-        user.setEmail(userData.get("emailaddress"));
+        user.setEmail(userData.get("email"));
         user.setRelationships(new ArrayList<>());
         // set other fields
         return userService.saveUser(user);
@@ -56,32 +68,35 @@ public class UserController {
     @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public User updateUser(@PathVariable int id,
                            @RequestParam("username") String username,
-                           @RequestParam("emailaddress") String emailaddress,
+                           @RequestParam("email") String email,
                            @RequestParam("password") String newPassword,
                            @RequestParam("firstName") String firstName,
                            @RequestParam("lastName") String lastName,
                            @RequestParam("bio") String bio,
-                           @RequestPart("profilePicture") MultipartFile profilePicture)  {
+                           @RequestPart("profilePicture") Optional<MultipartFile> profilePicture)  {
         User user = getUserById(id);
         user.setUsername(username);
         user.setPassword(newPassword);
         user.setFirstName(firstName);
         user.setLastName(lastName);
-        user.setEmail(emailaddress);
+        user.setEmail(email);
         user.setBio(bio);
 
         String fileUploadPath = fileStorageService.getFileUploadPath();
 
-        try {
-            if (profilePicture != null && !profilePicture.isEmpty()) {
-                String fileName = profilePicture.getOriginalFilename();
-                Path path = Paths.get(fileUploadPath, fileName);
-                Files.write(path, profilePicture.getBytes());
-                user.setProfilePicture(fileName); // or user.setProfilePicture(path.toString());
+        if(profilePicture.isPresent()) {
+
+            try {
+                if (profilePicture != null && !profilePicture.isEmpty()) {
+                    String fileName = profilePicture.get().getOriginalFilename();
+                    Path path = Paths.get(fileUploadPath, fileName);
+                    Files.write(path, profilePicture.get().getBytes());
+                    user.setProfilePicture(fileName); // or user.setProfilePicture(path.toString());
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
         }
 
 

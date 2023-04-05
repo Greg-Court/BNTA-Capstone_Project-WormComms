@@ -7,10 +7,19 @@ import { updateUser } from "../api";
 
 const ProfilePortal = () => {
     
-    let navigate = useNavigate();
-    
-    const [profileState, setProfileState] = useState({});
-    const { currentUser } = useCurrentUser();
+    const navigate = useNavigate();
+ 
+    const { currentUser, setCurrentUser } = useCurrentUser();
+       
+    const [profileState, setProfileState] = useState({
+        username: currentUser.username || '',
+        email: currentUser.email || '',
+        password: currentUser.password || '',
+        firstName: currentUser.firstName || '',
+        lastName: currentUser.lastName || '',
+        bio: currentUser.bio || '',
+        profilePicture: currentUser.profilePicture || undefined,
+    });
 
     const fields = [
         ...profileFields,
@@ -25,36 +34,56 @@ const ProfilePortal = () => {
     ];
 
     const handleProfileUpdates = (e) => {
-        setProfileState({ ...profileState, [e.target.id]: e.target.value });
-    };
+        const { id, value } = e.target;
+        setProfileState((prevState) => ({
+          ...prevState,
+          [id]: value
+        }));
+      };
+      
 
     const handleProfilePictureSelect = (e) => {
         console.log(e.target.files[0]); 
         setProfileState({ ...profileState, [e.target.id]: e.target.files[0] });
     };
 
-
-     const handleProfileSubmit = async (e) => {
+    const handleProfileSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append("username", profileState.username);
-        formData.append("emailaddress", profileState.emailaddress);
-        formData.append("password", profileState.password);
-        formData.append("firstName", profileState.firstName);
-        formData.append("lastName", profileState.lastName);
-        formData.append("bio", profileState.bio);
-        formData.append("profilePicture", profileState.profilePicture);
-
+        const updatedFields = {};
+        Object.keys(profileState).forEach((key) => {
+          if (profileState[key] !== currentUser[key]) {
+            updatedFields[key] = profileState[key];
+          }
+        });
+        formData.append("username", updatedFields.username || currentUser.username);
+        formData.append("email", updatedFields.email || currentUser.email);
+        formData.append("password", updatedFields.password || currentUser.password);
+        formData.append("firstName", updatedFields.firstName || currentUser.firstName);
+        formData.append("lastName", updatedFields.lastName || currentUser.lastName);
+        formData.append("bio", updatedFields.bio || currentUser.bio);
+        formData.append("profilePicture", updatedFields.profilePicture || currentUser.profilePicture);
         try {
-            const response = await updateUser(currentUser.id, formData);
-            console.log(response.data);
-            setProfileState({...profileState, response: "Profile updated successfully!"});
-        } catch (error){
-            console.log(error);
-            setProfileState({...profileState, error: "Something went wrong. Please try again later."});
+          const response = await updateUser(currentUser.id, formData);
+          console.log(response.data);
+          setCurrentUser({ ...currentUser, ...updatedFields });
+          setProfileState({
+            ...profileState,
+            response:
+              "Profile updated successfully! You will be redirected shortly...",
+          });
+          setTimeout(() => {
+            navigate("/home", 10000);
+          }, 2000);
+        } catch (error) {
+          console.log(error);
+          setProfileState({
+            ...profileState,
+            error: "Something went wrong. Please try again later.",
+          });
         }
-
-    };
+      };
+      
 
     return (
         <form id= "profile" className="mt-8 space-y-6" encType="multipart/form-data">
@@ -85,6 +114,7 @@ const ProfilePortal = () => {
                         name={field.name}
                         type={field.type}
                         placeholder={field.placeholder}
+                        isProfilePage={true}
                     />
                 )
             ))}
