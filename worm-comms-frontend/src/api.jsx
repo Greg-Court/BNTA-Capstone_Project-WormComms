@@ -97,3 +97,7 @@ export const unblockPerson = async (userId, targetUserId) => {
 export const updateUser = async (id, user) => {
   return await apiClient.put(`/users/${id}`, user);
 }
+
+export const deleteMessage = async (id) => {
+  return await apiClient.delete(`/chats/message/${id}`)
+}
