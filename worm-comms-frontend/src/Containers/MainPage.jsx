@@ -54,6 +54,7 @@ const MainPage = () => {
   };
 
   useEffect(() => {
+    console.log(newMessage)
     if (currentChat != null) {
       if (currentChat.id === newMessage.chatId)
         setCurrentChat((prevChat) => ({

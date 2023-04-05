@@ -19,21 +19,21 @@ function App() {
 
   return (
     <>
-    <OAuthProvider>
-    <ChatProvider>
-    <UserProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<LoginPage/>} />
-            <Route path="/signup" element={<SignUpPage/>} />
-            <Route path="/home" element={<MainPage/>}/>
-            <Route path="/profile" element={<ProfilePage/>} />
-            <Route path="/redirect" element={<Redirect/>} />
-            <Route path="/authorized" element={<Redirect/>}/>
-          </Routes>
-        </BrowserRouter>
-      </UserProvider>
-      </ChatProvider>
+      <OAuthProvider>
+        <ChatProvider>
+          <UserProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<LoginPage />} />
+                <Route path="/signup" element={<SignUpPage />} />
+                <Route path="/home" element={<MainPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/redirect" element={<Redirect />} />
+                <Route path="/authorized" element={<Redirect />} />
+              </Routes>
+            </BrowserRouter>
+          </UserProvider>
+        </ChatProvider>
       </OAuthProvider>
     </>
   );
