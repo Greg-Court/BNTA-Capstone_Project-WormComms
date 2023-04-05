@@ -25,6 +25,7 @@
     "react-select": "^5.7.2",
     "react-stomp": "^5.1.0",
     "require": "^2.4.20",
+    "serve": "^14.2.0",
     "sockjs-client": "^1.6.1"
   },
   "devDependencies": {
