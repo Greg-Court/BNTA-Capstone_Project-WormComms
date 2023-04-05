@@ -47,7 +47,7 @@ public class MessageController {
         for(User user : chat.getParticipants()) {
             //System.out.println("/user/"+user.getUsername());
             // try {
-            simpMessagingTemplate.convertAndSend("/user/" + user.getUsername(), messageToSend);
+            simpMessagingTemplate.convertAndSend("/user/" + user.getId(), messageToSend);
             // } catch (Exception e){
             //System.out.println("There was an error");
             // }
