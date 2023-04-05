@@ -106,3 +106,8 @@ export const updateUser = async (id, user) => {
 export const leaveChat = async (chatId, userId) => {
   return await apiClient.delete(`/chats/${chatId}/leave/${userId}`);
 };
+
+
+export const deleteMessage = async (id) => {
+  return await apiClient.delete(`/chats/message/${id}`)
+}
