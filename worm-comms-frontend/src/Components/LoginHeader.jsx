@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import React from 'react'
-import wormBookLogo from '../assets/wormBookLogo.png'
+// import wormBookLogo from '../assets/wormBookLogo.png'
 
 export default function LoginHeader({
     heading, 
@@ -14,7 +14,7 @@ export default function LoginHeader({
             <img 
                 alt='our logo'
                 className='h-40 w-40' 
-                src={wormBookLogo} />
+                src="public/wormbookLogo.png" />
         </div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             {heading}
