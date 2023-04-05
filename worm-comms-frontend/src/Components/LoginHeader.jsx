@@ -1,6 +1,6 @@
 import {Link} from 'react-router-dom';
 import React from 'react'
-import wormBookLogo from '../assets/wormBookLogo.png'
+import wormBookLogo from '/src/assets/wormBookLogo.png'
 
 export default function LoginHeader({
     heading, 
