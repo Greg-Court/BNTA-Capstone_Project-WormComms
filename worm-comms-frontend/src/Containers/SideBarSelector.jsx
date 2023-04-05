@@ -28,11 +28,6 @@ const SideBarSelector = ({ setTab, tab }) => {
         isSelected={tab === "people"}
         onClick={() => setTab("people")}
       />
-      {/* <Tab
-        label="Requests"
-        isSelected={tab === "requests"}
-        onClick={() => setTab("requests")}
-      /> */}
     </div>
   );
 };

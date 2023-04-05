@@ -21,7 +21,6 @@ const Chat = ({ chat, newMessage }) => {
       if (e.key === "Enter") {
         setisEditing(false);
         if (newName !== chat.name) {
-          // console.log(chat);
           await updateChat(chat.id, { ...chat, name: newName });
           const updatedChat = await getChatById(chat.id);
           setCurrentChat(updatedChat.data);
@@ -43,21 +42,6 @@ const Chat = ({ chat, newMessage }) => {
   const participants = chat.participants
     .map((participant) => participant.username)
     .join(", ");
-
-  // useEffect(() => {
-  //   //if there isn't any messages in the chat we want the chat name
-  //   // console.log("newMessage.chat.id" + newMessage?.chat?.id)
-  //   // console.log("chat.id" + chat?.id)
-  //   // console.log(chat.messages)
-  //   if(chat?.messages?.length==0){
-  //     setLastMessage(chat.name);
-  //   } else if(newMessage.length === 0 ){ //on load we want to get the previous message
-  //     let lm = chat?.messages.at(-1)
-  //     setLastMessage(lm?.senderUsername + " : " +lm?.content)
-  //   } else if(newMessage?.chat?.id===chat?.id){
-  //     setLastMessage(newMessage?.sender?.username + " : " + newMessage?.content)
-  //   }
-  // }, [newMessage])
 
   useEffect(() => {
     const updateLastMessage = () => {

@@ -3,19 +3,12 @@ import Message from "./Message";
 import { useEffect, useRef } from "react";
 import { useCurrentChat } from "../ChatContext";
 import { useCurrentUser } from "../UserContext";
-import { generateAutoReplyResponse } from "../../autoReply";
 
 const Messages = () => {
   const { currentChat, setCurrentChat } = useCurrentChat();
   const { currentUser } = useCurrentUser();
 
   const messagesEndRef = useRef(null);
-
-  // useEffect(() => {
-  //   if (currentChat != null) {
-  //     setMessages(currentChat.messages);
-  //   }
-  // }, [currentChat]);
 
   useEffect(() => {
     scrollToBottom();

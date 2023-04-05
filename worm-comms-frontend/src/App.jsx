@@ -9,7 +9,6 @@ import {
 } from "react-router-dom";
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
-import ProfilePortal from "./Components/ProfilePortal";
 import ProfilePage from "./pages/ProfilePage";
 import Redirect from "./Components/Redirect";
 import OAuthProvider from "./OAuthTokenHeader";
@@ -42,15 +41,3 @@ function App() {
 }
 
 export default App;
-
-
-
-  // const [count, setCount] = useState(0);
-
-  // return (
-  //   <>
-  //     <UserProvider>
-  //       <MainPage></MainPage>
-  //     </UserProvider>
-  //   </>
-  // );

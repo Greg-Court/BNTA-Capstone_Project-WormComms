@@ -12,21 +12,8 @@ const LoginPortal = () => {
   let fieldState = {};
   fields.forEach((field) => (fieldState[field.id] = ""));
 
-  const { currentUser, setCurrentUser } = useCurrentUser();
+  const { setCurrentUser } = useCurrentUser();
   const [loginState, setLoginState] = useState(fieldState);
-
-  // const [email, setEmail] = useState("")
-  // const [password, setPassword] = useState("")
-
-  // const updateEmail = (e) => {
-  //     setEmail(e.target.value);
-  // }
-
-  // const updatePassword = (e) => {
-  //     setPassword(e.target.value);
-  // }
-
-  //on login we should subscribe to our chats?
 
   const handleLogIn = async (e) => {
     setLoginState({ ...loginState, [e.target.id]: e.target.value });

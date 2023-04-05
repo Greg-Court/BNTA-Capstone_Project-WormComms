@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Chats from "./Chats";
 import People from "./People";
-import Requests from "./Requests";
 import SideBarSelector from "./SideBarSelector";
 
 function SideBar({newMessage, refreshUser}) {
