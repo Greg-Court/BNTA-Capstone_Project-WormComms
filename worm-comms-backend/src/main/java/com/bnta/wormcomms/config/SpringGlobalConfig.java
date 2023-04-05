@@ -10,7 +10,8 @@ public class SpringGlobalConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*")
+                .allowedOrigins("https://your-frontend-app.herokuapp.com",
+                                "http://localhost:5173")
                 .allowedHeaders("*")
                 .allowedMethods("*");
     }
