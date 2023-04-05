@@ -29,16 +29,17 @@ public class DataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        User greg = new User("Greg", "greg@bnta.com");
-        User hansine = new User("Hansine", "hansine@bnta.com");
-        User james = new User("James", "james@bnta.com");
-        User rick = new User("Rick", "rick@bnta.com");
-        User morty = new User("Morty", "morty@bnta.com");
-        User summer = new User("Summer", "summer@bnta.com");
-        User jerry = new User("Jerry", "jerry@bnta.com");
-        User squanchy = new User("Squanchy", "squanchy@bnta.com");
-        User birdperson = new User("Birdperson", "birdperson@bnta.com");
-        User strangeperson = new User("Strangeperson", "strangeperson@bnta.com");
+        User greg = new User("Greg", "greg@bnta.com", "password");
+        User hansine = new User("Hansine", "hansine@bnta.com","password");
+        User james = new User("James", "james@bnta.com","password");
+        User rick = new User("Rick", "rick@bnta.com","password");
+        User morty = new User("Morty", "morty@bnta.com","password");
+        User summer = new User("Summer", "summer@bnta.com","password");
+        User jerry = new User("Jerry", "jerry@bnta.com","password");
+        User squanchy = new User("Squanchy", "squanchy@bnta.com","password");
+        User birdperson = new User("Birdperson", "birdperson@bnta.com","password");
+        User strangeperson = new User("Strangeperson", "strangeperson@bnta.com","password");
+
 
 //        List<User> participants = new ArrayList<>();
 //        participants.add(greg);

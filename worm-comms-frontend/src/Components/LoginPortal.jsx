@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getAllUsers } from "../api";
+import { checkUserPassword, getAllUsers } from "../api";
 import { loginFields } from "../constants/loginFormFields";
 import { useCurrentUser } from "../UserContext";
 import Input from "./Input";
@@ -15,33 +15,26 @@ const LoginPortal = () => {
   const { currentUser, setCurrentUser } = useCurrentUser();
   const [loginState, setLoginState] = useState(fieldState);
 
-  // const [email, setEmail] = useState("")
-  // const [password, setPassword] = useState("")
-
-  // const updateEmail = (e) => {
-  //     setEmail(e.target.value);
-  // }
-
-  // const updatePassword = (e) => {
-  //     setPassword(e.target.value);
-  // }
-
-  //on login we should subscribe to our chats?
-
   const handleLogIn = async (e) => {
     setLoginState({ ...loginState, [e.target.id]: e.target.value });
   };
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    const users = await getAllUsers().then((response) => response.data);
-    for (let user of users) {
-     if (loginState.emailaddress === user.email) {
-       setCurrentUser(user);
-       navigate("/home");
-     }
+    const email = loginState.email;
+    const password = loginState.password;
+    const loginCheck = await checkUserPassword( email, password );
+    if(loginCheck.data === true){;
+    if(loginCheck.data === true){
+      const users = await getAllUsers().then((response) => response.data);
+      const currentUser = users.find(user => user.email === email);
+      setCurrentUser(currentUser);
+      navigate("/home");
+    } else {
+      console.log("Invalid email or password");
     }
-  };
+    }
+  }
 
   return (
     <form className="mt-8 space-y-6">
@@ -100,3 +93,14 @@ const LoginPortal = () => {
 };
 
 export default LoginPortal;
+
+// const handleLoginSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const users = await getAllUsers().then((response) => response.data);
+  //   for (let user of users) {
+  //    if (loginState.email === user.email) {
+  //      setCurrentUser(user);
+  //      navigate("/home");
+  //    }
+  //   }
+  // };

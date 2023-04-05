@@ -92,11 +92,12 @@ public class User {
         this.inverseRelationships = new ArrayList<>();
     }
 
-    public User(String username, String email) {
+    public User(String username, String email, String password) {
         this.messages = new ArrayList<>();
         this.chats = new ArrayList<>();
         this.username = username;
         this.email = email;
+        this.password = password;
         this.inverseRelationships = new ArrayList<>();
         this.relationships = new ArrayList<>();
     }

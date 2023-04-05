@@ -26,6 +26,12 @@ public class UserService {
         return userDTOs;
     }
 
+    public List<User> getUsers(){
+        List<User> users = userRepository.findAll();
+        return users;
+    }
+
+
     public User saveUser(User user) {
         return userRepository.save(user);
     }
