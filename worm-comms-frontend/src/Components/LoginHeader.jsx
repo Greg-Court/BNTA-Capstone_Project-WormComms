@@ -14,7 +14,7 @@ export default function LoginHeader({
             <img 
                 alt='our logo'
                 className='h-40 w-40' 
-                src="./public/wormbookLogo.png" />
+                src="public/wormbookLogo.png" />
         </div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             {heading}

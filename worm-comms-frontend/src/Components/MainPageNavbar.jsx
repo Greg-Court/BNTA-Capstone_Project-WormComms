@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Menu from "../assets/menu-outline.svg";
-import Close from "../assets/close-circle-outline.svg";
+import Menu from "../../public/menu-outline.svg";
+import Close from "../../public/close-circle-outline.svg";
 
 
 function MainPageNavbar() {
