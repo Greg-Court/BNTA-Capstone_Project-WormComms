@@ -16,6 +16,16 @@ apiClient.interceptors.request.use(async (axiosConfig) => {
   return axiosConfig;
 });
 
+const updateUserClient = axios.create({
+  baseURL: 'http://localhost:8080/api',
+  headers: {
+    'Content-Type': 'multipart/form-data'
+  }
+});
+export const updateUser = async (id, formData) => {
+  return await updateUserClient.put(`/users/${id}`, formData);
+};
+
 export const createUser = async (user) => {
   return await apiClient.post("/users", user);
 };
@@ -98,9 +108,6 @@ export const unblockPerson = async (userId, targetUserId) => {
   return await apiClient.put(
     `/relationships/unblock/${userId}/${targetUserId}`
   );
-};
-export const updateUser = async (id, user) => {
-  return await apiClient.put(`/users/${id}`, user);
 };
 
 export const leaveChat = async (chatId, userId) => {

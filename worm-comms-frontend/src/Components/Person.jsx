@@ -14,8 +14,10 @@ import {
 const getRelationshipStatus = (currentUser, person) => {
   const relationship = currentUser.relationships.find(
     (relation) =>
-      (relation.senderId === currentUser.id && relation.receiverId === person.id) ||
-      (relation.receiverId === currentUser.id && relation.senderId === person.id)
+      (relation.senderId === currentUser.id &&
+        relation.receiverId === person.id) ||
+      (relation.receiverId === currentUser.id &&
+        relation.senderId === person.id)
   );
   if (relationship) {
     return relationship.status;
@@ -26,8 +28,7 @@ const getRelationshipStatus = (currentUser, person) => {
 
 const getRelationship = (currentUser, person) => {
   const relationship = person.relationships.find(
-    (relation) =>
-      relation.receiverId === currentUser.id
+    (relation) => relation.receiverId === currentUser.id
   );
   if (relationship) {
     return relationship;
@@ -44,11 +45,17 @@ const Person = ({ person, currentUser, onRelationshipStatusChange }) => {
     getRelationship(currentUser, person)
   );
 
+  const userProfilePicture = person.profilePicture
+    ? new URL(
+        `../../../worm-comms-backend/uploads/${person.profilePicture}`,
+        import.meta.url
+      ).href
+    : null;
+
   useEffect(() => {
     setRelationshipStatus(getRelationshipStatus(currentUser, person));
     setRelationship(getRelationship(currentUser, person));
   }, [currentUser.relationships, person]);
-
 
   const handleAddFriend = async () => {
     const relationship = {
@@ -185,8 +192,19 @@ const Person = ({ person, currentUser, onRelationshipStatusChange }) => {
   return (
     <li key={person.id} className="cursor-pointer rounded-xl px-5 py-2 mx-[5%]">
       <div className="flex items-center justify-start">
-        <div className="w-12 h-12 mr-3 rounded-full bg-blue-400 flex items-center justify-center">
-          <BsPerson className="w-8 h-8" />
+        <div
+          className={`w-12 h-12 mr-3 rounded-full ${
+            !userProfilePicture ? "bg-blue-400" : ""
+          } flex items-center justify-center`}
+        >
+          {userProfilePicture ? (
+            <img
+              src={userProfilePicture}
+              className="w-12 h-12 rounded-full object-cover"
+            />
+          ) : (
+            <BsPerson className="w-8 h-8" />
+          )}
         </div>
         <div className="grid grid-rows-2 gap-0">
           <div className="flex font-semibold items-center">

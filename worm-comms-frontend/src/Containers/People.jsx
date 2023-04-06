@@ -5,7 +5,7 @@ import Select from "react-select";
 import Person from "../Components/Person.jsx";
 import { getUserRelationships } from "../api";
 
-const People = ({refreshUser}) => {
+const People = ({ refreshUser }) => {
   const { currentUser, setCurrentUser } = useCurrentUser();
   const [people, setPeople] = useState([]);
   const [displayMode, setDisplayMode] = useState("search_users");
@@ -34,13 +34,17 @@ const People = ({refreshUser}) => {
       );
     } else {
       return (
-        (sentRelationship && sentRelationship.status === status && person.id !== currentUser.id) ||
-        (receivedRelationship && receivedRelationship.status === status && person.id !== currentUser.id)
+        (sentRelationship &&
+          sentRelationship.status === status &&
+          person.id !== currentUser.id) ||
+        (receivedRelationship &&
+          receivedRelationship.status === status &&
+          person.id !== currentUser.id)
       );
     }
   };
 
-  const hasIncomingRequest = (person) => {
+  const isIncomingRequest = (person) => {
     const incomingRequest = person.relationships.find(
       (relation) =>
         relation.receiverId === currentUser.id &&
@@ -51,15 +55,27 @@ const People = ({refreshUser}) => {
     return !!incomingRequest; // !! typecasts value to boolean
   };
 
+  const isOutgoingRequest = (person) => {
+    const outgoingRequest = currentUser.relationships.find(
+      (relation) =>
+        relation.receiverId === person.id &&
+        relation.status === "PENDING" &&
+        person.id !== currentUser.id
+    );
+  
+    return !!outgoingRequest; // !! typecasts value to boolean
+  };
+  
+
   const displayedPeople = people.filter((person) => {
     if (displayMode === "friends") {
       return isRelationshipStatus(person, "FRIEND");
     } else if (displayMode === "search_users") {
       return isRelationshipStatus(person, "");
     } else if (displayMode === "incoming_requests") {
-      return hasIncomingRequest(person);
+      return isIncomingRequest(person);
     } else if (displayMode === "outgoing_requests") {
-      return isRelationshipStatus(person, "PENDING");
+      return isOutgoingRequest(person, "PENDING");
     } else if (displayMode === "blocked") {
       return isRelationshipStatus(person, "BLOCKED");
     }
