@@ -62,7 +62,7 @@ const TextArea = ({ stompClient }) => {
   return (
     <div className="flex border-t-2 border-gray-300">
       <textarea
-        className="w-5/6"
+        className="w-5/6 p-1"
         id="messageInput"
         name="messageInput"
         placeholder="Type your message here"
@@ -70,10 +70,10 @@ const TextArea = ({ stompClient }) => {
         onKeyDown={handleKeyDown}
         onChange={updateMessage}
       ></textarea>
-      <button onClick={sendMessage} className="border-l-2 w-1/12">
+      <button onClick={sendMessage} className="border-l-2 w-1/12 hover:bg-blue-400 active:bg-blue-600">
         Send
       </button>
-      <button className="border-l-2 w-1/6" onClick={handleAutoReply}>
+      <button className="border-l-2 w-1/6 hover:bg-blue-400 active:bg-blue-600" onClick={handleAutoReply}>
         Autoreply™
       </button>
     </div>
