@@ -59,11 +59,11 @@ public class User {
 
     @OneToMany(mappedBy = "user1", fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"user1"})
-    private List<Relationship> relationships;
+    private List<Relationship> relationships = new ArrayList<>();
 
     @OneToMany(mappedBy = "user2", fetch = FetchType.EAGER)
     @JsonIgnoreProperties({"user2"})
-    private List<Relationship> inverseRelationships;
+    private List<Relationship> inverseRelationships = new ArrayList<>();
 
     public User(int id, String username, String firstName, String lastName, String bio, String email, String password, List<Message> messages, List<Chat> chats) {
         this.id = id;

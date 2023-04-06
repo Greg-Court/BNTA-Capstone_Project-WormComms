@@ -2,6 +2,8 @@ import { useState } from "react";
 import { signUpFields } from "../constants/loginFormFields";
 import Input from "./Input";
 import { createUser, getAllUsers } from '../api';
+import { useNavigate } from "react-router-dom";
+
 
 const fields = signUpFields;
 let fieldState = {};
@@ -14,15 +16,28 @@ const SignUpPortal = () => {
     setSignUpState({ ...signUpState, [e.target.id]: e.target.value });
   };
 
+  const navigate = useNavigate();
 
 
-const handleSignUpSubmit = async (e) => {
+
+
+  const handleSignUpSubmit = async (e) => {
     e.preventDefault();
+    console.log(signUpState)
     const users = await getAllUsers().then((response) => response.data);
     if (!users.some(user => user.email === signUpState.email)) {
         try {
             const response = await createUser(JSON.stringify(signUpState));
             console.log(response.data);
+            setSignUpState({
+              ...signUpState,
+              response:
+                "Account created successfully! You will be redirected shortly...",
+            });
+            setTimeout(() => {
+              navigate("/", 10000);
+            }, 2000);
+
         } catch (error){
             console.log(error);
             setSignUpState({...signUpState, error: "Something went wrong. Please try again later."});
@@ -38,6 +53,7 @@ const handleSignUpSubmit = async (e) => {
 
   return (
     <form className="mt-8 space-y-6" onSubmit={handleSignUpSubmit}>
+        {signUpState.response && <div className="text-green-500">{signUpState.response}</div>}
         {signUpState.error && <div className="text-red-500">{signUpState.error}</div>}
       <div className="">
         {fields.map((field) => (

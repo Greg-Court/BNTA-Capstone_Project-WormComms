@@ -60,7 +60,7 @@ public class UserController {
         user.setFirstName(userData.get("firstName"));
         user.setLastName(userData.get("lastName"));
         user.setEmail(userData.get("email"));
-        user.setRelationships(new ArrayList<>());
+//        user.setRelationships(new ArrayList<>());
         return userService.saveUser(user);
     }
 
