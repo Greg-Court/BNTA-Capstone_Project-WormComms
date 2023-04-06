@@ -42,10 +42,13 @@ public class RelationshipService {
 
     public Relationship blockFriend(int userId, int targetUserId) {
         Optional<Relationship> optionalRelationship = friendRepository.findByUser1_IdAndUser2_Id(userId, targetUserId);
+        Optional<Relationship> optionalReverseRelationship = friendRepository.findByUser1_IdAndUser2_Id(targetUserId, userId);
         Relationship relationship;
 
         if (optionalRelationship.isPresent()) {
             relationship = optionalRelationship.get();
+        } else if (optionalReverseRelationship.isPresent()) {
+            relationship = optionalReverseRelationship.get();
         } else {
             relationship = new Relationship();
             relationship.setUser1(userRepository.findById(userId).get());
@@ -58,8 +61,16 @@ public class RelationshipService {
 
     public void unblockPerson(int userId, int targetUserId) {
         Optional<Relationship> optionalRelationship = friendRepository.findByUser1_IdAndUser2_Id(userId, targetUserId);
+        Optional<Relationship> optionalReverseRelationship = friendRepository.findByUser1_IdAndUser2_Id(targetUserId, userId);
+        Relationship relationship = null;
+
         if (optionalRelationship.isPresent()) {
-            Relationship relationship = optionalRelationship.get();
+            relationship = optionalRelationship.get();
+        } else if (optionalReverseRelationship.isPresent()) {
+            relationship = optionalReverseRelationship.get();
+        }
+
+        if (relationship != null) {
             if (relationship.getStatus() == Relationship.Status.BLOCKED) {
                 friendRepository.delete(relationship);
                 System.out.println("RELATIONSHIP DELETED!!!");
@@ -73,8 +84,16 @@ public class RelationshipService {
 
     public Relationship acceptFriendRequest(int userId, int targetUserId) {
         Optional<Relationship> optionalRelationship = friendRepository.findByUser1_IdAndUser2_Id(userId, targetUserId);
+        Optional<Relationship> optionalReverseRelationship = friendRepository.findByUser1_IdAndUser2_Id(targetUserId, userId);
+        Relationship relationship = null;
+
         if (optionalRelationship.isPresent()) {
-            Relationship relationship = optionalRelationship.get();
+            relationship = optionalRelationship.get();
+        } else if (optionalReverseRelationship.isPresent()) {
+            relationship = optionalReverseRelationship.get();
+        }
+
+        if (relationship != null) {
             if (relationship.getStatus() == Relationship.Status.PENDING) {
                 relationship.setStatus(Relationship.Status.FRIEND);
                 return friendRepository.save(relationship);
@@ -88,8 +107,16 @@ public class RelationshipService {
 
     public void cancelFriendRequest(int userId, int targetUserId) {
         Optional<Relationship> optionalRelationship = friendRepository.findByUser1_IdAndUser2_Id(userId, targetUserId);
+        Optional<Relationship> optionalReverseRelationship = friendRepository.findByUser1_IdAndUser2_Id(targetUserId, userId);
+        Relationship relationship = null;
+
         if (optionalRelationship.isPresent()) {
-            Relationship relationship = optionalRelationship.get();
+            relationship = optionalRelationship.get();
+        } else if (optionalReverseRelationship.isPresent()) {
+            relationship = optionalReverseRelationship.get();
+        }
+
+        if (relationship != null) {
             if (relationship.getStatus() == Relationship.Status.PENDING) {
                 friendRepository.delete(relationship);
                 System.out.println("FRIEND REQUEST CANCELED!!!");
@@ -103,8 +130,16 @@ public class RelationshipService {
 
     public void rejectFriendRequest(int userId, int targetUserId) {
         Optional<Relationship> optionalRelationship = friendRepository.findByUser1_IdAndUser2_Id(userId, targetUserId);
+        Optional<Relationship> optionalReverseRelationship = friendRepository.findByUser1_IdAndUser2_Id(targetUserId, userId);
+        Relationship relationship = null;
+
         if (optionalRelationship.isPresent()) {
-            Relationship relationship = optionalRelationship.get();
+            relationship = optionalRelationship.get();
+        } else if (optionalReverseRelationship.isPresent()) {
+            relationship = optionalReverseRelationship.get();
+        }
+
+        if (relationship != null) {
             if (relationship.getStatus() == Relationship.Status.PENDING) {
                 friendRepository.delete(relationship);
                 System.out.println("FRIEND REQUEST REJECTED!!!");
@@ -118,8 +153,16 @@ public class RelationshipService {
 
     public void unfriend(int userId, int targetUserId) {
         Optional<Relationship> optionalRelationship = friendRepository.findByUser1_IdAndUser2_Id(userId, targetUserId);
+        Optional<Relationship> optionalReverseRelationship = friendRepository.findByUser1_IdAndUser2_Id(targetUserId, userId);
+        Relationship relationship = null;
+
         if (optionalRelationship.isPresent()) {
-            Relationship relationship = optionalRelationship.get();
+            relationship = optionalRelationship.get();
+        } else if (optionalReverseRelationship.isPresent()) {
+            relationship = optionalReverseRelationship.get();
+        }
+
+        if (relationship != null) {
             if (relationship.getStatus() == Relationship.Status.FRIEND) {
                 friendRepository.delete(relationship);
                 System.out.println("UNFRIENDED!!!");
@@ -130,6 +173,7 @@ public class RelationshipService {
             throw new RuntimeException("Relationship not found.");
         }
     }
+
 
     public List<RelationshipDTO> findAllRelationships() {
         List<Relationship> relationships = relationshipRepository.findAll();

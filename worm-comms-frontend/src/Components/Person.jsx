@@ -28,7 +28,11 @@ const getRelationshipStatus = (currentUser, person) => {
 
 const getRelationship = (currentUser, person) => {
   const relationship = person.relationships.find(
-    (relation) => relation.receiverId === currentUser.id
+    (relation) =>
+      (relation.senderId === currentUser.id &&
+        relation.receiverId === person.id) ||
+      (relation.receiverId === currentUser.id &&
+        relation.senderId === person.id)
   );
   if (relationship) {
     return relationship;
